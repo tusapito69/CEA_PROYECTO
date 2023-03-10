@@ -1,0 +1,7 @@
+.error{
+    color: #b83048;
+    margin-top: -10px;
+}
+mat-form-field{
+    width: 100%;
+}

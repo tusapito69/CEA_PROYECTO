@@ -32,10 +32,51 @@ namespace API_SERVER_CEA.Controllers
 
             }
         }
+
+        
         [HttpGet]
         public async Task<ActionResult<List<Persona>>> ObtenerPersonas()
         {
             return await contexto.Persona.ToListAsync();
+        }
+
+        //Modificar: api/Persona
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<List<Persona>>> EditarInstituciones(int id, Persona persona)
+        {
+            Persona pers = await contexto.Persona.FirstOrDefaultAsync(x => x.Id == id);
+            if (pers == null)
+            {
+                return BadRequest("No se encontro la Persona");
+            }
+            else
+            {
+                pers.nombrePersona = persona.nombrePersona;
+                pers.apellidoPersona = persona.apellidoPersona;
+                pers.edadPersona = persona.edadPersona;
+                pers.ciPersona = persona.ciPersona;
+                pers.celularPersona = persona.celularPersona;
+                pers.estadoPersona = persona.estadoPersona;
+                await contexto.SaveChangesAsync();
+                return Ok();
+            }
+        }
+
+        //ELIMINAR 
+        [HttpPut("baja/{id:int}")]
+        public async Task<ActionResult> EliminarLogico(int id, Persona persona)
+        {
+            Persona pers = await contexto.Persona.FirstOrDefaultAsync(x => x.Id == id);
+            if (pers != null)
+            {
+                pers.estadoPersona = persona.estadoPersona;
+                await contexto.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("No existe la persona a eliminar");
+            }
         }
     }
 }

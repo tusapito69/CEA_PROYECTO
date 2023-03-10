@@ -45,5 +45,65 @@ namespace API_SERVER_CEA.Controllers
                         };
             return await datos.ToListAsync();
         }
+
+        // POST: api/Visitas
+        [HttpPost]
+        public async Task<ActionResult<List<Visita>>> AgregarInstitucion(Visita visita)
+        {
+            Visita inst = await _context.Visita.FirstOrDefaultAsync(x => x.id == visita.id);
+            if (inst != null)
+            {
+                return BadRequest("Esta Visita ya existe");
+            }
+            else
+            {
+                _context.Visita.Add(visita);
+                await _context.SaveChangesAsync();
+                return Ok();
+
+            }
+        }
+
+        //PUT: api/Visitas
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<List<Visita>>> EditarInstituciones(int id, Visita visita)
+        {
+            Visita v = await _context.Visita.FirstOrDefaultAsync(x => x.id == id);
+            if (v == null)
+            {
+                return BadRequest("No se encontro la visita");
+            }
+            else
+            {
+                v.actividad = visita.actividad;
+                v.observaciones = visita.observaciones;
+                v.lugar = visita.lugar;
+                v.tipo = visita.tipo;
+                v.fecha = visita.fecha;
+                v.Persona = visita.Persona;
+                v.Institucion = visita.Institucion;
+                v.estado = visita.estado;
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+        }
+
+        //ELIMINAR 
+        [HttpPut("baja/{id:int}")]
+        public async Task<ActionResult> EliminarLogico(int id, Visita visita)
+        {
+            Visita v = await _context.Visita.FirstOrDefaultAsync(x => x.id == id);
+            if (v != null)
+            {
+                v.estado = visita.estado;
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("No existe la visita a eliminar");
+            }
+        }
+
     }
 }

@@ -77,5 +77,22 @@ namespace API_SERVER_CEA.Controllers
             return Ok(institucion);
         }
 
+        //ELIMINAR 
+        [HttpPut("baja/{id:int}")]
+        public async Task<ActionResult> EliminarLogico(int id, Institucion institucion)
+        {
+            Institucion ins = await contexto.Institucion.FirstOrDefaultAsync(x => x.Id == id);
+            if (ins != null)
+            {
+                ins.Estado = institucion.Estado;
+                await contexto.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("No existe la institucion a eliminar");
+            }
+        }
+
     }
 }

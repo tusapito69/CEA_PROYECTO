@@ -19,4 +19,7 @@ export class InstitucionService {
   editarInstitucion(id:number,institucion:Institucion):Observable<any>{
     return this.httpclient.put<any>(`${environment.API_URL}${this.ruta}/${id}`,institucion);
   }
+  obtenerInstitucion(id:number):Observable<any>{
+    return this.httpclient.get<any>(`${environment.API_URL}${this.ruta}/${id}`);
+  }
 }

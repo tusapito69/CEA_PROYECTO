@@ -1,6 +1,6 @@
 export interface Institucion {
-    // Id:number,
-    Nombre:string,
-    Tipo:string,
-    Estado:number
+    id?:number ,
+    nombre:string,
+    tipo:string,
+    estado:number
 }

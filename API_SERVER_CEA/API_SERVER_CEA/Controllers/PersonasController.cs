@@ -26,7 +26,7 @@ namespace API_SERVER_CEA.Controllers
             }
             else
             {
-                contexto.Persona.Add(p);
+                contexto.Persona.Add(persona);
                 await contexto.SaveChangesAsync();
                 return Ok("Persona agregada con exito");
 

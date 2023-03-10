@@ -16,8 +16,8 @@ import { AgregarEditarInstitucionComponent } from '../agregar-editar-institucion
   styleUrls: ['./institucion.component.css']
 })
 export class InstitucionComponent implements OnInit,AfterViewInit{
- 
-  displayedColumns:string[]=['id','nombre','tipo','estado','opciones'];
+  id:number| undefined;
+  displayedColumns:string[]=['Id','Nombre','Tipo','Estado','opciones'];
   private instituciones!:Institucion[];
   dataSource =new MatTableDataSource<Institucion>(this.instituciones);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -30,22 +30,31 @@ export class InstitucionComponent implements OnInit,AfterViewInit{
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  agregarEditarInstitucion(){
+  agregarEditarInstitucion(id?:number){
     const dialogRef = this.dialog.open(AgregarEditarInstitucionComponent, {
       width: '550px',
-      disableClose: true
+      disableClose: true,
+      data:{id:id}
     });
     dialogRef.afterClosed().subscribe(result=>{
       this.obtenerInstituciones();
     })
   }
   obtenerInstituciones(){
-    this._institucionservice.obtenerInstituciones().subscribe((resp)=>{
+    this._institucionservice.obtenerInstituciones().subscribe((resp:Institucion[])=>{
+      console.log(resp);
       this.dataSource.data=resp;
-      console.log(this.dataSource.data);
     })
    
   };
+
+  // datosSedes() {
+  //   this.sedeService.listarSede().subscribe((data:ISede[]) => {
+  //     console.log(data);
+  //     this.dataSource.data=data;
+  //   });
+  // }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -54,10 +63,15 @@ export class InstitucionComponent implements OnInit,AfterViewInit{
       this.dataSource.paginator.firstPage();
     }
   }
-  darBajaInstitucion(id: number, accion: number){
-    this._institucionservice.editarInstitucion(id,accion).subscribe((r) => {
+
+  darBajaInstitucion(insti:Institucion, accion: number){
+    this.id=insti.id;
+    if (this.id!=undefined) {
+      insti.estado=accion;
+      this._institucionservice.editarInstitucion(this.id,insti).subscribe((r) => {
       this.obtenerInstituciones();
     });
+    }
   }
   modificarInstitucion(inst:any){
 

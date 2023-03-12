@@ -56,18 +56,6 @@ namespace API_SERVER_CEA.Controllers
                 return Ok();
             }
         }
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Eliminar(int id)
-        {
-            Institucion existe = await contexto.Institucion.FirstOrDefaultAsync(x => x.Id == id);
-            if (existe != null)
-            {
-                contexto.Remove(existe);
-                await contexto.SaveChangesAsync();
-                return Ok();
-            }
-            else { return BadRequest("El acta de congreso a eliminar no existe"); }
-        }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<List<Institucion>>> ObtenerInstitucion(int id)
@@ -75,23 +63,6 @@ namespace API_SERVER_CEA.Controllers
 
             var institucion= await contexto.Institucion.FirstOrDefaultAsync(x=>x.Id==id);
             return Ok(institucion);
-        }
-
-        //ELIMINAR 
-        [HttpPut("baja/{id:int}")]
-        public async Task<ActionResult> EliminarLogico(int id, Institucion institucion)
-        {
-            Institucion ins = await contexto.Institucion.FirstOrDefaultAsync(x => x.Id == id);
-            if (ins != null)
-            {
-                ins.Estado = institucion.Estado;
-                await contexto.SaveChangesAsync();
-                return Ok();
-            }
-            else
-            {
-                return BadRequest("No existe la institucion a eliminar");
-            }
         }
 
     }

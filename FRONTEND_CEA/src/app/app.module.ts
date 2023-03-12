@@ -25,11 +25,11 @@ import { CeaModule } from './modules/cea/cea.module';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CeaModule,
     AccesoModule,
     HomeModule,
     BrowserAnimationsModule,
     SingInModule,
+    CeaModule,
    
     
   ],

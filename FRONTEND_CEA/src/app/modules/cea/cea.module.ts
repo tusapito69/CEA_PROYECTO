@@ -14,13 +14,15 @@ import {MatIconModule} from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CeaRoutingModule } from './cea-routing.module';
 import { AgregarEditarInstitucionComponent } from './agregar-editar-institucion/agregar-editar-institucion.component';
+import { VisitaComponent } from './visita/visita.component';
 
 
 
 @NgModule({
   declarations: [
     InstitucionComponent,
-    AgregarEditarInstitucionComponent
+    AgregarEditarInstitucionComponent,
+    VisitaComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { AgregarEditarInstitucionComponent } from './agregar-editar-institucion/
    
   ],
   exports:[
-    InstitucionComponent
+    InstitucionComponent,
+    VisitaComponent
   ]
 })
 export class CeaModule { }

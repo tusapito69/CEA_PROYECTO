@@ -27,36 +27,36 @@ namespace API_SERVER_CEA.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<LoginUser>>> Login(LoginUser userlogin)
-        {
-            string ePass = UsersController.Encriptar(userlogin.Password);
-            var u = await contexto.Usuario.FirstOrDefaultAsync(user => user.nombreUsuario.ToLower() == userlogin.UserName.ToLower() && user.contraseniaUsuario == ePass);
-            if (u != null)
-            {
-                
-
-                var token = Generar(u);
-                return Ok(token);
-            }
-            else
-            {
-                return NotFound("Usuario no encontrado");
-            }
-
-
-
-        }
-        //    public IActionResult Login(LoginUser userLogin)
+        //public async Task<ActionResult<List<LoginUser>>> Login(LoginUser userlogin)
         //{
-        //    var user = Authenticate(userLogin);
-        //    if (user != null)
+        //    string ePass = UsersController.Encriptar(userlogin.Password);
+        //    var u = await contexto.Usuario.FirstOrDefaultAsync(user => user.nombreUsuario.ToLower() == userlogin.UserName.ToLower() && user.contraseniaUsuario == ePass);
+        //    if (u != null)
         //    {
-        //        var token = Generar(user);
+
+
+        //        var token = Generar(u);
         //        return Ok(token);
         //    }
-        //    return NotFound("Usuario no encontrado");
+        //    else
+        //    {
+        //        return NotFound("Usuario no encontrado");
+        //    }
+
+
 
         //}
+        public IActionResult Login(LoginUser userLogin)
+        {
+            var user = Authenticate(userLogin);
+            if (user != null)
+            {
+                var token = Generar(user);
+                return Ok(token);
+            }
+            return NotFound("Usuario no encontrado");
+
+        }
         [HttpGet]
         public IActionResult Get()
         {

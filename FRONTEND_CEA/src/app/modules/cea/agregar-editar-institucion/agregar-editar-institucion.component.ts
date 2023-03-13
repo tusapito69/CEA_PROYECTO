@@ -45,6 +45,7 @@ export class AgregarEditarInstitucionComponent implements OnInit {
           nombre:data.nombre,
           tipo:data.tipo
         })
+        console.log(data);
     })
   }
 

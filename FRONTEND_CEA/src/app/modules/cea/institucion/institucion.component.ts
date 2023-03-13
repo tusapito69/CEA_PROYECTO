@@ -10,6 +10,7 @@ import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog
 import { Institucion } from 'src/app/core/interfaces/institucion';
 import { InstitucionService } from 'src/app/core/services/institucion.service';
 import { AgregarEditarInstitucionComponent } from '../agregar-editar-institucion/agregar-editar-institucion.component';
+import { LoginService } from 'src/app/core/services/login.service';
 @Component({
   selector: 'app-institucion',
   templateUrl: './institucion.component.html',
@@ -45,8 +46,14 @@ export class InstitucionComponent implements OnInit,AfterViewInit{
       console.log(resp);
       this.dataSource.data=resp;
     })
-   
+
   };
+  // modificarEstadoProducto(id: number, accion: number): Observable<any> {
+  //   return this._httpClient.delete(
+  //     `${environment.API_URL}/inventario/producto/${id}/`,
+  //     { headers: this.httpHeaders, params: { accion: accion } }
+  //   );
+  // }
 
   // datosSedes() {
   //   this.sedeService.listarSede().subscribe((data:ISede[]) => {

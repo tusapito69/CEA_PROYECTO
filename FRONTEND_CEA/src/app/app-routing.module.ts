@@ -2,11 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: 'cea',
-    loadChildren: () =>
-      import('./modules/cea/cea.module').then((m) => m.CeaModule),
-  },
+  
   {
     path: 'acceso',
     loadChildren: () =>
@@ -24,7 +20,11 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () =>
       import('./modules/home/home.module').then((m) => m.HomeModule),
-  }
+  },{
+    path: 'cea',
+    loadChildren: () =>
+      import('./modules/cea/cea.module').then((m) => m.CeaModule),
+  },
 ];
 
 @NgModule({

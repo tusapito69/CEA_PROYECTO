@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit{
     this.loginService.enviarUsuario(usuario).subscribe(
       (resp) => {
         this.datos=resp;
-        localStorage.setItem("user",JSON.stringify(this.datos["tok"]));
+        this.loginService.almacenarUsuario(this.datos['tok'])
         this.route.navigate(['/cea/institucion']);
       },
       (e)=>{

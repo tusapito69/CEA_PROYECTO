@@ -11,10 +11,8 @@ import { Dialog } from '@angular/cdk/dialog';
 import { IRol } from 'src/app/core/interfaces/rol';
 import { RolService } from 'src/app/core/services/rol.service';
 import { IUsuario } from 'src/app/core/interfaces/usuario';
-import { IPersona } from 'src/app/core/interfaces/persona';
 import { PersonaService } from 'src/app/core/services/persona.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import { DateAdapter } from '@angular/material/core';
 import Swal from 'sweetalert2'
 
 
@@ -25,8 +23,12 @@ import Swal from 'sweetalert2'
 })
 export class AgregarEditarUsuarioComponent implements OnInit  {
   form: FormGroup;
+  operacion: string ='Agregar '
+  id: number | undefined;
   constructor(public dialogRef: MatDialogRef<AgregarEditarUsuarioComponent>,private rol:RolService,
-    private fb: FormBuilder, private UsuarioService: UsuarioService, private PersonaService:PersonaService, private dateAdapter: DateAdapter<any>){
+    private fb: FormBuilder, private UsuarioService: UsuarioService, private PersonaService:PersonaService,@Inject(MAT_DIALOG_DATA) public data: any,
+    ){
+      
       this.form = this.fb.group({
         nombre:['', Validators.required],
         apellido:['', Validators.required],
@@ -37,19 +39,38 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
         contrasenia:['', Validators.required],
         rolid:[],
       });
-      dateAdapter.setLocale('es');
+      this.id = data.id;
     }
 
   ngOnInit(): void {
     this.listarRoles();
+    this.esEditar(this.id)
   }
 
+  esEditar(id:number | undefined){
+   if (id !== undefined){
+    this.operacion = 'Editar ';
+    this.getUsuario(id);
+   }
+  }
+
+      getUsuario(id: number){
+      this.UsuarioService.obtenerUsuario(id).subscribe(data => {
+      this.form.patchValue({
+        nombre: data.nombrePersona,
+      })
+      console.log(data)
+    })
+
+  }
   listaRoles!: IRol[];
 
   cancelar(){
     this.dialogRef.close();
+    
     };
-   hide = true;
+    hide = false;
+  
 
   listarRoles(){
     this.rol.obtenerRoles().subscribe((resp)=>{
@@ -57,6 +78,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
       console.log(this.listaRoles);
     })
   }
+  
   agregarUsuario(){
     const usuario:IUsuario = {
       nombreUsuario: this.form.value.usuario,
@@ -88,6 +110,8 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
       icon: 'success',
       title: 'Registrado exitosamente'
     })
+
+    
 
     this.UsuarioService.enviarUsuario(usuario).subscribe(() =>{
       console.log("Usuario Agregado Exitosamente");

@@ -43,21 +43,25 @@ namespace API_SERVER_CEA.Controllers
             return await datos.ToListAsync();
         }
 
-        //GET: api/Users/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<User>> GetUser(int id)
-        //{
-        //    var user = await _context.Usuario.FindAsync(id);
 
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<List<User>>> ObtenerUsuario(int id)
+        {
+            var datos = from us in this.contexto.Usuario
+                        join r in this.contexto.Rol on us.RolId equals r.Id
+                        join p in this.contexto.Persona on us.PersonaId equals p.Id
+                        where us.idUsuario == id
+                        select new User
+                        {
+                            idUsuario = us.idUsuario,
+                            nombreUsuario = us.nombreUsuario,
+                            estadoUsuario = us.estadoUsuario,
+                            Rol=us.Rol,
+                            Persona = us.Persona
+                        };
+            return await datos.ToListAsync();
+        }
 
-        //    return user;
-        //}
-
-       
         [HttpPut("{id}")]
         public async Task<ActionResult<List<User>>> EditarUsuario(int id, User user)
         {
@@ -107,21 +111,7 @@ namespace API_SERVER_CEA.Controllers
             }
         }
 
-        // DELETE: api/Users/5
-        [HttpPut("baja/{id}")]
-        public async Task<IActionResult> DesactivarUsuario(int id,User usuario)
-        {
-            var user = await contexto.Usuario.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
 
-            user.estadoUsuario = usuario.estadoUsuario;
-            await contexto.SaveChangesAsync();
-
-            return NoContent();
-        }
         public static string Encriptar(string cadena)
         {
             SHA256 llave= SHA256.Create();

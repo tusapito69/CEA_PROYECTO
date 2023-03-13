@@ -52,7 +52,9 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
     console.log(id)
     const dialogRef = this.dialog.open(AgregarEditarUsuarioComponent, {
       width: '550px',
-      disableClose: true
+      disableClose: true,
+      data:{id:id}
     });
   }
+  
 }

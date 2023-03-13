@@ -11,10 +11,14 @@ import { MatInputModule } from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CeaRoutingModule } from './cea-routing.module';
 import { AgregarEditarInstitucionComponent } from './agregar-editar-institucion/agregar-editar-institucion.component';
 import { VisitaComponent } from './visita/visita.component';
+import { AgregarEditarVisitaComponent } from './agregar-editar-visita/agregar-editar-visita.component';
+
 
 
 
@@ -22,7 +26,8 @@ import { VisitaComponent } from './visita/visita.component';
   declarations: [
     InstitucionComponent,
     AgregarEditarInstitucionComponent,
-    VisitaComponent
+    VisitaComponent,
+    AgregarEditarVisitaComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +42,9 @@ import { VisitaComponent } from './visita/visita.component';
     MatDialogModule,
     MatSelectModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
    
   ],
   exports:[

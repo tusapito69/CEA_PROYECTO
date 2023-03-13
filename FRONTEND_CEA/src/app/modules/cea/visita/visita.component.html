@@ -11,7 +11,7 @@
                         <br>
                         <div class="card-header">
                             <div class="crear">
-                                <input type="button" class="btn btn-crear" value="Crear" mat-raised-button/>
+                                <input type="button" class="btn btn-crear" value="Crear" mat-raised-button (click)="AgregarEditarVisita()"/>
                               </div>
                         </div>
                         <div class="card-body">
@@ -60,7 +60,7 @@
                                   
                                 </td>
                               </ng-container>
-                              <ng-container matColumnDef="opciones">
+                              <ng-container matColumnDef="Opciones">
                                 <th mat-header-cell *matHeaderCellDef>Acciones</th>
                                 <td mat-cell *matCellDef="let visi">
                                   <button

@@ -1,13 +1,12 @@
-import { Institucion } from './institucion';
-import { IPersona } from './persona';
-export interface Visita {
-    id: number;
+
+export interface IVisita {
+    id?: number;
     actividad: string;
-    fecha: Date;
+    fecha?: Date;
     lugar: string;
     observaciones: string;
     tipo: string;
-    estado: string;
-    Institucion: Institucion;
-    Persona: IPersona;
+    estado?: number|null;
+    InstitucionId?: number;
+    PersonaId?: number;
 }

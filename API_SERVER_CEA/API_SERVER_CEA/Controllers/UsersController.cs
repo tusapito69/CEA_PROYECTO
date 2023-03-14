@@ -19,6 +19,7 @@ namespace API_SERVER_CEA.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ApplicationContext contexto;
+        public dynamic du;
 
         public UsersController(ApplicationContext context)
         {
@@ -40,6 +41,7 @@ namespace API_SERVER_CEA.Controllers
                             apellidoPersona= p.apellidoPersona, 
                             estadoUsuario=us.estadoUsuario
                         };
+            du = datos;
             return await datos.ToListAsync();
         }
 

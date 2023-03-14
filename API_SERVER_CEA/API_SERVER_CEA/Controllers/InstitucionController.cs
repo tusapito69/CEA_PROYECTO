@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Data;
 using System.Reflection;
 
@@ -23,7 +24,7 @@ namespace API_SERVER_CEA.Controllers
             this.contexto = context;
         }
         [HttpPost]
-        public async Task<ActionResult<List<Institucion>>> AgregarInstitucion(Institucion institution)
+        public  async  Task<ActionResult<List<Institucion>>> AgregarInstitucion(Institucion institution)
         {
             Institucion inst = await contexto.Institucion.FirstOrDefaultAsync(x => x.Nombre == institution.Nombre);
             if (inst != null)

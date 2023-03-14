@@ -48,19 +48,6 @@ export class InstitucionComponent implements OnInit,AfterViewInit{
     })
 
   };
-  // modificarEstadoProducto(id: number, accion: number): Observable<any> {
-  //   return this._httpClient.delete(
-  //     `${environment.API_URL}/inventario/producto/${id}/`,
-  //     { headers: this.httpHeaders, params: { accion: accion } }
-  //   );
-  // }
-
-  // datosSedes() {
-  //   this.sedeService.listarSede().subscribe((data:ISede[]) => {
-  //     console.log(data);
-  //     this.dataSource.data=data;
-  //   });
-  // }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -79,8 +66,5 @@ export class InstitucionComponent implements OnInit,AfterViewInit{
       this.obtenerInstituciones();
     });
     }
-  }
-  modificarInstitucion(inst:any){
-
   }
 }

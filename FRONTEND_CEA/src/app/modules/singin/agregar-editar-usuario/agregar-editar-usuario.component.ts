@@ -59,14 +59,15 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
       // console.log(id)
       this.UsuarioService.obtenerUsuario(id).subscribe((data) => {
       this.form.patchValue({
-          nombrePersona:data[0].nombrePersona,
-          apellidoPersona:data[0].apellidoPersona,
-          edad:data[0].edadPersona,
-          ci:data[0].ciPersona,
+          nombrePersona:data[0].persona["nombrePersona"],
+          apellidoPersona:data[0].persona["apellidoPersona"],
+          edad:data[0].persona["edadPersona"],
+          ci:data[0].persona["ciPersona"],
+          celular:data[0].persona["celularPersona"],
+          contrasenia:'',
           nombreUsuario:data[0].nombreUsuario,
-          rolid:data[0].nombreRol
+          rolid:data[0].rol["nombreRol"]
       })
-      console.log(data[0]);
       // console.log(data.persona[nombrePersona]);
       
       })
@@ -89,21 +90,34 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
   }
   
   agregarUsuario(){
+    if (this.form.invalid) {
+      return;
+    }
     const usuario:IUsuario = {
-      nombreUsuario: this.form.value.usuario,
+      nombreUsuario: this.form.value.nombreUsuario,
       contraseniaUsuario: this.form.value.contrasenia,
       estadoUsuario: 1,
       RolId: this.form.value.rolid,
       persona: {
-        nombrePersona:this.form.value.nombre,
-        apellidoPersona: this.form.value.apellido,
+        nombrePersona:this.form.value.nombrePersona,
+        apellidoPersona: this.form.value.apellidoPersona,
         edadPersona: this.form.value.edad,
         ciPersona: this.form.value.ci,
         celularPersona: this.form.value.celular,
         estadoPersona: 1
       }
     }
+    console.log(usuario);
+    if (this.id==undefined) {
+      this.UsuarioService.enviarUsuario(usuario).subscribe(() =>{
+        console.log("Usuario Agregado Exitosamente");
+        this.dialogRef.close();
+      });
+    }else{
+      this.UsuarioService.modificarUsuario(this.id,usuario).subscribe(r=>{
 
+      })
+    }
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -121,11 +135,8 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
     })
 
     
-
-    this.UsuarioService.enviarUsuario(usuario).subscribe(() =>{
-      console.log("Usuario Agregado Exitosamente");
-      this.dialogRef.close();
-    });
+  this.dialogRef.close(true);
+   
 
   }
   

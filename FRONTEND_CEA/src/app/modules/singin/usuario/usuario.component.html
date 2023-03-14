@@ -66,26 +66,25 @@
                                   <button
                                     (click)="agregarEditarUsuario(user.idUsuario)"
                                     class="btn btn-warning"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modelId"
+                                   
                                   >
                                     <i class="fa fa-pen"> </i>
                                   </button>
                                   &nbsp;
-                                  <!-- <button
-                                    (click)="darBajaInstitucion(inst.id, 0)"
+                                  <button
+                                    (click)="darBajaUsuario(user.id, 0)"
                                     class="btn btn-danger"
-                                    *ngIf="inst.estado == 1"
+                                    *ngIf="user.estadoUsuario == 1"
                                   >
                                     <i class="fa fa-trash"> </i>
                                   </button>
                                   <button
-                                    (click)="darBajaInstitucion(inst.id, 1)"
+                                    (click)="darBajaUsuario(user.id, 1)"
                                     class="btn btn-success"
-                                    *ngIf="inst.estado == 0"
+                                    *ngIf="user.estadoUsuario == 0"
                                   >
                                     <i class="fa fa-check"> </i>
-                                  </button> -->
+                                  </button>
                                 </td>
                               </ng-container>
 

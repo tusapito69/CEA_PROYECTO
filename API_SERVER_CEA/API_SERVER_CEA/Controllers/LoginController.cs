@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Security.Cryptography;
 
 namespace API_SERVER_CEA.Controllers
 {
@@ -21,7 +22,7 @@ namespace API_SERVER_CEA.Controllers
         private readonly ApplicationContext contexto;
 
         private readonly IConfiguration _config;
-
+       
         public LoginController(ApplicationContext _contexto,IConfiguration config)
         {
             this.contexto = _contexto;
@@ -128,6 +129,6 @@ namespace API_SERVER_CEA.Controllers
             }
             return null;
         }
-       
+    
     }
 }

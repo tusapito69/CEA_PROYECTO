@@ -67,34 +67,11 @@ namespace API_SERVER_CEA.Controllers
             return await datos.ToListAsync();
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<List<User>>> EditarUsuario(int id, User user)
-        {
-            if (id != user.idUsuario)
-            {
-                return BadRequest();
-            }
-
-            contexto.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                await contexto.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound("Este usuario ya existe");
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
+        //[HttpPut("{id}")]
+        //public async Task<ActionResult<List<User>>> EditarUsuario(int id, User user)
+        //{
+           
+        //}
 
         [HttpPost]
         public async Task<ActionResult<List<User>>> AgregarUsuario(User user)
@@ -128,10 +105,7 @@ namespace API_SERVER_CEA.Controllers
             return stringBuilder.ToString();
         }
 
-        private bool UserExists(int id)
-        {
-            return contexto.Usuario.Any(e => e.idUsuario == id);
-        }
+
 
        
 

@@ -62,7 +62,7 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
   }
   
   darBajaUsuario(us:IUsuario, accion: number){
-    this.id=us.id;
+    this.id=us.idUsuario;
     if (this.id!=undefined) {
       us.estadoUsuario=accion;
       this._usuarioService.modificarUsuario(this.id,us).subscribe((r) => {

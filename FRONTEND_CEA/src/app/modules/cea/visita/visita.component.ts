@@ -13,7 +13,7 @@ import { AgregarEditarVisitaComponent } from '../agregar-editar-visita/agregar-e
   styleUrls: ['./visita.component.css']
 })
 export class VisitaComponent implements OnInit {
-
+  id:number| undefined;
   displayedColumns:string[]=['Id','Actividad','Fecha','Lugar','Observaciones', 'Tipo', 'Estado', 'Opciones'];
   private visitas!:IVisita[];
   dataSource =new MatTableDataSource<IVisita>(this.visitas);
@@ -31,7 +31,6 @@ export class VisitaComponent implements OnInit {
   //LISTAR VISITAS
     obtenerVisitas(){
       this._visitaservice.obtenerVisitas().subscribe((resp:IVisita[])=>{
-        console.log(resp);
         this.dataSource.data=resp;
       })
     };
@@ -44,14 +43,15 @@ export class VisitaComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  AgregarEditarVisita(){
+  AgregarEditarVisita(id?:number){
     const dialogRef = this.dialog.open(AgregarEditarVisitaComponent, {
       width: '550px',
       disableClose: true,
+      data:{id:id}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+        this.obtenerVisitas();
     });
   }
 }

@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_SERVER_CEA.Context;
 using API_SERVER_CEA.Modelo;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_SERVER_CEA.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class VisitsController : ControllerBase
     {
         private readonly ApplicationContext _context;

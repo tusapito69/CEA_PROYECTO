@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Inject} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef , MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { IVisita } from '../../../core/interfaces/visita';
 import { VisitaService } from '../../../core/services/visita.service';
 import { InstitucionService } from '../../../core/services/institucion.service';
@@ -15,12 +15,14 @@ import { Institucion } from '../../../core/interfaces/institucion';
   styleUrls: ['./agregar-editar-visita.component.css']
 })
 export class AgregarEditarVisitaComponent implements OnInit {
+  tipoVisitas:string[]=['Taller','Recorrido','Reunion'];
+  id:number|undefined;
   ListaPersona!: IPersona[];
   ListaInstitucion!: Institucion[];
   form: FormGroup;
   constructor(public dialogRef: MatDialogRef<AgregarEditarVisitaComponent>, private fb: FormBuilder,
     private _visitaService: VisitaService, private _institucionService: InstitucionService, private _personaService: PersonaService,
-    private dateAdapter: DateAdapter<any>) { 
+    private dateAdapter: DateAdapter<any>,@Inject(MAT_DIALOG_DATA) public data:any) { 
     this.form = this.fb.group({
       actividad: ['', [Validators.required, Validators.maxLength(30)]],
       lugar: ['', Validators.required],
@@ -30,6 +32,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       InstitucionId: [],
       PersonaId: []
     })
+    this.id=data.id;
     dateAdapter.setLocale('es')
   }
 
@@ -41,11 +44,13 @@ export class AgregarEditarVisitaComponent implements OnInit {
   obtenerInstitucion(){
     this._institucionService.obtenerInstituciones().subscribe((data)=>{
       this.ListaInstitucion = data;
+   
     })
   };
   obtenerPersona(){
     this._personaService.obtenerPersona().subscribe((data)=>{
       this.ListaPersona = data;
+      console.log(this.ListaPersona)
     })
   };
 
@@ -70,7 +75,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       estado: 1,
       
     }
-    console.log(visita.fecha)
+    console.log(visita);
 
     this._visitaService.enviarVisitas(visita).subscribe((resp) => {
       console.log("visita agregada con exito");

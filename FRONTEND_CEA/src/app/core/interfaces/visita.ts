@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-export interface Visita {
-    
-=======
+import { IPersona } from "./persona";
 
 export interface IVisita {
     id?: number;
@@ -12,6 +9,6 @@ export interface IVisita {
     tipo: string;
     estado?: number|null;
     InstitucionId?: number;
-    PersonaId?: number;
->>>>>>> f004ca8efb12727a83fe3f83757f9f5be7cd6c07
+    PersonaId?: number
+
 }

@@ -1,7 +1,7 @@
 import { IPersona } from "./persona"
 
 export interface IUsuario{
-    id?:number,
+    idUsuario?:number,
     nombreUsuario:string,
     contraseniaUsuario:string,
     estadoUsuario:number|null,

@@ -11,7 +11,7 @@ export class PersonaService {
 constructor(private httpclient: HttpClient) { }
 
   obtenerPersona():Observable<any>{
-    return this.httpclient.get<any>(`${environment.API_URL}/api/Users`);
+    return this.httpclient.get<any>(`${environment.API_URL}/api/Personas`);
   }
 
   // enviarUsuario(usuario:IUsuario):Observable<any>{

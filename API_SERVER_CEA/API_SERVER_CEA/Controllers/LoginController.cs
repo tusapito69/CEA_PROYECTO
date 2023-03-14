@@ -9,6 +9,9 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
+using System.Security.Cryptography;
 
 namespace API_SERVER_CEA.Controllers
 {
@@ -19,7 +22,7 @@ namespace API_SERVER_CEA.Controllers
         private readonly ApplicationContext contexto;
 
         private readonly IConfiguration _config;
-
+       
         public LoginController(ApplicationContext _contexto,IConfiguration config)
         {
             this.contexto = _contexto;
@@ -46,15 +49,21 @@ namespace API_SERVER_CEA.Controllers
 
 
         //}
-        public IActionResult Login(LoginUser userLogin)
+        public  IActionResult Login(LoginUser userLogin)
         {
             var user = Authenticate(userLogin);
+          
             if (user != null)
             {
                 var token = Generar(user);
                 return Ok(token);
             }
-            return NotFound("Usuario no encontrado");
+            else
+            {
+                return BadRequest(new { er = $"El Usuario {userLogin.UserName}  no esta registrado" });
+            }
+          
+
 
         }
         [HttpGet]
@@ -69,9 +78,10 @@ namespace API_SERVER_CEA.Controllers
 
             string ePass = UsersController.Encriptar(userlogin.Password);
             var currentuser = contexto.Usuario.FirstOrDefault(user => user.nombreUsuario == userlogin.UserName && user.contraseniaUsuario == ePass);
-
+         
             if (currentuser != null)
             {
+               
                 return currentuser;
             }
             return null;
@@ -80,13 +90,16 @@ namespace API_SERVER_CEA.Controllers
         {
             var security = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credencial = new SigningCredentials(security, SecurityAlgorithms.HmacSha256);
-
+    
             //Crear los claims
 
             //https://www.youtube.com/watch?v=tm8_merp_v0&t=10s
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.nombreUsuario),
+                new Claim(ClaimTypes.NameIdentifier,user.nombreUsuario),
+                //new Claim(ClaimTypes.Role, user.Rol.nombreRol),
+                //new Claim(ClaimTypes.GivenName, user.Persona.nombrePersona),     
+                //new Claim(ClaimTypes.Surname,user.Persona.apellidoPersona)           
 
 
             };
@@ -116,6 +129,6 @@ namespace API_SERVER_CEA.Controllers
             }
             return null;
         }
-       
+    
     }
 }

@@ -11,36 +11,9 @@ import { LoginService } from './login.service';
 })
 export class InstitucionService {
   private ruta:string="/api/Institucion";
-  // headers=new Headers();
   usuario!:any;
 
-  
-  // HttpInterceptor {
-
-  //   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-  //     request = this.addHeaders(request);
-  //     return next.handle(request)
-  //   }
-  // private httpHeaders: HttpHeaders = new HttpHeaders({
-  //   'Content-Type': 'application/json',
-  //   Authorization: `Bearer ${this._loginservice.leerUsuario()}}`,
-  // });
-  constructor(private httpclient:HttpClient,private _loginservice:LoginService,) {}
-
-  //  addHeaders(request: HttpRequest<any>) {
-  //   let token: string | null = '';
-  //   token = localStorage.getItem('platzi_token');
-  //   if (token) {
-  //     return request.clone({
-  //       setHeaders: {
-  //         Authorization: `Bearer ${token}`
-  //       }
-  //     });
-  //   } else {
-  //     return request;
-  //   }
-
- 
+  constructor(private httpclient:HttpClient,private _loginservice:LoginService,) {} 
   obtenerInstituciones():Observable <any>{
     return this.httpclient.get<any>(`${environment.API_URL}/api/Institucion`);
    

@@ -45,6 +45,7 @@ export class AgregarEditarInstitucionComponent implements OnInit {
           nombre:data.nombre,
           tipo:data.tipo
         })
+        console.log(data);
     })
   }
 
@@ -67,15 +68,10 @@ export class AgregarEditarInstitucionComponent implements OnInit {
     }else{
       this._institucion.editarInstitucion(this.id,institucion).subscribe(r=>{
         this.mensaje('Actualizada');
-     
-      })
+      });
     }
     this.dialogRef.close(true);
-   
-
-
-
-  }
+  };
 
   mensaje(m:string){
     const Toast = Swal.mixin({
@@ -93,7 +89,8 @@ export class AgregarEditarInstitucionComponent implements OnInit {
       icon: 'success',
       title: `Institucion ${m} con Exito`
     })
-  }
+  };
+
   cancelar() {
     this.dialogRef.close(false);
   };

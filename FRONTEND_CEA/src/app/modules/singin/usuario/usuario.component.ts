@@ -17,6 +17,7 @@ import { AgregarEditarUsuarioComponent } from '../agregar-editar-usuario/agregar
   styleUrls: ['./usuario.component.css']
 })
 export class UsuarioComponent implements OnInit,AfterViewInit{
+  id:number| undefined;
   displayedColumns: string[] = ['id','usuario','rol','nombre','apellido','estado','opciones'];
   constructor(private _usuarioService:UsuarioService,public dialog: MatDialog){}
   private usuarios!:any[];
@@ -55,6 +56,19 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
       disableClose: true,
       data:{id:id}
     });
+    dialogRef.afterClosed().subscribe(()=>{
+      this.obtenerUsuarios();
+    })
+  }
+  
+  darBajaUsuario(us:IUsuario, accion: number){
+    this.id=us.id;
+    if (this.id!=undefined) {
+      us.estadoUsuario=accion;
+      this._usuarioService.modificarUsuario(this.id,us).subscribe((r) => {
+        this.obtenerUsuarios();
+    });
+    }
   }
   
 }

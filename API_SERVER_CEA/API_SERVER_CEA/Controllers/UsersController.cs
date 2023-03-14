@@ -10,16 +10,17 @@ using API_SERVER_CEA.Modelo;
 using System.Security.Cryptography;
 using System.IO;
 using System.Text;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace API_SERVER_CEA.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class UsersController : ControllerBase
     {
         private readonly ApplicationContext contexto;
-
+        public dynamic du;
         public UsersController(ApplicationContext context)
         {
             this.contexto = context;
@@ -40,6 +41,7 @@ namespace API_SERVER_CEA.Controllers
                             apellidoPersona= p.apellidoPersona, 
                             estadoUsuario=us.estadoUsuario
                         };
+          
             return await datos.ToListAsync();
         }
 
@@ -47,6 +49,7 @@ namespace API_SERVER_CEA.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<List<User>>> ObtenerUsuario(int id)
         {
+            
             var datos = from us in this.contexto.Usuario
                         join r in this.contexto.Rol on us.RolId equals r.Id
                         join p in this.contexto.Persona on us.PersonaId equals p.Id
@@ -55,10 +58,12 @@ namespace API_SERVER_CEA.Controllers
                         {
                             idUsuario = us.idUsuario,
                             nombreUsuario = us.nombreUsuario,
+                            contraseniaUsuario=us.contraseniaUsuario,
                             estadoUsuario = us.estadoUsuario,
                             Rol=us.Rol,
                             Persona = us.Persona
                         };
+            
             return await datos.ToListAsync();
         }
 
@@ -101,7 +106,7 @@ namespace API_SERVER_CEA.Controllers
                 user.contraseniaUsuario = i;
                 contexto.Usuario.Add(user);
                 await contexto.SaveChangesAsync();
-                return Ok("Usuario agregado con exito");
+                return Ok();
            
             }
             else
@@ -114,10 +119,10 @@ namespace API_SERVER_CEA.Controllers
 
         public static string Encriptar(string cadena)
         {
-            SHA256 llave= SHA256.Create();
+            SHA256 llave = SHA256.Create();
             ASCIIEncoding e = new ASCIIEncoding();
             byte[] s = null;
-            StringBuilder stringBuilder= new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder();
             s = llave.ComputeHash(e.GetBytes(cadena));
             for (int i = 0; i < s.Length; i++) stringBuilder.AppendFormat("{0:x2}", s[i]);
             return stringBuilder.ToString();
@@ -127,6 +132,10 @@ namespace API_SERVER_CEA.Controllers
         {
             return contexto.Usuario.Any(e => e.idUsuario == id);
         }
+
+       
+
+
     }
 }
 

@@ -22,6 +22,7 @@ import Swal from 'sweetalert2'
   styleUrls: ['./agregar-editar-usuario.component.css']
 })
 export class AgregarEditarUsuarioComponent implements OnInit  {
+  datosUsuarios:any={};
   form: FormGroup;
   operacion: string ='Agregar '
   id: number | undefined;
@@ -30,12 +31,12 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
     ){
       
       this.form = this.fb.group({
-        nombre:['', Validators.required],
-        apellido:['', Validators.required],
+        nombrePersona:['', Validators.required],
+        apellidoPersona:['', Validators.required],
         edad:['', [Validators.required, Validators.pattern("^[0-9]*$")]],
         ci:['', [Validators.required, Validators.pattern("^[0-9]*$")]],
         celular:['',[Validators.required, Validators.pattern("^[0-9]*$")]],
-        usuario:['', Validators.required],
+        nombreUsuario:['', Validators.required],
         contrasenia:['', Validators.required],
         rolid:[],
       });
@@ -54,15 +55,23 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
    }
   }
 
-      getUsuario(id: number){
-      this.UsuarioService.obtenerUsuario(id).subscribe(data => {
+    getUsuario(id: number){
+      // console.log(id)
+      this.UsuarioService.obtenerUsuario(id).subscribe((data) => {
       this.form.patchValue({
-        nombre: data.nombrePersona,
+          nombrePersona:data[0].nombrePersona,
+          apellidoPersona:data[0].apellidoPersona,
+          edad:data[0].edadPersona,
+          ci:data[0].ciPersona,
+          nombreUsuario:data[0].nombreUsuario,
+          rolid:data[0].nombreRol
       })
-      console.log(data)
-    })
+      console.log(data[0]);
+      // console.log(data.persona[nombrePersona]);
+      
+      })
 
-  }
+    }
   listaRoles!: IRol[];
 
   cancelar(){
@@ -75,7 +84,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
   listarRoles(){
     this.rol.obtenerRoles().subscribe((resp)=>{
       this.listaRoles=resp;
-      console.log(this.listaRoles);
+      // console.log(this.listaRoles);
     })
   }
   

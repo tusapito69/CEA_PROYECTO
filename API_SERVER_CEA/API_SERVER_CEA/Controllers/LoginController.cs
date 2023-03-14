@@ -76,7 +76,7 @@ namespace API_SERVER_CEA.Controllers
         private User Authenticate(LoginUser userlogin)
         {
 
-            string ePass = UsersController.Encriptar(userlogin.Password);
+            string ePass = UsersController.Encrypt(userlogin.Password);
             var currentuser = contexto.Usuario.FirstOrDefault(user => user.nombreUsuario == userlogin.UserName && user.contraseniaUsuario == ePass);
          
             if (currentuser != null)
@@ -86,6 +86,7 @@ namespace API_SERVER_CEA.Controllers
             }
             return null;
         }
+
         private dynamic Generar(User user)
         {
             var security = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));

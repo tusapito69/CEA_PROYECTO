@@ -38,7 +38,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
         celular:['',[Validators.required, Validators.pattern("^[0-9]*$")]],
         nombreUsuario:['', Validators.required],
         contrasenia:['', Validators.required],
-        rolid:[],
+        rolid:['', Validators.required],
       });
       this.id = data.id;
     }
@@ -64,9 +64,9 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
           edad:data[0].persona["edadPersona"],
           ci:data[0].persona["ciPersona"],
           celular:data[0].persona["celularPersona"],
-          contrasenia:'',
           nombreUsuario:data[0].nombreUsuario,
-          rolid:data[0].rol["nombreRol"]
+          contrasenia:data[0].contraseniaUsuario,
+          rolid:data[0].RolId
       })
       // console.log(data.persona[nombrePersona]);
       

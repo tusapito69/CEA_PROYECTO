@@ -26,6 +26,8 @@ namespace API_SERVER_CEA.Controllers
             this.contexto = context;
         }
 
+
+
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<List<DataUser>>> ObtenerUsuarios()
@@ -35,8 +37,8 @@ namespace API_SERVER_CEA.Controllers
                         join p in this.contexto.Persona on us.PersonaId equals p.Id
                         select new DataUser{ 
                             idUsuario= us.idUsuario, 
-                            nombreUsuario=us.nombreUsuario,
-                            nombreRol=r.nombreRol,
+                            nombreUsuario=us.nombreUsuario,   
+                            nombreRol =r.nombreRol,
                             nombrePersona = p.nombrePersona, 
                             apellidoPersona= p.apellidoPersona, 
                             estadoUsuario=us.estadoUsuario
@@ -58,7 +60,7 @@ namespace API_SERVER_CEA.Controllers
                         {
                             idUsuario = us.idUsuario,
                             nombreUsuario = us.nombreUsuario,
-                            contraseniaUsuario=us.contraseniaUsuario,
+                            contraseniaUsuario= UsersController.Descrypt(us.contraseniaUsuario),
                             estadoUsuario = us.estadoUsuario,
                             Rol=us.Rol,
                             Persona = us.Persona
@@ -67,11 +69,94 @@ namespace API_SERVER_CEA.Controllers
             return await datos.ToListAsync();
         }
 
+<<<<<<< HEAD
         //[HttpPut("{id}")]
         //public async Task<ActionResult<List<User>>> EditarUsuario(int id, User user)
         //{
            
         //}
+=======
+        [HttpPut("{id}")]
+        public async Task<ActionResult<List<User>>> EditarUsuario(int id, User usuario)
+        {
+            Persona existen = await contexto.Persona.FirstOrDefaultAsync(x => x.Id == id);
+            User user = await contexto.Usuario.FirstOrDefaultAsync(x => x.idUsuario == id);
+
+            if (user == null)
+            {
+                return BadRequest("No se encontró el usuario");
+            }
+            else
+            {
+                user.nombreUsuario = usuario.nombreUsuario;
+                user.estadoUsuario = usuario.estadoUsuario;
+                var i = Encrypt(usuario.contraseniaUsuario);
+                user.contraseniaUsuario = i;
+                user.RolId = usuario.RolId;
+                user.PersonaId = usuario.PersonaId;
+
+                existen.nombrePersona = usuario.Persona.nombrePersona;
+                existen.apellidoPersona = usuario.Persona.apellidoPersona;
+                existen.edadPersona = usuario.Persona.edadPersona;
+                existen.ciPersona = usuario.Persona.ciPersona;
+                existen.celularPersona = usuario.Persona.celularPersona;
+                existen.estadoPersona = usuario.Persona.estadoPersona;
+                await contexto.SaveChangesAsync();
+                return Ok();
+            }
+        }
+>>>>>>> 737f950eae412069bedb58feca25c03bc67019b9
+
+
+
+        ////Editar
+        //[HttpPut("{id:int}")]
+        //public async Task<ActionResult> Editar(Usuario usuario, int id)
+        //{
+        //    Persona existen = await contexto.Persona.FirstOrDefaultAsync(x => x.Id == id);
+        //    Usuario existe = await contexto.Usuario.FirstOrDefaultAsync(x => x.Id == id);
+        //    if (existe != null)
+        //    {
+
+        //        existe.nombreUsuario = usuario.nombreUsuario;
+        //        existe.Contrasenia = usuario.Contrasenia;
+        //        existe.Imagen = usuario.Imagen;
+
+        //        existen.Nombre = usuario.Persona.Nombre;
+        //        existen.Apellido = usuario.Persona.Apellido;
+        //        existen.Edad = usuario.Persona.Edad;
+        //        existen.FechaNacimiento = usuario.Persona.FechaNacimiento;
+        //        existe.RolId = usuario.RolId;
+
+
+        //        await contexto.SaveChangesAsync();
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        return BadRequest("No existe el usuario a editar");
+        //    }
+        //}
+
+
+        //[HttpPut("{id:int}")]
+        //public async Task<ActionResult<List<Institucion>>> EditarInstituciones(int id, Institucion institution)
+        //{
+        //    Institucion ins = await contexto.Institucion.FirstOrDefaultAsync(x => x.Id == id);
+        //    if (ins == null)
+        //    {
+        //        return BadRequest("No se encontro la Institucion");
+        //    }
+        //    else
+        //    {
+        //        ins.Nombre = institution.Nombre;
+        //        ins.Tipo = institution.Tipo;
+        //        ins.Estado = institution.Estado;
+        //        await contexto.SaveChangesAsync();
+        //        return Ok();
+        //    }
+        //}
+
 
         [HttpPost]
         public async Task<ActionResult<List<User>>> AgregarUsuario(User user)
@@ -79,7 +164,7 @@ namespace API_SERVER_CEA.Controllers
             var usuario=await contexto.Usuario.FirstOrDefaultAsync(x=>x.nombreUsuario==user.nombreUsuario);
             if (usuario == null)
             {
-                var i = Encriptar(user.contraseniaUsuario);
+                var i = Encrypt(user.contraseniaUsuario);
                 user.contraseniaUsuario = i;
                 contexto.Usuario.Add(user);
                 await contexto.SaveChangesAsync();
@@ -105,9 +190,44 @@ namespace API_SERVER_CEA.Controllers
             return stringBuilder.ToString();
         }
 
+<<<<<<< HEAD
 
+=======
+        public static string Encrypt(string passw)
+        {
+            string hash = "OH6wxsAWhwo=";
+            byte[] data = UTF8Encoding.UTF8.GetBytes(passw);
+>>>>>>> 737f950eae412069bedb58feca25c03bc67019b9
 
-       
+            MD5 md5 = MD5.Create();
+            TripleDES tripleDES = TripleDES.Create();
+
+            tripleDES.Key = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
+            tripleDES.Mode = CipherMode.ECB;
+
+            ICryptoTransform transform = tripleDES.CreateEncryptor();
+            byte[] result = transform.TransformFinalBlock(data, 0, data.Length);
+
+            return Convert.ToBase64String(result);
+        }
+        
+
+        public static string Descrypt(string passwDecode)
+        {
+            string hash = "OH6wxsAWhwo=";
+            byte[] data = Convert.FromBase64String(passwDecode);
+
+            MD5 md5 = MD5.Create();
+            TripleDES tripleDES = TripleDES.Create();
+
+            tripleDES.Key = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
+            tripleDES.Mode = CipherMode.ECB;
+
+            ICryptoTransform transform = tripleDES.CreateDecryptor();
+            byte[] result = transform.TransformFinalBlock(data, 0, data.Length);
+
+            return UTF8Encoding.UTF8.GetString(result);
+        }
 
 
     }

@@ -75,7 +75,7 @@
         <mat-form-field appearance="fill">
           <mat-label>Institucion</mat-label>
           <mat-select formControlName="InstitucionId">
-            <mat-option *ngFor="let Institucion of ListaInstitucion" [value]="Institucion">{{Institucion.nombre}}</mat-option>
+            <mat-option *ngFor="let Institucion of ListaInstitucion" value="{{Institucion.id}}">{{Institucion.nombre}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -83,7 +83,7 @@
         <mat-form-field appearance="fill">
           <mat-label>Persona</mat-label>
           <mat-select formControlName="PersonaId">
-            <mat-option *ngFor="let Persona of ListaPersona" [value]="Persona">{{Persona.nombrePersona}}</mat-option>
+            <mat-option *ngFor="let persona of ListaPersona" value="{{persona.id}}">{{persona.nombrePersona}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

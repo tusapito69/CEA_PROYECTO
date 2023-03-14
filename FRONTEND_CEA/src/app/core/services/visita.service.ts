@@ -14,8 +14,8 @@ export class VisitaService {
   obtenerVisitas():Observable<any>{
     return this.httpclient.get<any>(`${environment.API_URL}/api/Visits`);
   }
-  enviarVisitas(visita:IVisita):Observable<any>{
-    return this.httpclient.post(`${environment.API_URL}/api/Visits`,visita);
+  enviarVisitas(visita:IVisita):Observable<IVisita>{
+    return this.httpclient.post<IVisita>(`${environment.API_URL}/api/Visits`,visita);
   }
   modificarVisitas(id:number,visita:IVisita):Observable<any>{
     return this.httpclient.put(`${environment.API_URL}/api/Visits/${id}`,visita)

@@ -83,7 +83,7 @@ namespace API_SERVER_CEA.Controllers
             {
                 user.nombreUsuario = usuario.nombreUsuario;
                 user.estadoUsuario = usuario.estadoUsuario;
-                var i = Encriptar(user.contraseniaUsuario);
+                var i = Encrypt(usuario.contraseniaUsuario);
                 user.contraseniaUsuario = i;
                 user.RolId = usuario.RolId;
                 user.PersonaId = usuario.PersonaId;

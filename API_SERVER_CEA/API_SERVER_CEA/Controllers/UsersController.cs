@@ -68,7 +68,6 @@ namespace API_SERVER_CEA.Controllers
             
             return await datos.ToListAsync();
         }
-
         [HttpPut("{id}")]
         public async Task<ActionResult<List<User>>> EditarUsuario(int id, User usuario)
         {

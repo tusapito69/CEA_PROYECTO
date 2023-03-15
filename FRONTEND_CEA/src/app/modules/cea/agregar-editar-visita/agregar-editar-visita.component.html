@@ -62,7 +62,9 @@
       <p>
         <mat-form-field appearance="fill">
           <mat-label>Tipo</mat-label>
-          <input formControlName="tipo" matInput placeholder="Tipo" autocomplete="off" />
+          <mat-select formControlName="Tipo">
+            <mat-option *ngFor="let t of tipoVisitas" value="{{t}}">{{t}}</mat-option>
+          </mat-select>
         </mat-form-field>
       </p>
       <div class="error">

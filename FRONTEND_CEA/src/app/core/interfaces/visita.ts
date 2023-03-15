@@ -1,3 +1,5 @@
+import { IPersona } from "./persona";
+
 export interface IVisita {
     id?: number;
     actividad: string;
@@ -7,5 +9,6 @@ export interface IVisita {
     tipo: string;
     estado?: number|null;
     InstitucionId?: number;
-    PersonaId?: number;
+    PersonaId?: number
+
 }

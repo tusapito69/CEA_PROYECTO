@@ -75,6 +75,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
   obtenerInstitucion(){
     this.institucion.obtenerInstituciones().subscribe((data)=>{
       this.ListaInstitucion = data;
+   
     })
   };
 

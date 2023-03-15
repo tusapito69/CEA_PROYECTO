@@ -20,7 +20,7 @@
         El apellido es un campo <strong>requerido</strong>
       </span>
     </div>
-
+    
     <mat-form-field h appearance="fill">
       <mat-label>Edad</mat-label>
       <input formControlName="edad" matInput>
@@ -75,11 +75,11 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Contraseña</mat-label>
-      <input formControlName="contrasenia" matInput [type]="hide ? 'password' : 'text'">
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide">
+      <input formControlName="contrasenia" matInput>
+      <!-- <button  mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
+      </button> -->
+
     </mat-form-field>
     <div class="error">
       <span *ngIf="form.get('contrasenia')?.hasError('required')&& form.get('contrasenia')?.touched">
@@ -90,18 +90,21 @@
     <mat-form-field appearance="fill">
       <mat-label>Rol</mat-label>
       <mat-select formControlName="rolid">
-        <mat-option *ngFor="let rol of listaRoles" value="{{rol.id}}">{{rol.nombreRol}}</mat-option>
+        <mat-option *ngFor="let rol of listaRoles" value="{{ rol.id }}">{{rol.nombreRol}}</mat-option>
       </mat-select>
     </mat-form-field>
     <div class="error">
-      <span *ngIf="form.get('rolid')?.hasError('required')">
-        El nombre es un campo <strong>requerido</strong>
+      <span *ngIf="form.get('rolid')?.hasError('required')&& form.get('rolid')?.touched">
+        El rol es un campo <strong>requerido</strong>
       </span>
     </div>
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button type="button" (click)="cancelar()" mat-button>Cancelar</button>
+
+
+
     <button type="submit" mat-button cdkFocusInitial>Aceptar</button>
   </mat-dialog-actions>
 </form>

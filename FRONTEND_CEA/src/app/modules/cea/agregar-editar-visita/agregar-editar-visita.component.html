@@ -1,47 +1,136 @@
-<h2 mat-dialog-title>Agregar Visita</h2>
+<h2 mat-dialog-title>{{ operacion }} Visita</h2>
 
 <form [formGroup]="form" (ngSubmit)="agregarVisita()">
   <mat-dialog-content>
-    
     <div class="row">
-      <p>
-        <mat-form-field appearance="fill">
-          <mat-label>Actividad</mat-label>
-          <input formControlName="actividad" matInput placeholder="Actividad" autocomplete="off" />
-        </mat-form-field>
-      </p>
-      <div class="error">
-        <span *ngIf="form.get('actividad')?.hasError('required') && form.get('actividad')?.touched">La actividad es un campo <strong>Requerido</strong></span>
-        <span *ngIf="form.get('actividad')?.hasError('maxlength')">La actividad debe tener como maximo 30 caracteres</span>
+      <div class="column">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input formControlName="nombrePersona" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
+        <div class="error">
+          <span *ngIf="form.get('nombrePersona')?.hasError('required') && form.get('nombrePersona')?.touched">La actividad es un campo <strong>Requerido</strong></span>
+          <span *ngIf="form.get('nombrePersona')?.hasError('maxlength')">La actividad debe tener como maximo 30 caracteres</span>
+        </div>
+      </div>
+      <div class="column">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Apellido</mat-label>
+            <input formControlName="apellidoPersona" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
+        <div class="error">
+          <span *ngIf="form.get('apellidoPersona')?.hasError('required') && form.get('apellidoPersona')?.touched">La actividad es un campo <strong>Requerido</strong></span>
+          <span *ngIf="form.get('apellidoPersona')?.hasError('maxlength')">La actividad debe tener como maximo 30 caracteres</span>
+        </div>
       </div>
     </div>
 
     <div class="row">
-      <mat-form-field appearance="fill">
-        <mat-label>Fecha</mat-label>
-        <input formControlName="fecha" matInput [matDatepicker]="picker" />
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle
-          matIconSuffix
-          [for]="picker"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <div class="error">
-        <span *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">La fecha es un campo <strong>Requerido</strong></span>
+      <div class="column">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>CI</mat-label>
+            <input formControlName="ciPersona" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
+        <div class="error">
+          <span *ngIf="form.get('ciPersona')?.hasError('required') && form.get('ciPersona')?.touched">La actividad es un campo <strong>Requerido</strong></span>
+          <span *ngIf="form.get('ciPersona')?.hasError('maxlength')">La actividad debe tener como maximo 30 caracteres</span>
+        </div>
+      </div>
+      <div class="column">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Edad</mat-label>
+            <input formControlName="edadPersona" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
+        <div class="error">
+          <span *ngIf="form.get('edadPersona')?.hasError('required') && form.get('edadPersona')?.touched">La actividad es un campo <strong>Requerido</strong></span>
+          <span *ngIf="form.get('edadPersona')?.hasError('maxlength')">La actividad debe tener como maximo 30 caracteres</span>
+        </div>
       </div>
     </div>
     
     <div class="row">
-      <p>
+      <div class="column">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Actividad</mat-label>
+            <input formControlName="actividad" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
+        <div class="error">
+          <span *ngIf="form.get('actividad')?.hasError('required') && form.get('actividad')?.touched">La actividad es un campo <strong>Requerido</strong></span>
+          <span *ngIf="form.get('actividad')?.hasError('maxlength')">La actividad debe tener como maximo 30 caracteres</span>
+        </div>
+      </div>
+      <div class="column">
         <mat-form-field appearance="fill">
-          <mat-label>Lugar</mat-label>
-          <input formControlName="lugar" matInput placeholder="Lugar" autocomplete="off" />
+          <mat-label>Fecha</mat-label>
+          <input formControlName="fecha" matInput [matDatepicker]="picker" />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-      </p>
-      <div class="error">
-        <span *ngIf="form.get('lugar')?.hasError('required') && form.get('lugar')?.touched">El lugar es un campo <strong>Requerido</strong></span>
-        <span *ngIf="form.get('lugar')?.hasError('maxlength')">El lugar debe tener como maximo 20 caracteres</span>
+        <div class="error">
+          <span *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">La fecha es un campo <strong>Requerido</strong></span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="column">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Lugar</mat-label>
+            <input formControlName="lugar" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
+        <div class="error">
+          <span *ngIf="form.get('lugar')?.hasError('required') && form.get('lugar')?.touched">El lugar es un campo <strong>Requerido</strong></span>
+          <span *ngIf="form.get('lugar')?.hasError('maxlength')">El lugar debe tener como maximo 20 caracteres</span>
+        </div>
+      </div>
+      <div class="column">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Tipo</mat-label>
+            <input formControlName="tipo" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
+        <div class="error">
+          <span *ngIf="form.get('tipo')?.hasError('required') && form.get('tipo')?.touched">El tipo es un campo <strong>Requerido</strong></span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Celular</mat-label>
+            <input formControlName="celularPersona" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
+        <div class="error">
+          <span *ngIf="form.get('celularPersona')?.hasError('required') && form.get('celularPersona')?.touched">La actividad es un campo <strong>Requerido</strong></span>
+          <span *ngIf="form.get('celularPersona')?.hasError('maxlength')">La actividad debe tener como maximo 30 caracteres</span>
+        </div>
+      </div>
+      <div class="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Institucion</mat-label>
+          <mat-select formControlName="InstitucionId">
+            <mat-option *ngFor="let institucion of ListaInstitucion" value="{{institucion.id}}">{{institucion.nombre}}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
     
@@ -49,7 +138,7 @@
       <p>
         <mat-form-field appearance="fill">
           <mat-label>Observaciones</mat-label>
-          <input formControlName="observaciones" matInput placeholder="Observaciones" autocomplete="off" />
+          <input formControlName="observaciones" matInput autocomplete="off" />
         </mat-form-field>
       </p>
       <div class="error">
@@ -57,37 +146,8 @@
         <span *ngIf="form.get('observacion')?.hasError('maxlength')">La observacion debe tener como maximo 50 caracteres</span>
       </div>
     </div>
-    
-    <div class="row">
-      <p>
-        <mat-form-field appearance="fill">
-          <mat-label>Tipo</mat-label>
-          <input formControlName="tipo" matInput placeholder="Tipo" autocomplete="off" />
-        </mat-form-field>
-      </p>
-      <div class="error">
-        <span *ngIf="form.get('tipo')?.hasError('required') && form.get('tipo')?.touched">El tipo es un campo <strong>Requerido</strong></span>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="column">
-        <mat-form-field appearance="fill">
-          <mat-label>Institucion</mat-label>
-          <mat-select formControlName="InstitucionId">
-            <mat-option *ngFor="let Institucion of ListaInstitucion" value="{{Institucion.id}}">{{Institucion.nombre}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="column">
-        <mat-form-field appearance="fill">
-          <mat-label>Persona</mat-label>
-          <mat-select formControlName="PersonaId">
-            <mat-option *ngFor="let persona of ListaPersona" value="{{persona.id}}">{{persona.nombrePersona}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
+    
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button type="button" (click)="cancelar()" mat-button mat-dialog-close>Cancelar</button>

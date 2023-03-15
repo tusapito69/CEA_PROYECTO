@@ -44,14 +44,17 @@ export class VisitaComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  AgregarEditarVisita(){
+  AgregarEditarVisita(id?:number){
     const dialogRef = this.dialog.open(AgregarEditarVisitaComponent, {
-      width: '550px',
+      width: '700px',
       disableClose: true,
+      data:{id:id}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if(result) {
+        this.obtenerVisitas();
+      }
     });
   }
 }

@@ -72,8 +72,9 @@ namespace API_SERVER_CEA.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<List<User>>> EditarUsuario(int id, User usuario)
         {
-            Persona existen = await contexto.Persona.FirstOrDefaultAsync(x => x.Id == id);
+            
             User user = await contexto.Usuario.FirstOrDefaultAsync(x => x.idUsuario == id);
+            Persona existen = await contexto.Persona.FirstOrDefaultAsync(x => x.Id == user.PersonaId);
 
             if (user == null)
             {
@@ -86,7 +87,6 @@ namespace API_SERVER_CEA.Controllers
                 var i = Encrypt(usuario.contraseniaUsuario);
                 user.contraseniaUsuario = i;
                 user.RolId = usuario.RolId;
-                user.PersonaId = usuario.PersonaId;
 
                 existen.nombrePersona = usuario.Persona.nombrePersona;
                 existen.apellidoPersona = usuario.Persona.apellidoPersona;
@@ -99,61 +99,10 @@ namespace API_SERVER_CEA.Controllers
             }
         }
 
-
-
-        ////Editar
-        //[HttpPut("{id:int}")]
-        //public async Task<ActionResult> Editar(Usuario usuario, int id)
-        //{
-        //    Persona existen = await contexto.Persona.FirstOrDefaultAsync(x => x.Id == id);
-        //    Usuario existe = await contexto.Usuario.FirstOrDefaultAsync(x => x.Id == id);
-        //    if (existe != null)
-        //    {
-
-        //        existe.nombreUsuario = usuario.nombreUsuario;
-        //        existe.Contrasenia = usuario.Contrasenia;
-        //        existe.Imagen = usuario.Imagen;
-
-        //        existen.Nombre = usuario.Persona.Nombre;
-        //        existen.Apellido = usuario.Persona.Apellido;
-        //        existen.Edad = usuario.Persona.Edad;
-        //        existen.FechaNacimiento = usuario.Persona.FechaNacimiento;
-        //        existe.RolId = usuario.RolId;
-
-
-        //        await contexto.SaveChangesAsync();
-        //        return Ok();
-        //    }
-        //    else
-        //    {
-        //        return BadRequest("No existe el usuario a editar");
-        //    }
-        //}
-
-
-        //[HttpPut("{id:int}")]
-        //public async Task<ActionResult<List<Institucion>>> EditarInstituciones(int id, Institucion institution)
-        //{
-        //    Institucion ins = await contexto.Institucion.FirstOrDefaultAsync(x => x.Id == id);
-        //    if (ins == null)
-        //    {
-        //        return BadRequest("No se encontro la Institucion");
-        //    }
-        //    else
-        //    {
-        //        ins.Nombre = institution.Nombre;
-        //        ins.Tipo = institution.Tipo;
-        //        ins.Estado = institution.Estado;
-        //        await contexto.SaveChangesAsync();
-        //        return Ok();
-        //    }
-        //}
-
-
         [HttpPost]
         public async Task<ActionResult<List<User>>> AgregarUsuario(User user)
         {
-            var usuario=await contexto.Usuario.FirstOrDefaultAsync(x=>x.nombreUsuario==user.nombreUsuario);
+            var usuario = await contexto.Usuario.FirstOrDefaultAsync(x => x.nombreUsuario == user.nombreUsuario);
             if (usuario == null)
             {
                 var i = Encrypt(user.contraseniaUsuario);
@@ -161,12 +110,30 @@ namespace API_SERVER_CEA.Controllers
                 contexto.Usuario.Add(user);
                 await contexto.SaveChangesAsync();
                 return Ok();
-           
+
             }
             else
             {
                 return BadRequest("Este usuario ya existe");
 
+            }
+        }
+
+
+        //ELIMINAR 
+        [HttpPut("baja/{id:int}")]
+        public async Task<ActionResult> EliminarLogico(int id, User user)
+        {
+            User usuario = await contexto.Usuario.FirstOrDefaultAsync(x => x.idUsuario == id);
+            if (usuario != null)
+            {
+                user.estadoUsuario = usuario.estadoUsuario;
+                await contexto.SaveChangesAsync();
+                return Ok();
+            }
+            else 
+            {
+                return BadRequest();
             }
         }
 
@@ -216,7 +183,6 @@ namespace API_SERVER_CEA.Controllers
 
             return UTF8Encoding.UTF8.GetString(result);
         }
-
 
     }
 }

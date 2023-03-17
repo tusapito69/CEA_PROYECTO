@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace API_SERVER_CEA.Controllers
 {
@@ -30,21 +31,36 @@ namespace API_SERVER_CEA.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<List<DataUser>>> ObtenerUsuarios()
+        public async Task<ActionResult<List<User>>> ObtenerUsuarios()
         {
             var datos = from us in this.contexto.Usuario
                         join r in this.contexto.Rol on us.RolId equals r.Id
                         join p in this.contexto.Persona on us.PersonaId equals p.Id
-                        select new DataUser{ 
-                            idUsuario= us.idUsuario, 
-                            nombreUsuario=us.nombreUsuario,   
-                            nombreRol =r.nombreRol,
-                            nombrePersona = p.nombrePersona, 
-                            apellidoPersona= p.apellidoPersona, 
-                            estadoUsuario=us.estadoUsuario
+                        select new User
+                        {
+                            idUsuario = us.idUsuario,
+                            nombreUsuario = us.nombreUsuario,
+                            contraseniaUsuario = us.contraseniaUsuario,
+                            estadoUsuario = us.estadoUsuario,
+                            Rol = us.Rol,
+                            Persona = us.Persona
                         };
-          
+
             return await datos.ToListAsync();
+            //    var datos = from us in this.contexto.Usuario
+            //                join r in this.contexto.Rol on us.RolId equals r.Id
+            //                join p in this.contexto.Persona on us.PersonaId equals p.Id
+            //                select new DataUser{ 
+            //                    idUsuario= us.idUsuario, 
+            //                    nombreUsuario=us.nombreUsuario,   
+            //                    nombreRol =r.nombreRol,
+            //                    contraseniaUsuario=us.contraseniaUsuario,
+            //                    nombrePersona = p.nombrePersona, 
+            //                    apellidoPersona= p.apellidoPersona, 
+            //                    estadoUsuario=us.estadoUsuario
+            //                };
+
+            //    return await datos.ToListAsync();
         }
 
 
@@ -68,13 +84,15 @@ namespace API_SERVER_CEA.Controllers
             
             return await datos.ToListAsync();
         }
+
+
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<User>>> EditarUsuario(int id, User usuario)
+        public async Task<ActionResult> EditarUsuario(int id, User usuario)
         {
-            
+
             User user = await contexto.Usuario.FirstOrDefaultAsync(x => x.idUsuario == id);
             Persona existen = await contexto.Persona.FirstOrDefaultAsync(x => x.Id == user.PersonaId);
-
+            //Role r=await contexto.Rol.FirstOrDefaultAsync(x=> x.Id== user.RolId);
             if (user == null)
             {
                 return BadRequest("No se encontró el usuario");
@@ -86,7 +104,8 @@ namespace API_SERVER_CEA.Controllers
                 var i = Encrypt(usuario.contraseniaUsuario);
                 user.contraseniaUsuario = i;
                 user.RolId = usuario.RolId;
-
+                //user.PersonaId = existen.Id;
+                existen.Id = usuario.Persona.Id;
                 existen.nombrePersona = usuario.Persona.nombrePersona;
                 existen.apellidoPersona = usuario.Persona.apellidoPersona;
                 existen.edadPersona = usuario.Persona.edadPersona;
@@ -97,6 +116,59 @@ namespace API_SERVER_CEA.Controllers
                 return Ok();
             }
         }
+
+
+
+
+        ////Editar
+        //[HttpPut("{id:int}")]
+        //public async Task<ActionResult> Editar(Usuario usuario, int id)
+        //{
+        //    Persona existen = await contexto.Persona.FirstOrDefaultAsync(x => x.Id == id);
+        //    Usuario existe = await contexto.Usuario.FirstOrDefaultAsync(x => x.Id == id);
+        //    if (existe != null)
+        //    {
+
+        //        existe.nombreUsuario = usuario.nombreUsuario;
+        //        existe.Contrasenia = usuario.Contrasenia;
+        //        existe.Imagen = usuario.Imagen;
+
+        //        existen.Nombre = usuario.Persona.Nombre;
+        //        existen.Apellido = usuario.Persona.Apellido;
+        //        existen.Edad = usuario.Persona.Edad;
+        //        existen.FechaNacimiento = usuario.Persona.FechaNacimiento;
+        //        existe.RolId = usuario.RolId;
+
+
+        //        await contexto.SaveChangesAsync();
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        return BadRequest("No existe el usuario a editar");
+        //    }
+        //}
+
+
+        //[HttpPut("{id:int}")]
+        //public async Task<ActionResult<List<Institucion>>> EditarInstituciones(int id, Institucion institution)
+        //{
+        //    Institucion ins = await contexto.Institucion.FirstOrDefaultAsync(x => x.Id == id);
+        //    if (ins == null)
+        //    {
+        //        return BadRequest("No se encontro la Institucion");
+        //    }
+        //    else
+        //    {
+        //        ins.Nombre = institution.Nombre;
+        //        ins.Tipo = institution.Tipo;
+        //        ins.Estado = institution.Estado;
+        //        await contexto.SaveChangesAsync();
+        //        return Ok();
+        //    }
+        //}
+
+
 
         [HttpPost]
         public async Task<ActionResult<List<User>>> AgregarUsuario(User user)
@@ -119,14 +191,28 @@ namespace API_SERVER_CEA.Controllers
         }
 
 
+
+        //public static string Encriptar(string cadena)
+        //{
+        //    SHA256 llave = SHA256.Create();
+        //    ASCIIEncoding e = new ASCIIEncoding();
+        //    byte[] s = null;
+        //    StringBuilder stringBuilder = new StringBuilder();
+        //    s = llave.ComputeHash(e.GetBytes(cadena));
+        //    for (int i = 0; i < s.Length; i++) stringBuilder.AppendFormat("{0:x2}", s[i]);
+        //    return stringBuilder.ToString();
+        //}
+
+
+
         //ELIMINAR 
         [HttpPut("baja/{id:int}")]
-        public async Task<ActionResult> EliminarLogico(int id, User user)
+        public async Task<ActionResult<List<User>>> EliminarLogico(int id, User user)
         {
             User usuario = await contexto.Usuario.FirstOrDefaultAsync(x => x.idUsuario == id);
             if (usuario != null)
             {
-                user.estadoUsuario = usuario.estadoUsuario;
+                usuario.estadoUsuario = user.estadoUsuario;
                 await contexto.SaveChangesAsync();
                 return Ok();
             }
@@ -135,7 +221,7 @@ namespace API_SERVER_CEA.Controllers
                 return BadRequest();
             }
         }
-
+      
 
         public static string Encriptar(string cadena)
         {
@@ -148,10 +234,12 @@ namespace API_SERVER_CEA.Controllers
             return stringBuilder.ToString();
         }
 
+
         public static string Encrypt(string passw)
         {
             string hash = "OH6wxsAWhwo=";
             byte[] data = UTF8Encoding.UTF8.GetBytes(passw);
+
 
             MD5 md5 = MD5.Create();
             TripleDES tripleDES = TripleDES.Create();

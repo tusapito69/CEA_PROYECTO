@@ -45,13 +45,15 @@ export class VisitaComponent implements OnInit {
   }
   AgregarEditarVisita(id?:number){
     const dialogRef = this.dialog.open(AgregarEditarVisitaComponent, {
-      width: '550px',
+      width: '700px',
       disableClose: true,
       data:{id:id}
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if(result) {
         this.obtenerVisitas();
+      }
     });
   }
 }

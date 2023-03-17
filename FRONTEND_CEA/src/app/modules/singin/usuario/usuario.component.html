@@ -72,14 +72,14 @@
                                   </button>
                                   &nbsp;
                                   <button
-                                    (click)="darBajaUsuario(user.idUsuario, 0)"
+                                    (click)="darBajaUsuario(user, 0)"
                                     class="btn btn-danger"
                                     *ngIf="user.estadoUsuario == 1"
                                   >
                                     <i class="fa fa-trash"> </i>
                                   </button>
                                   <button
-                                    (click)="darBajaUsuario(user.idUsuario, 1)"
+                                    (click)="darBajaUsuario(user, 1)"
                                     class="btn btn-success"
                                     *ngIf="user.estadoUsuario == 0"
                                   >

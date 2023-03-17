@@ -50,7 +50,6 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
     }
   }
   agregarEditarUsuario(id?: number){
-    console.log(id)
     const dialogRef = this.dialog.open(AgregarEditarUsuarioComponent, {
       width: '550px',
       disableClose: true,
@@ -65,7 +64,8 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
     this.id=us.idUsuario;
     if (this.id!=undefined) {
       us.estadoUsuario=accion;
-      this._usuarioService.modificarUsuario(this.id,us).subscribe((r) => {
+      console.log(us.estadoUsuario);
+      this._usuarioService.bajaUsuario(this.id,us).subscribe((r) => {
         this.obtenerUsuarios();
     });
     }

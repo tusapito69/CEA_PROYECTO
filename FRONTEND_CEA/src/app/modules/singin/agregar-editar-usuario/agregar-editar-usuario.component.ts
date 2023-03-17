@@ -22,6 +22,7 @@ import Swal from 'sweetalert2'
   styleUrls: ['./agregar-editar-usuario.component.css']
 })
 export class AgregarEditarUsuarioComponent implements OnInit  {
+  // hide = true;
   datosUsuarios:any={};
   form: FormGroup;
   operacion: string ='Agregar '
@@ -30,16 +31,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
     private fb: FormBuilder, private UsuarioService: UsuarioService, private PersonaService:PersonaService,@Inject(MAT_DIALOG_DATA) public data: any,
     ){
       
-      this.form = this.fb.group({
-        nombrePersona:['', Validators.required],
-        apellidoPersona:['', Validators.required],
-        edad:['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-        ci:['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-        celular:['',[Validators.required, Validators.pattern("^[0-9]*$")]],
-        nombreUsuario:['', Validators.required],
-        contrasenia:['', Validators.required],
-        rolid:['', Validators.required],
-      });
+      this.form = this.propUsuario();
       this.id = data.id;
     }
 
@@ -78,9 +70,10 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
   cancelar(){
     this.dialogRef.close();
     
-    };
-    hide = false;
-  
+  };
+
+
+
 
   listarRoles(){
     this.rol.obtenerRoles().subscribe((resp)=>{
@@ -114,11 +107,16 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
         console.log("Usuario Agregado Exitosamente");
         this.dialogRef.close();
       });
+      
     }else{
+<<<<<<< HEAD
       usuario.persona.id=this.id
       this.UsuarioService.modificarUsuario(this.id,usuario).subscribe(r=>{
 
       })
+=======
+      this.UsuarioService.modificarUsuario(this.id,usuario).subscribe(r=>{})
+>>>>>>> d9c58aa9b7ecb4420c3cd84f65578cb1abd70bf0
     }
     const Toast = Swal.mixin({
       toast: true,
@@ -138,8 +136,19 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
 
     
   this.dialogRef.close(true);
-   
+  }
 
+  propUsuario(){
+    return this.fb.group({
+      nombrePersona:['', Validators.required],
+      apellidoPersona:['', Validators.required],
+      edad:['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      ci:['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      celular:['',[Validators.required, Validators.pattern("^[0-9]*$")]],
+      nombreUsuario:['', Validators.required],
+      contrasenia:['', Validators.required],
+      rolid:['', Validators.required],
+    });
   }
   
 }

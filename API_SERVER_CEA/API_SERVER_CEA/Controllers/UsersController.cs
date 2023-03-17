@@ -69,12 +69,12 @@ namespace API_SERVER_CEA.Controllers
             return await datos.ToListAsync();
         }
 
-
         [HttpPut("{id}")]
         public async Task<ActionResult<List<User>>> EditarUsuario(int id, User usuario)
         {
-            Persona existen = await contexto.Persona.FirstOrDefaultAsync(x => x.Id == id);
+            
             User user = await contexto.Usuario.FirstOrDefaultAsync(x => x.idUsuario == id);
+            Persona existen = await contexto.Persona.FirstOrDefaultAsync(x => x.Id == user.PersonaId);
 
             if (user == null)
             {
@@ -89,6 +89,9 @@ namespace API_SERVER_CEA.Controllers
                 user.RolId = usuario.RolId;
                 user.PersonaId = usuario.PersonaId;
                 existen.Id = usuario.Persona.Id;
+
+
+
                 existen.nombrePersona = usuario.Persona.nombrePersona;
                 existen.apellidoPersona = usuario.Persona.apellidoPersona;
                 existen.edadPersona = usuario.Persona.edadPersona;
@@ -99,6 +102,7 @@ namespace API_SERVER_CEA.Controllers
                 return Ok();
             }
         }
+
 
 
 
@@ -151,10 +155,11 @@ namespace API_SERVER_CEA.Controllers
         //}
 
 
+
         [HttpPost]
         public async Task<ActionResult<List<User>>> AgregarUsuario(User user)
         {
-            var usuario=await contexto.Usuario.FirstOrDefaultAsync(x=>x.nombreUsuario==user.nombreUsuario);
+            var usuario = await contexto.Usuario.FirstOrDefaultAsync(x => x.nombreUsuario == user.nombreUsuario);
             if (usuario == null)
             {
                 var i = Encrypt(user.contraseniaUsuario);
@@ -162,7 +167,7 @@ namespace API_SERVER_CEA.Controllers
                 contexto.Usuario.Add(user);
                 await contexto.SaveChangesAsync();
                 return Ok();
-           
+
             }
             else
             {
@@ -170,6 +175,7 @@ namespace API_SERVER_CEA.Controllers
 
             }
         }
+
 
 
         //public static string Encriptar(string cadena)
@@ -182,6 +188,37 @@ namespace API_SERVER_CEA.Controllers
         //    for (int i = 0; i < s.Length; i++) stringBuilder.AppendFormat("{0:x2}", s[i]);
         //    return stringBuilder.ToString();
         //}
+
+
+
+        //ELIMINAR 
+        [HttpPut("baja/{id:int}")]
+        public async Task<ActionResult> EliminarLogico(int id, User user)
+        {
+            User usuario = await contexto.Usuario.FirstOrDefaultAsync(x => x.idUsuario == id);
+            if (usuario != null)
+            {
+                user.estadoUsuario = usuario.estadoUsuario;
+                await contexto.SaveChangesAsync();
+                return Ok();
+            }
+            else 
+            {
+                return BadRequest();
+            }
+        }
+
+
+        public static string Encriptar(string cadena)
+        {
+            SHA256 llave = SHA256.Create();
+            ASCIIEncoding e = new ASCIIEncoding();
+            byte[] s = null;
+            StringBuilder stringBuilder = new StringBuilder();
+            s = llave.ComputeHash(e.GetBytes(cadena));
+            for (int i = 0; i < s.Length; i++) stringBuilder.AppendFormat("{0:x2}", s[i]);
+            return stringBuilder.ToString();
+        }
 
 
         public static string Encrypt(string passw)
@@ -219,7 +256,6 @@ namespace API_SERVER_CEA.Controllers
 
             return UTF8Encoding.UTF8.GetString(result);
         }
-
 
     }
 }

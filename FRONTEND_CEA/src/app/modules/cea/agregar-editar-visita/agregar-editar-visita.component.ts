@@ -1,6 +1,6 @@
-import { Component, OnInit ,Inject} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef , MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IVisita } from '../../../core/interfaces/visita';
 import { VisitaService } from '../../../core/services/visita.service';
 import { InstitucionService } from '../../../core/services/institucion.service';
@@ -15,14 +15,13 @@ import { Institucion } from '../../../core/interfaces/institucion';
   styleUrls: ['./agregar-editar-visita.component.css']
 })
 export class AgregarEditarVisitaComponent implements OnInit {
-  tipoVisitas:string[]=['Taller','Recorrido','Reunion'];
-  id:number|undefined;
-  ListaPersona!: IPersona[];
   ListaInstitucion!: Institucion[];
+  operacion: string = 'Agregar ';
+  id: number | undefined;
   form: FormGroup;
   constructor(public dialogRef: MatDialogRef<AgregarEditarVisitaComponent>, private fb: FormBuilder,
-    private _visitaService: VisitaService, private _institucionService: InstitucionService, private _personaService: PersonaService,
-    private dateAdapter: DateAdapter<any>,@Inject(MAT_DIALOG_DATA) public data:any) { 
+    private _visitaService: VisitaService, private institucion: InstitucionService, private _personaService: PersonaService,
+    private dateAdapter: DateAdapter<any>, @Inject(MAT_DIALOG_DATA) public data:any) { 
     this.form = this.fb.group({
       actividad: ['', [Validators.required, Validators.maxLength(30)]],
       lugar: ['', Validators.required],
@@ -30,32 +29,58 @@ export class AgregarEditarVisitaComponent implements OnInit {
       tipo: ['', Validators.required],
       fecha: [null, Validators.required],
       InstitucionId: [],
-      PersonaId: []
+      nombrePersona: ['', Validators.required],
+      apellidoPersona: ['', Validators.required],
+      edadPersona: ['', Validators.required],
+      ciPersona: ['', Validators.required],
+      celularPersona: ['', Validators.required],
     })
-    this.id=data.id;
+    this.id = data.id;
     dateAdapter.setLocale('es')
   }
 
   ngOnInit():void {
     this.obtenerInstitucion();
-    this.obtenerPersona();
+
+    this.esEditar(this.id);
+  }
+  
+  esEditar(id: number | undefined) {
+    if (id !== undefined) {
+      this.operacion = "Editar";
+      this.getVisita(id);
+    }
+  }
+
+  getVisita(id: number){
+    console.log(id);
+    this._visitaService.obtenerVisita(id).subscribe(data => {
+      this.form.patchValue({
+        actividad: data[0].actividad,
+        lugar: data[0].lugar,
+        observaciones: data[0].observaciones,
+        tipo: data[0].tipo,
+        fecha: data[0].fecha,
+        InstitucionId: data[0].institucion["nombre"],
+        nombrePersona: data[0].persona["nombrePersona"],
+        apellidoPersona: data[0].persona["apellidoPersona"],
+        edadPersona: data[0].persona["edadPersona"],
+        ciPersona: data[0].persona["ciPersona"],
+        celularPersona: data[0].persona["celularPersona"]
+      })
+      console.log(data);
+    })
   }
 
   obtenerInstitucion(){
-    this._institucionService.obtenerInstituciones().subscribe((data)=>{
+    this.institucion.obtenerInstituciones().subscribe((data)=>{
       this.ListaInstitucion = data;
    
     })
   };
-  obtenerPersona(){
-    this._personaService.obtenerPersona().subscribe((data)=>{
-      this.ListaPersona = data;
-      console.log(this.ListaPersona)
-    })
-  };
 
   cancelar() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   agregarVisita() {
@@ -66,21 +91,38 @@ export class AgregarEditarVisitaComponent implements OnInit {
 
     const visita: IVisita = {
       actividad: this.form.value.actividad,
-      fecha: this.form.value.fecha.toISOString().slice(0,10),
+      fecha: this.form.value.fecha,
       lugar: this.form.value.lugar,
       observaciones: this.form.value.observaciones,
       tipo: this.form.value.tipo,
-      InstitucionId: this.form.value.InstitucionId,
-      PersonaId: this.form.value.PersonaId,
+      InstitucionId: this.form.value.institucion,
       estado: 1,
+      persona: {
+        nombrePersona:this.form.value.nombrePersona,
+        apellidoPersona: this.form.value.apellidoPersona,
+        edadPersona: this.form.value.edadPersona,
+        ciPersona: this.form.value.ciPersona,
+        celularPersona: this.form.value.celularPersona,
+        estadoPersona: 1
+      }
       
     }
     console.log(visita);
 
-    this._visitaService.enviarVisitas(visita).subscribe((resp) => {
-      console.log("visita agregada con exito");
-      console.log(resp);
-    })
+    if (this.id == undefined) {
+      //AGREGAR
+      this._visitaService.enviarVisitas(visita).subscribe((resp) => {
+        this.dialogRef.close(true);
+        console.log("visita agregada con exito");
+      })
+    } else {
+      //EDITAR
+      this._visitaService.modificarVisitas(this.id, visita).subscribe(data => {
+        this.dialogRef.close(true);
+        console.log("visita actualizada con exito");
+      })
+    }
+    
   }
 
 }

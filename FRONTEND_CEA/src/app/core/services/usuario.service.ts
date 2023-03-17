@@ -22,6 +22,11 @@ export class UsuarioService {
     return this.httpclient.put(`${environment.API_URL}/api/Users/${id}`,usuario)
   }
 
+  bajaUsuario(id:number,usuario:IUsuario):Observable<any>{
+    return this.httpclient.put(`${environment.API_URL}/api/Users/baja/${id}`,usuario)
+  }
+
+
   obtenerUsuario(id:number):Observable<any>{
     return this.httpclient.get<any>(`${environment.API_URL}/api/Users/${id}`);
   }

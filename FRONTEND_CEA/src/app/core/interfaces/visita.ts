@@ -1,4 +1,4 @@
-import { IPersona } from "./persona";
+import { IPersona } from './persona';
 
 export interface IVisita {
     id?: number;
@@ -9,6 +9,5 @@ export interface IVisita {
     tipo: string;
     estado?: number|null;
     InstitucionId?: number;
-    PersonaId?: number
-
+    persona?: IPersona;
 }

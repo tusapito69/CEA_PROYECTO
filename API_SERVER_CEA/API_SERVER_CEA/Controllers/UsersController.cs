@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace API_SERVER_CEA.Controllers
 {
@@ -30,21 +31,36 @@ namespace API_SERVER_CEA.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<List<DataUser>>> ObtenerUsuarios()
+        public async Task<ActionResult<List<User>>> ObtenerUsuarios()
         {
             var datos = from us in this.contexto.Usuario
                         join r in this.contexto.Rol on us.RolId equals r.Id
                         join p in this.contexto.Persona on us.PersonaId equals p.Id
-                        select new DataUser{ 
-                            idUsuario= us.idUsuario, 
-                            nombreUsuario=us.nombreUsuario,   
-                            nombreRol =r.nombreRol,
-                            nombrePersona = p.nombrePersona, 
-                            apellidoPersona= p.apellidoPersona, 
-                            estadoUsuario=us.estadoUsuario
+                        select new User
+                        {
+                            idUsuario = us.idUsuario,
+                            nombreUsuario = us.nombreUsuario,
+                            contraseniaUsuario = us.contraseniaUsuario,
+                            estadoUsuario = us.estadoUsuario,
+                            Rol = us.Rol,
+                            Persona = us.Persona
                         };
-          
+
             return await datos.ToListAsync();
+            //    var datos = from us in this.contexto.Usuario
+            //                join r in this.contexto.Rol on us.RolId equals r.Id
+            //                join p in this.contexto.Persona on us.PersonaId equals p.Id
+            //                select new DataUser{ 
+            //                    idUsuario= us.idUsuario, 
+            //                    nombreUsuario=us.nombreUsuario,   
+            //                    nombreRol =r.nombreRol,
+            //                    contraseniaUsuario=us.contraseniaUsuario,
+            //                    nombrePersona = p.nombrePersona, 
+            //                    apellidoPersona= p.apellidoPersona, 
+            //                    estadoUsuario=us.estadoUsuario
+            //                };
+
+            //    return await datos.ToListAsync();
         }
 
 
@@ -69,13 +85,14 @@ namespace API_SERVER_CEA.Controllers
             return await datos.ToListAsync();
         }
 
+
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<User>>> EditarUsuario(int id, User usuario)
+        public async Task<ActionResult> EditarUsuario(int id, User usuario)
         {
-            
+
             User user = await contexto.Usuario.FirstOrDefaultAsync(x => x.idUsuario == id);
             Persona existen = await contexto.Persona.FirstOrDefaultAsync(x => x.Id == user.PersonaId);
-
+            //Role r=await contexto.Rol.FirstOrDefaultAsync(x=> x.Id== user.RolId);
             if (user == null)
             {
                 return BadRequest("No se encontró el usuario");
@@ -87,11 +104,8 @@ namespace API_SERVER_CEA.Controllers
                 var i = Encrypt(usuario.contraseniaUsuario);
                 user.contraseniaUsuario = i;
                 user.RolId = usuario.RolId;
-                user.PersonaId = usuario.PersonaId;
+                //user.PersonaId = existen.Id;
                 existen.Id = usuario.Persona.Id;
-
-
-
                 existen.nombrePersona = usuario.Persona.nombrePersona;
                 existen.apellidoPersona = usuario.Persona.apellidoPersona;
                 existen.edadPersona = usuario.Persona.edadPersona;
@@ -193,12 +207,12 @@ namespace API_SERVER_CEA.Controllers
 
         //ELIMINAR 
         [HttpPut("baja/{id:int}")]
-        public async Task<ActionResult> EliminarLogico(int id, User user)
+        public async Task<ActionResult<List<User>>> EliminarLogico(int id, User user)
         {
             User usuario = await contexto.Usuario.FirstOrDefaultAsync(x => x.idUsuario == id);
             if (usuario != null)
             {
-                user.estadoUsuario = usuario.estadoUsuario;
+                usuario.estadoUsuario = user.estadoUsuario;
                 await contexto.SaveChangesAsync();
                 return Ok();
             }
@@ -207,7 +221,7 @@ namespace API_SERVER_CEA.Controllers
                 return BadRequest();
             }
         }
-
+      
 
         public static string Encriptar(string cadena)
         {

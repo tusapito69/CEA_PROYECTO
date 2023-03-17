@@ -38,6 +38,7 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
   // }
   obtenerUsuarios(){
     this._usuarioService.obtenerUsuarios().subscribe((resp)=>{
+      console.log(resp);
       this.dataSource.data=resp;
     })
   }
@@ -62,9 +63,11 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
   
   darBajaUsuario(us:IUsuario, accion: number){
     this.id=us.idUsuario;
+    console.log(us);
     if (this.id!=undefined) {
       us.estadoUsuario=accion;
-      console.log(us.estadoUsuario);
+      // console.log(us.estadoUsuario);
+      // console.log(this.id)
       this._usuarioService.bajaUsuario(this.id,us).subscribe((r) => {
         this.obtenerUsuarios();
     });

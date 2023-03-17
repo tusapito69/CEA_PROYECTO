@@ -58,9 +58,9 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
           celular:data[0].persona["celularPersona"],
           nombreUsuario:data[0].nombreUsuario,
           contrasenia:data[0].contraseniaUsuario,
-          rolid:data[0].RolId
+          rolid:data[0].rol["id"]
       })
-      // console.log(data.persona[nombrePersona]);
+     console.log(data[0]);
       
       })
 
@@ -90,9 +90,8 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
       nombreUsuario: this.form.value.nombreUsuario,
       contraseniaUsuario: this.form.value.contrasenia,
       estadoUsuario: 1,
-      RolId: this.form.value.rolid,
+      rolId: this.form.value.rolid,
       persona: {
-  
         nombrePersona:this.form.value.nombrePersona,
         apellidoPersona: this.form.value.apellidoPersona,
         edadPersona: this.form.value.edad,
@@ -109,14 +108,12 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
       });
       
     }else{
-<<<<<<< HEAD
-      usuario.persona.id=this.id
+
+      // usuario.persona.id=this.id,
       this.UsuarioService.modificarUsuario(this.id,usuario).subscribe(r=>{
 
       })
-=======
-      this.UsuarioService.modificarUsuario(this.id,usuario).subscribe(r=>{})
->>>>>>> d9c58aa9b7ecb4420c3cd84f65578cb1abd70bf0
+
     }
     const Toast = Swal.mixin({
       toast: true,

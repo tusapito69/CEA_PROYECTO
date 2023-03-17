@@ -99,6 +99,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
       estadoUsuario: 1,
       RolId: this.form.value.rolid,
       persona: {
+  
         nombrePersona:this.form.value.nombrePersona,
         apellidoPersona: this.form.value.apellidoPersona,
         edadPersona: this.form.value.edad,
@@ -114,6 +115,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
         this.dialogRef.close();
       });
     }else{
+      usuario.persona.id=this.id
       this.UsuarioService.modificarUsuario(this.id,usuario).subscribe(r=>{
 
       })

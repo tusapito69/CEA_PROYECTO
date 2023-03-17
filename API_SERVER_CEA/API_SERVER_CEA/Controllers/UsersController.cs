@@ -69,13 +69,7 @@ namespace API_SERVER_CEA.Controllers
             return await datos.ToListAsync();
         }
 
-<<<<<<< HEAD
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult<List<User>>> EditarUsuario(int id, User user)
-        //{
-           
-        //}
-=======
+
         [HttpPut("{id}")]
         public async Task<ActionResult<List<User>>> EditarUsuario(int id, User usuario)
         {
@@ -94,7 +88,7 @@ namespace API_SERVER_CEA.Controllers
                 user.contraseniaUsuario = i;
                 user.RolId = usuario.RolId;
                 user.PersonaId = usuario.PersonaId;
-
+                existen.Id = usuario.Persona.Id;
                 existen.nombrePersona = usuario.Persona.nombrePersona;
                 existen.apellidoPersona = usuario.Persona.apellidoPersona;
                 existen.edadPersona = usuario.Persona.edadPersona;
@@ -105,7 +99,6 @@ namespace API_SERVER_CEA.Controllers
                 return Ok();
             }
         }
->>>>>>> 737f950eae412069bedb58feca25c03bc67019b9
 
 
 
@@ -179,25 +172,23 @@ namespace API_SERVER_CEA.Controllers
         }
 
 
-        public static string Encriptar(string cadena)
-        {
-            SHA256 llave = SHA256.Create();
-            ASCIIEncoding e = new ASCIIEncoding();
-            byte[] s = null;
-            StringBuilder stringBuilder = new StringBuilder();
-            s = llave.ComputeHash(e.GetBytes(cadena));
-            for (int i = 0; i < s.Length; i++) stringBuilder.AppendFormat("{0:x2}", s[i]);
-            return stringBuilder.ToString();
-        }
+        //public static string Encriptar(string cadena)
+        //{
+        //    SHA256 llave = SHA256.Create();
+        //    ASCIIEncoding e = new ASCIIEncoding();
+        //    byte[] s = null;
+        //    StringBuilder stringBuilder = new StringBuilder();
+        //    s = llave.ComputeHash(e.GetBytes(cadena));
+        //    for (int i = 0; i < s.Length; i++) stringBuilder.AppendFormat("{0:x2}", s[i]);
+        //    return stringBuilder.ToString();
+        //}
 
-<<<<<<< HEAD
 
-=======
         public static string Encrypt(string passw)
         {
             string hash = "OH6wxsAWhwo=";
             byte[] data = UTF8Encoding.UTF8.GetBytes(passw);
->>>>>>> 737f950eae412069bedb58feca25c03bc67019b9
+
 
             MD5 md5 = MD5.Create();
             TripleDES tripleDES = TripleDES.Create();

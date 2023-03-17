@@ -13,7 +13,7 @@ namespace API_SERVER_CEA.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class VisitsController : ControllerBase
     {
         private readonly ApplicationContext _context;
@@ -107,19 +107,14 @@ namespace API_SERVER_CEA.Controllers
                 v.tipo = visita.tipo;
                 v.fecha = visita.fecha;
                 v.estado = visita.estado;
-                v.PersonaId= visita.PersonaId;
                 v.InstitucionId = visita.InstitucionId;
 
-                p.nombrePersona = v.Persona.nombrePersona;
-                p.apellidoPersona = v.Persona.apellidoPersona;
-                p.edadPersona = v.Persona.edadPersona;
-                p.ciPersona = v.Persona.ciPersona;
-                p.celularPersona = v.Persona.celularPersona;
-                p.estadoPersona = v.Persona.estadoPersona;
-
-                i.Nombre = v.Institucion.Nombre;
-                i.Tipo = v.Institucion.Tipo;
-                i.Estado = v.Institucion.Estado;
+                p.nombrePersona = visita.Persona.nombrePersona;
+                p.apellidoPersona = visita.Persona.apellidoPersona;
+                p.edadPersona = visita.Persona.edadPersona;
+                p.ciPersona = visita.Persona.ciPersona;
+                p.celularPersona = visita.Persona.celularPersona;
+                p.estadoPersona = visita.Persona.estadoPersona;
 
                 await _context.SaveChangesAsync();
                 return Ok();

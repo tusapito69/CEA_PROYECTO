@@ -60,7 +60,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
           contrasenia:data[0].contraseniaUsuario,
           rolid:data[0].RolId
       })
-      // console.log(data.persona[nombrePersona]);
+      console.log(data.RolId);
       
       })
 

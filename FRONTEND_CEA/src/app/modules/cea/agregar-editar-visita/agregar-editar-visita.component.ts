@@ -15,7 +15,7 @@ import { Institucion } from '../../../core/interfaces/institucion';
   styleUrls: ['./agregar-editar-visita.component.css']
 })
 export class AgregarEditarVisitaComponent implements OnInit {
-  ListaInstitucion!: Institucion[];
+  seleccionada!: string;
   operacion: string = 'Agregar ';
   id: number | undefined;
   form: FormGroup;
@@ -27,8 +27,8 @@ export class AgregarEditarVisitaComponent implements OnInit {
       lugar: ['', Validators.required],
       observaciones: ['', Validators.required],
       tipo: ['', Validators.required],
-      fecha: [null, Validators.required],
-      InstitucionId: [],
+      fecha: ['', Validators.required],
+      InstitucionId: [''],
       nombrePersona: ['', Validators.required],
       apellidoPersona: ['', Validators.required],
       edadPersona: ['', Validators.required],
@@ -61,14 +61,16 @@ export class AgregarEditarVisitaComponent implements OnInit {
         observaciones: data[0].observaciones,
         tipo: data[0].tipo,
         fecha: data[0].fecha,
-        InstitucionId: data[0].institucion["nombre"],
         nombrePersona: data[0].persona["nombrePersona"],
         apellidoPersona: data[0].persona["apellidoPersona"],
         edadPersona: data[0].persona["edadPersona"],
         ciPersona: data[0].persona["ciPersona"],
-        celularPersona: data[0].persona["celularPersona"]
+        celularPersona: data[0].persona["celularPersona"],
+        InstitucionId: data[0].institucion["id"]
       })
-      console.log(data);
+      this.seleccionada = data[0].institucion["id"];
+      console.log(data[0].institucion["id"]);
+      console.log(this.seleccionada);
     })
   }
 
@@ -78,25 +80,25 @@ export class AgregarEditarVisitaComponent implements OnInit {
    
     })
   };
+  
 
+  ListaInstitucion!: Institucion[];
   cancelar() {
     this.dialogRef.close(false);
   }
 
   agregarVisita() {
-
     if(this.form.invalid) {
       return;
     }
-
     const visita: IVisita = {
       actividad: this.form.value.actividad,
       fecha: this.form.value.fecha,
       lugar: this.form.value.lugar,
       observaciones: this.form.value.observaciones,
       tipo: this.form.value.tipo,
-      InstitucionId: this.form.value.institucion,
       estado: 1,
+      InstitucionId: this.form.value.InstitucionId,
       persona: {
         nombrePersona:this.form.value.nombrePersona,
         apellidoPersona: this.form.value.apellidoPersona,

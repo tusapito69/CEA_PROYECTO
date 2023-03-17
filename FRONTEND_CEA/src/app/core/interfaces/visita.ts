@@ -8,6 +8,7 @@ export interface IVisita {
     observaciones: string;
     tipo: string;
     estado?: number|null;
-    InstitucionId?: number;
+    
     persona?: IPersona;
+    InstitucionId: number;
 }

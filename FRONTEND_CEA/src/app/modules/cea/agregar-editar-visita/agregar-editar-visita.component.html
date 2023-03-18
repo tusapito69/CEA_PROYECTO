@@ -128,7 +128,7 @@
         <mat-form-field appearance="fill">
           <mat-label>Institucion</mat-label>
           <mat-select formControlName="InstitucionId">
-            <mat-option *ngFor="let Institucion of ListaInstitucion" selected="seleccionada" value="{{Institucion.id}}">{{Institucion.nombre}}</mat-option>
+            <mat-option *ngFor="let Institucion of ListaInstitucion" [value]="Institucion.id">{{Institucion.nombre}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

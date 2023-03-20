@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using API_SERVER_CEA.Context;
 using API_SERVER_CEA.Modelo;
 using Microsoft.AspNetCore.Authorization;
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.InkML;
+using System.Reflection;
+using System.Data;
 
 namespace API_SERVER_CEA.Controllers
 {
@@ -136,6 +140,51 @@ namespace API_SERVER_CEA.Controllers
             else
             {
                 return BadRequest("No existe la visita a eliminar");
+            }
+        }
+
+        [HttpPost("reporte")]
+        public IActionResult Exportar_Excel(Reporte reporte)
+        {
+
+            var query = from v in _context.Visita 
+                        where v.fecha >= reporte.FechaInicio && 
+                        v.fecha<=reporte.FechaFinal select v;
+            //Crea un tabla a partir del modelo intitucion
+            DataTable? tabla = new DataTable(typeof(Visita).Name);
+
+            //Toma las propiedades de Institucion y las asigna a la variable props
+            PropertyInfo[] props = typeof(Visita).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            //Añade las propiedades alas columnas en base a su tipo(string,int,etc)
+            foreach (var prop in props)
+            {
+                tabla.Columns.Add(prop.Name, prop.PropertyType);
+            }
+
+            var values = new object[props.Length];
+            //Recorre la consulta y asigna sus valores alas columnas 
+            foreach (var item in query)
+            {
+
+                for (var i = 0; i < props.Length; i++)
+                {
+                    values[i] = props[i].GetValue(item, null);
+                }
+                tabla.Rows.Add(values);
+
+            }
+            using (var inst = new XLWorkbook())
+            {
+                tabla.TableName = "VISITA";
+                var hoja = inst.Worksheets.Add(tabla);
+                hoja.ColumnsUsed().AdjustToContents();
+                using (var memoria = new MemoryStream())
+                {
+                    inst.SaveAs(memoria);
+                    var nombreExcel = string.Concat("Reporte Institucion", DateTime.Now.ToString(), ".xlsx");
+                    return File(memoria.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", nombreExcel);
+                }
             }
         }
 

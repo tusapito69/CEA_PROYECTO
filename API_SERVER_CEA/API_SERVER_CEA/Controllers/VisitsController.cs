@@ -147,11 +147,11 @@ namespace API_SERVER_CEA.Controllers
         [HttpPost("reporte")]
         public IActionResult Exportar_Excel(Reporte reporte)
         {
-        var query = from v in _context.Visita
-                    join p in this._context.Persona on v.PersonaId equals p.Id
-                    join i in this._context.Institucion on v.InstitucionId equals i.Id
-                    where v.fecha >= reporte.FechaInicio &&
-                        v.fecha <= reporte.FechaFinal
+            var query = from v in _context.Visita
+                        join p in this._context.Persona on v.PersonaId equals p.Id
+                        join i in this._context.Institucion on v.InstitucionId equals i.Id
+                        where v.fecha >= reporte.FechaInicio &&
+                            v.fecha <= reporte.FechaFinal && v.estado == 1
                         select new DataVisit
                         {
                             id=v.id,

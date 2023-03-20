@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IVisita } from '../interfaces/visita';
@@ -23,4 +23,14 @@ export class VisitaService {
   obtenerVisita(id:number):Observable<any>{
     return this.httpclient.get<any>(`${environment.API_URL}/api/Visits/${id}`);
   }
+  generarReporte(r:any){
+    return this.httpclient.post(`${environment.API_URL}/api/Visits/reporte`,r ,{observe: 'response',responseType: 'blob' });
+  }
+  // downloadPDF(url: string): Observable<any> {
+  //   return this.httpclient.get<any>(url, { responseType: 'blob', observe: 'response' }).pipe(
+  //     map((result:HttpResponse<Blob>) => {
+  //       console.log(result);
+  //       saveAs(result, "Quotation.pdf");
+  //       return result;
+  //     }));
 }

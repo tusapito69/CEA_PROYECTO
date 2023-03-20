@@ -24,7 +24,7 @@ namespace API_SERVER_CEA.Controllers
             this.contexto = context;
         }
         [HttpPost]
-        public  async  Task<ActionResult<List<Institucion>>> AgregarInstitucion(Institucion institution)
+        public async Task<ActionResult<List<Institucion>>> AgregarInstitucion(Institucion institution)
         {
             Institucion inst = await contexto.Institucion.FirstOrDefaultAsync(x => x.Nombre == institution.Nombre);
             if (inst != null)
@@ -41,11 +41,18 @@ namespace API_SERVER_CEA.Controllers
         }
 
         [HttpGet]
-
-
         public async Task<ActionResult<List<Institucion>>> ObtenerInstituciones() {
 
             return await contexto.Institucion.ToListAsync();
+        }
+
+        //GET: activos
+        [HttpGet ("obtenerActivos")]
+        public async Task<ActionResult<List<Institucion>>> ObtenerInstitucionesActivos()
+        {
+            var datos = from ins in this.contexto.Institucion where ins.Estado == 1 select ins;
+
+            return await datos.ToListAsync();
         }
 
         [HttpPut("{id:int}")]

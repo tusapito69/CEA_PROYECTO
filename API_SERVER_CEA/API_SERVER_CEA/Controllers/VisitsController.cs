@@ -25,12 +25,12 @@ namespace API_SERVER_CEA.Controllers
 
         // GET: api/Visitas
         [HttpGet]
-        public async Task<ActionResult<List<DataVisit>>> ObtenerVisitas()
+        public async Task<ActionResult<List<Visita>>> ObtenerVisitas()
         {
             var datos = from v in this._context.Visita
                         join i in this._context.Institucion on v.InstitucionId equals i.Id
                         join p in this._context.Persona on v.PersonaId equals p.Id
-                        select new DataVisit
+                        select new Visita
                         {
                             id = v.id,
                             actividad = v.lugar,
@@ -39,12 +39,9 @@ namespace API_SERVER_CEA.Controllers
                             tipo = v.tipo,
                             email = v.email,
                             fecha = v.fecha,
-                            nombrePersona = p.nombrePersona,
-                            apellidoPersona = p.apellidoPersona,
-                            ciPersona = p.ciPersona,
-                            celularPersona = p.celularPersona,
-                            nombreInstitucion = i.Nombre,
-                            estado = v.estado
+                            estado = v.estado,
+                            Persona = v.Persona,
+                            Institucion = v.Institucion
                         };
             return await datos.ToListAsync();
         }
@@ -71,6 +68,7 @@ namespace API_SERVER_CEA.Controllers
                         };
             return await datos.ToListAsync();
         }
+
 
         // POST: api/Visitas
         [HttpPost]
@@ -111,7 +109,7 @@ namespace API_SERVER_CEA.Controllers
                 v.fecha = visita.fecha;
                 v.estado = visita.estado;
                 v.InstitucionId = visita.InstitucionId;
-
+                //p.Id = visita.Persona.Id;
                 p.nombrePersona = visita.Persona.nombrePersona;
                 p.apellidoPersona = visita.Persona.apellidoPersona;
                 p.edadPersona = visita.Persona.edadPersona;

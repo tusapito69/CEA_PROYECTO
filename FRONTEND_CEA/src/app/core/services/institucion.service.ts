@@ -28,4 +28,7 @@ export class InstitucionService {
     return this.httpclient.get<any>(`${environment.API_URL}${this.ruta}/${id}`,
     );
   }
+  obtenerActivos():Observable<any>{
+    return this.httpclient.get<any>(`${environment.API_URL}/api/Institucion/obtenerActivos`);
+  }
 }

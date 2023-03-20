@@ -56,4 +56,14 @@ export class VisitaComponent implements OnInit {
       }
     });
   }
+  darBajaVisita(visita:IVisita, accion: number){
+    console.log(visita);
+    this.id=visita.id;
+    if (this.id!=undefined) {
+      visita.estado=accion;
+      this._visitaservice.bajaVisita(this.id,visita).subscribe((r) => {
+      this.obtenerVisitas();
+    });
+    }
+  }
 }

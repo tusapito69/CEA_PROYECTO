@@ -100,15 +100,12 @@
         </div>
       </div>
       <div class="column">
-        <p>
-          <mat-form-field appearance="fill">
-            <mat-label>Tipo</mat-label>
-            <input formControlName="tipo" matInput autocomplete="off" />
-          </mat-form-field>
-        </p>
-        <div class="error">
-          <span *ngIf="form.get('tipo')?.hasError('required') && form.get('tipo')?.touched">El tipo es un campo <strong>Requerido</strong></span>
-        </div>
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="tipo">
+            <mat-option *ngFor="let tipo of ListaTipo" [value]="tipo">{{tipo}}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
     <div class="row">
@@ -158,6 +155,9 @@
         <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">La observacion es un campo <strong>Requerido</strong></span>
         <span *ngIf="form.get('email')?.hasError('maxlength')">La observacion debe tener como maximo 50 caracteres</span>
       </div>
+    </div>
+    <div class="crear">
+      <input type="button" class="btn btn-crear" value="Crear" mat-raised-button (click)="AgregarInstitucion()"/>
     </div>
 
     

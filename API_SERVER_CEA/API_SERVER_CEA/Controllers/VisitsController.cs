@@ -12,6 +12,7 @@ using ClosedXML.Excel;
 using DocumentFormat.OpenXml.InkML;
 using System.Reflection;
 using System.Data;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace API_SERVER_CEA.Controllers
 {
@@ -150,15 +151,32 @@ namespace API_SERVER_CEA.Controllers
         [HttpPost("reporte")]
         public IActionResult Exportar_Excel(Reporte reporte)
         {
+        var query = from v in _context.Visita
+                    join p in this._context.Persona on v.PersonaId equals p.Id
+                    join i in this._context.Institucion on v.InstitucionId equals i.Id
+                    where v.fecha >= reporte.FechaInicio &&
+                        v.fecha <= reporte.FechaFinal
+                        select new DataVisit
+                        {
+                            id=v.id,
+                            actividad=v.actividad, 
+                            observaciones=v.observaciones,
+                            lugar=v.lugar,
+                            tipo=v.tipo,
+                            fecha=v.fecha,
+                            nombrePersona=p.nombrePersona,
+                            apellidoPersona=p.apellidoPersona,
+                            ciPersona=p.ciPersona,
+                            celularPersona=p.celularPersona,
+                            email=v.email,
+                            nombreInstitucion=i.Nombre
 
-            var query = from v in _context.Visita 
-                        where v.fecha >= reporte.FechaInicio && 
-                        v.fecha<=reporte.FechaFinal select v;
+                        };
             //Crea un tabla a partir del modelo intitucion
-            DataTable? tabla = new DataTable(typeof(Visita).Name);
+            DataTable? tabla = new DataTable(typeof(DataVisit).Name);
 
             //Toma las propiedades de Institucion y las asigna a la variable props
-            PropertyInfo[] props = typeof(Visita).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            PropertyInfo[] props = typeof(DataVisit).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             //Añade las propiedades alas columnas en base a su tipo(string,int,etc)
             foreach (var prop in props)

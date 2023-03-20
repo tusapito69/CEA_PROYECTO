@@ -37,6 +37,7 @@ namespace API_SERVER_CEA.Controllers
                             observaciones = v.observaciones,
                             lugar = v.lugar,
                             tipo = v.tipo,
+                            email = v.email,
                             fecha = v.fecha,
                             nombrePersona = p.nombrePersona,
                             apellidoPersona = p.apellidoPersona,
@@ -62,6 +63,7 @@ namespace API_SERVER_CEA.Controllers
                             observaciones = v.observaciones,
                             lugar = v.lugar,
                             tipo = v.tipo,
+                            email = v.email,
                             fecha = v.fecha,
                             estado = v.estado,
                             Persona = v.Persona,
@@ -105,6 +107,7 @@ namespace API_SERVER_CEA.Controllers
                 v.observaciones = visita.observaciones;
                 v.lugar = visita.lugar;
                 v.tipo = visita.tipo;
+                v.email = visita.email;
                 v.fecha = visita.fecha;
                 v.estado = visita.estado;
                 v.InstitucionId = visita.InstitucionId;

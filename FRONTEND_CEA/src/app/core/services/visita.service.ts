@@ -23,4 +23,7 @@ export class VisitaService {
   obtenerVisita(id:number):Observable<any>{
     return this.httpclient.get<any>(`${environment.API_URL}/api/Visits/${id}`);
   }
+  bajaVisita(id:number,visita:IVisita):Observable<any>{
+    return this.httpclient.put(`${environment.API_URL}/api/Visits/baja/${id}`,visita)
+  }
 }

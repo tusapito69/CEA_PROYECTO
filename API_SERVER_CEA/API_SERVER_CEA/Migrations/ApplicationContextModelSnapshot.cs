@@ -137,6 +137,10 @@ namespace API_SERVER_CEA.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int>("estado")
                         .HasColumnType("int");
 

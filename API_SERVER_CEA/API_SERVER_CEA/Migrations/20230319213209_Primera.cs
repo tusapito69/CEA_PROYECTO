@@ -85,6 +85,8 @@ namespace API_SERVER_CEA.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     tipo = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    email = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     estado = table.Column<int>(type: "int", nullable: false),
                     InstitucionId = table.Column<int>(type: "int", nullable: false),
                     PersonaId = table.Column<int>(type: "int", nullable: false)

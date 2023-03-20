@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_SERVER_CEA.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230310140617_Primera")]
+    [Migration("20230319213209_Primera")]
     partial class Primera
     {
         /// <inheritdoc />
@@ -137,6 +137,10 @@ namespace API_SERVER_CEA.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("actividad")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("longtext");
 

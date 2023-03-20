@@ -19,6 +19,9 @@ namespace API_SERVER_CEA.Modelo
         [Required(ErrorMessage = "Este campo no debe estar vacio")]
         public string tipo { get; set; }
 
+        [EmailAddress(ErrorMessage = "Este Campo no debe estar vacio")]
+        public string email { get; set; }
+
         public int estado { get; set; }
 
         public int InstitucionId { get; set; }

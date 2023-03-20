@@ -147,6 +147,19 @@
       </div>
     </div>
 
+    <div class="row">
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" matInput autocomplete="off" />
+        </mat-form-field>
+      </p>
+      <div class="error">
+        <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">La observacion es un campo <strong>Requerido</strong></span>
+        <span *ngIf="form.get('email')?.hasError('maxlength')">La observacion debe tener como maximo 50 caracteres</span>
+      </div>
+    </div>
+
     
   </mat-dialog-content>
   <mat-dialog-actions align="end">

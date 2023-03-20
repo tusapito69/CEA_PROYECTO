@@ -27,6 +27,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       lugar: ['', Validators.required],
       observaciones: ['', Validators.required],
       tipo: ['', Validators.required],
+      email: ['', Validators.required],
       fecha: ['', Validators.required],
       InstitucionId: [''],
       nombrePersona: ['', Validators.required],
@@ -61,6 +62,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
         observaciones: data[0].observaciones,
         tipo: data[0].tipo,
         fecha: data[0].fecha,
+        email: data[0].email,
         nombrePersona: data[0].persona["nombrePersona"],
         apellidoPersona: data[0].persona["apellidoPersona"],
         edadPersona: data[0].persona["edadPersona"],
@@ -97,6 +99,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       lugar: this.form.value.lugar,
       observaciones: this.form.value.observaciones,
       tipo: this.form.value.tipo,
+      email: this.form.value.email,
       estado: 1,
       InstitucionId: this.form.value.InstitucionId,
       persona: {

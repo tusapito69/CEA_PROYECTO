@@ -7,8 +7,8 @@ export interface IVisita {
     lugar: string;
     observaciones: string;
     tipo: string;
+    email: string;
     estado?: number|null;
-    
     persona?: IPersona;
     InstitucionId: number;
 }

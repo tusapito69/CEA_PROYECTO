@@ -1,5 +1,3 @@
-
-
 import { Component, Inject, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -105,7 +103,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
       
     }else{
 
-      // usuario.persona.id=this.id,
+      usuario.persona.id=this.id,
       this.UsuarioService.modificarUsuario(this.id,usuario).subscribe(r=>{
 
       })

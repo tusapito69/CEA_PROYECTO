@@ -26,18 +26,18 @@ export class AgregarEditarVisitaComponent implements OnInit {
     private dateAdapter: DateAdapter<any>, @Inject(MAT_DIALOG_DATA) public data:any,
     public dialog: MatDialog) { 
     this.form = this.fb.group({
-      actividad: ['', [Validators.required, Validators.maxLength(30)]],
+      actividad: ['', [Validators.required, Validators.maxLength(100)]],
       lugar: ['', Validators.required],
-      observaciones: ['', Validators.required],
+      observaciones: ['', [Validators.required, Validators.maxLength(250)] ],
       tipo: ['', Validators.required],
-      email: ['', Validators.required],
-      fecha: ['', Validators.required],
-      InstitucionId: [''],
+      email: ['',[Validators.required, Validators.email]],
+      fecha: ['', [Validators.required]],
+      InstitucionId: ['',Validators.required],
       nombrePersona: ['', Validators.required],
       apellidoPersona: ['', Validators.required],
-      edadPersona: ['', Validators.required],
-      ciPersona: ['', Validators.required],
-      celularPersona: ['', Validators.required],
+      edadPersona: ['',[Validators.required, Validators.pattern("^[0-9]*$"), Validators.max(110)]],
+      ciPersona: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11)]],
+      celularPersona: ['',[Validators.required, Validators.pattern("^[0-9]*$"),Validators.maxLength(11)]],
     })
     this.id = data.id;
     dateAdapter.setLocale('es')

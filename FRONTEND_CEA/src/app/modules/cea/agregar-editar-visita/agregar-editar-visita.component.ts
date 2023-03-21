@@ -9,6 +9,7 @@ import { DateAdapter } from '@angular/material/core';
 import { IPersona } from '../../../core/interfaces/persona';
 import { Institucion } from '../../../core/interfaces/institucion';
 import { InstitucionComponent } from '../institucion/institucion.component';
+import { AlertaService } from 'src/app/core/services/alerta.service';
 
 @Component({
   selector: 'app-agregar-editar-visita',
@@ -24,7 +25,8 @@ export class AgregarEditarVisitaComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AgregarEditarVisitaComponent>, private fb: FormBuilder,
     private _visitaService: VisitaService, private institucion: InstitucionService, private _personaService: PersonaService,
     private dateAdapter: DateAdapter<any>, @Inject(MAT_DIALOG_DATA) public data:any,
-    public dialog: MatDialog) { 
+    public dialog: MatDialog,
+    private _alertaService:AlertaService) { 
     this.form = this.fb.group({
       actividad: ['', [Validators.required, Validators.maxLength(30)]],
       lugar: ['', Validators.required],
@@ -119,14 +121,14 @@ export class AgregarEditarVisitaComponent implements OnInit {
     if (this.id == undefined) {
       //AGREGAR
       this._visitaService.enviarVisitas(visita).subscribe((resp) => {
+        this._alertaService.mensajeAgregar("Visita Agregada");
         this.dialogRef.close(true);
-        console.log("visita agregada con exito");
       })
     } else {
       //EDITAR
       this._visitaService.modificarVisitas(this.id, visita).subscribe(data => {
+        this._alertaService.mensajeAgregar("Visita Modificada");
         this.dialogRef.close(true);
-        console.log("visita actualizada con exito");
       })
     }
     

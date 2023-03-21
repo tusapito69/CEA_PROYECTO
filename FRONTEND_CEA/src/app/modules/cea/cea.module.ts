@@ -18,6 +18,7 @@ import { CeaRoutingModule } from './cea-routing.module';
 import { AgregarEditarInstitucionComponent } from './agregar-editar-institucion/agregar-editar-institucion.component';
 import { VisitaComponent } from './visita/visita.component';
 import { AgregarEditarVisitaComponent } from './agregar-editar-visita/agregar-editar-visita.component';
+import { SeleccionarVisitaComponent } from './seleccionar-visita/seleccionar-visita.component';
 
 
 
@@ -27,7 +28,8 @@ import { AgregarEditarVisitaComponent } from './agregar-editar-visita/agregar-ed
     InstitucionComponent,
     AgregarEditarInstitucionComponent,
     VisitaComponent,
-    AgregarEditarVisitaComponent
+    AgregarEditarVisitaComponent,
+    SeleccionarVisitaComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { AgregarEditarVisitaComponent } from './agregar-editar-visita/agregar-ed
   ],
   exports:[
     InstitucionComponent,
-    VisitaComponent
+    VisitaComponent,
+    SeleccionarVisitaComponent
   ]
 })
 export class CeaModule { }

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IVisita } from '../../../core/interfaces/visita';
 import { VisitaService } from '../../../core/services/visita.service';
 import { InstitucionService } from '../../../core/services/institucion.service';
@@ -8,6 +8,7 @@ import { PersonaService } from '../../../core/services/persona.service';
 import { DateAdapter } from '@angular/material/core';
 import { IPersona } from '../../../core/interfaces/persona';
 import { Institucion } from '../../../core/interfaces/institucion';
+import { InstitucionComponent } from '../institucion/institucion.component';
 
 @Component({
   selector: 'app-agregar-editar-visita',
@@ -15,20 +16,23 @@ import { Institucion } from '../../../core/interfaces/institucion';
   styleUrls: ['./agregar-editar-visita.component.css']
 })
 export class AgregarEditarVisitaComponent implements OnInit {
-  ListaInstitucion!: Institucion[];
+  ListaTipo: string[] = ['Reunion', 'Taller', 'Recorrido']
+  seleccionada!: string;
   operacion: string = 'Agregar ';
   id: number | undefined;
   form: FormGroup;
   constructor(public dialogRef: MatDialogRef<AgregarEditarVisitaComponent>, private fb: FormBuilder,
     private _visitaService: VisitaService, private institucion: InstitucionService, private _personaService: PersonaService,
-    private dateAdapter: DateAdapter<any>, @Inject(MAT_DIALOG_DATA) public data:any) { 
+    private dateAdapter: DateAdapter<any>, @Inject(MAT_DIALOG_DATA) public data:any,
+    public dialog: MatDialog) { 
     this.form = this.fb.group({
       actividad: ['', [Validators.required, Validators.maxLength(30)]],
       lugar: ['', Validators.required],
       observaciones: ['', Validators.required],
       tipo: ['', Validators.required],
-      fecha: [null, Validators.required],
-      InstitucionId: [],
+      email: ['', Validators.required],
+      fecha: ['', Validators.required],
+      InstitucionId: [''],
       nombrePersona: ['', Validators.required],
       apellidoPersona: ['', Validators.required],
       edadPersona: ['', Validators.required],
@@ -61,42 +65,45 @@ export class AgregarEditarVisitaComponent implements OnInit {
         observaciones: data[0].observaciones,
         tipo: data[0].tipo,
         fecha: data[0].fecha,
-        InstitucionId: data[0].institucion["nombre"],
+        email: data[0].email,
         nombrePersona: data[0].persona["nombrePersona"],
         apellidoPersona: data[0].persona["apellidoPersona"],
         edadPersona: data[0].persona["edadPersona"],
         ciPersona: data[0].persona["ciPersona"],
-        celularPersona: data[0].persona["celularPersona"]
+        celularPersona: data[0].persona["celularPersona"],
+        InstitucionId: data[0].institucion["id"]
       })
-      console.log(data);
+      this.seleccionada = data[0].institucion["id"];
+      console.log(data[0].institucion["id"]);
+      console.log(this.seleccionada);
     })
   }
 
   obtenerInstitucion(){
-    this.institucion.obtenerInstituciones().subscribe((data)=>{
+    this.institucion.obtenerActivos().subscribe((data)=>{
       this.ListaInstitucion = data;
-   
     })
   };
+  
 
+  ListaInstitucion!: Institucion[];
   cancelar() {
     this.dialogRef.close(false);
   }
 
   agregarVisita() {
-
     if(this.form.invalid) {
       return;
     }
-
     const visita: IVisita = {
       actividad: this.form.value.actividad,
       fecha: this.form.value.fecha,
       lugar: this.form.value.lugar,
       observaciones: this.form.value.observaciones,
       tipo: this.form.value.tipo,
-      InstitucionId: this.form.value.institucion,
+      email: this.form.value.email,
       estado: 1,
+      InstitucionId: this.form.value.InstitucionId,
       persona: {
         nombrePersona:this.form.value.nombrePersona,
         apellidoPersona: this.form.value.apellidoPersona,
@@ -123,6 +130,13 @@ export class AgregarEditarVisitaComponent implements OnInit {
       })
     }
     
+  }
+
+  AgregarInstitucion(){
+    const dialogRef = this.dialog.open(InstitucionComponent, {
+      width: '700px',
+      disableClose: true
+    });
   }
 
 }

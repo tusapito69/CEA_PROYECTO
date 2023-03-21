@@ -14,6 +14,38 @@
                                 <input type="button" class="btn btn-crear" value="Crear" mat-raised-button (click)="AgregarEditarVisita()"/>
                               </div>
                         </div>
+                        <!-- FORMULARIO REPORTE -->
+                        <form [formGroup]="form" (ngSubmit)="generarReporte()">
+                          <div class="colum">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Fecha Inicio</mat-label>
+                              <input formControlName="fechaInicio" matInput [matDatepicker]="picker" />
+                              <mat-hint>MM/DD/YYYY</mat-hint>
+                              <mat-datepicker-toggle
+                                matIconSuffix
+                                [for]="picker"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                          <div class="colum">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Fecha Final</mat-label>
+                              <input formControlName="fechaFinal" matInput [matDatepicker]="picker1" />
+                              <mat-hint>MM/DD/YYYY</mat-hint>
+                              <mat-datepicker-toggle
+                                matIconSuffix
+                                [for]="picker1"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                          <mat-dialog-actions align="end">
+                            <button type="submit" mat-button cdkFocusInitial class="btn btn-success">Enviar</button>
+                          </mat-dialog-actions>
+                         
+                        </form>
+                        <!--  -->
                         <div class="card-body">
                             <mat-form-field>
                                 <mat-label>Buscar</mat-label>
@@ -70,12 +102,14 @@
                                   </button>
                                   &nbsp;
                                   <button
+                                    (click)="darBajaVisita(visi, 0)"
                                     class="btn btn-danger"
                                     *ngIf="visi.estado == 1"
                                   >
                                     <i class="fa fa-trash"> </i>
                                   </button>
                                   <button
+                                    (click)="darBajaVisita(visi, 1)"
                                     class="btn btn-success"
                                     *ngIf="visi.estado == 0"
                                   >

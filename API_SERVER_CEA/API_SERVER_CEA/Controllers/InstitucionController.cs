@@ -1,6 +1,7 @@
 ﻿using API_SERVER_CEA.Context;
 using API_SERVER_CEA.Modelo;
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.InkML;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -24,7 +25,7 @@ namespace API_SERVER_CEA.Controllers
             this.contexto = context;
         }
         [HttpPost]
-        public  async  Task<ActionResult<List<Institucion>>> AgregarInstitucion(Institucion institution)
+        public async Task<ActionResult<List<Institucion>>> AgregarInstitucion(Institucion institution)
         {
             Institucion inst = await contexto.Institucion.FirstOrDefaultAsync(x => x.Nombre == institution.Nombre);
             if (inst != null)
@@ -41,11 +42,18 @@ namespace API_SERVER_CEA.Controllers
         }
 
         [HttpGet]
-
-
         public async Task<ActionResult<List<Institucion>>> ObtenerInstituciones() {
 
             return await contexto.Institucion.ToListAsync();
+        }
+
+        //GET: activos
+        [HttpGet ("obtenerActivos")]
+        public async Task<ActionResult<List<Institucion>>> ObtenerInstitucionesActivos()
+        {
+            var datos = from ins in this.contexto.Institucion where ins.Estado == 1 select ins;
+
+            return await datos.ToListAsync();
         }
 
         [HttpPut("{id:int}")]
@@ -75,14 +83,15 @@ namespace API_SERVER_CEA.Controllers
             return Ok(institucion);
         }
 
+
         [HttpPost("{id:int}")]
-        public IActionResult Exportar_Excel(int id )
+        public IActionResult Exportar_Excel(int id)
         {
 
-            var query= from i in contexto.Institucion where i.Estado==id select i;
+            var query = from i in contexto.Institucion where i.Estado == id select i;
             //Crea un tabla a partir del modelo intitucion
             DataTable? tabla = new DataTable(typeof(Institucion).Name);
-         
+
             //Toma las propiedades de Institucion y las asigna a la variable props
             PropertyInfo[] props = typeof(Institucion).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
@@ -91,7 +100,7 @@ namespace API_SERVER_CEA.Controllers
             {
                 tabla.Columns.Add(prop.Name, prop.PropertyType);
             }
-            
+
             var values = new object[props.Length];
             //Recorre la consulta y asigna sus valores alas columnas 
             foreach (var item in query)
@@ -104,16 +113,16 @@ namespace API_SERVER_CEA.Controllers
                 tabla.Rows.Add(values);
 
             }
-            using (var inst=new XLWorkbook())
+            using (var inst = new XLWorkbook())
             {
                 tabla.TableName = "INSTITUCION";
                 var hoja = inst.Worksheets.Add(tabla);
                 hoja.ColumnsUsed().AdjustToContents();
-                using(var memoria=new MemoryStream())
+                using (var memoria = new MemoryStream())
                 {
                     inst.SaveAs(memoria);
-                    var nombreExcel = string.Concat("Reporte Institucion",DateTime.Now.ToString(),".xlsx");
-                    return File(memoria.ToArray(),"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",nombreExcel);
+                    var nombreExcel = string.Concat("Reporte Institucion", DateTime.Now.ToString(), ".xlsx");
+                    return File(memoria.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", nombreExcel);
                 }
             }
         }

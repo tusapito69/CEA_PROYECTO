@@ -19,6 +19,7 @@ import { AgregarEditarInstitucionComponent } from './agregar-editar-institucion/
 import { VisitaComponent } from './visita/visita.component';
 import { AgregarEditarVisitaComponent } from './agregar-editar-visita/agregar-editar-visita.component';
 import { SeleccionarVisitaComponent } from './seleccionar-visita/seleccionar-visita.component';
+import { ReportesVisitaComponent } from './visita/reportes-visita/reportes-visita.component';
 
 
 
@@ -29,7 +30,8 @@ import { SeleccionarVisitaComponent } from './seleccionar-visita/seleccionar-vis
     AgregarEditarInstitucionComponent,
     VisitaComponent,
     AgregarEditarVisitaComponent,
-    SeleccionarVisitaComponent
+    SeleccionarVisitaComponent,
+    ReportesVisitaComponent
   ],
   imports: [
     CommonModule,

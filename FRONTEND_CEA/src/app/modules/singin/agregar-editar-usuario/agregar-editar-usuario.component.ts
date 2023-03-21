@@ -1,5 +1,3 @@
-
-
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -26,6 +24,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
   form: FormGroup;
   operacion: string ='Agregar '
   id: number | undefined;
+  sel:any;
   constructor(public dialogRef: MatDialogRef<AgregarEditarUsuarioComponent>,private rol:RolService,
     private fb: FormBuilder, 
     private UsuarioService: UsuarioService,
@@ -49,6 +48,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
 
     getUsuario(id: number){
       this.UsuarioService.obtenerUsuario(id).subscribe((data) => {
+     
       this.form.patchValue({
           nombrePersona:data[0].persona["nombrePersona"],
           apellidoPersona:data[0].persona["apellidoPersona"],
@@ -60,7 +60,6 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
           rolid:data[0].rol["id"]
       })
       })
-
     }
   listaRoles!: IRol[];
   cancelar(){

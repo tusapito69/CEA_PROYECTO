@@ -7,6 +7,7 @@ import { VisitaService } from 'src/app/core/services/visita.service';
 import { IVisita } from '../../../core/interfaces/visita';
 import { AgregarEditarVisitaComponent } from '../agregar-editar-visita/agregar-editar-visita.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReportesVisitaComponent } from './reportes-visita/reportes-visita.component';
 
 @Component({
   selector: 'app-visita',
@@ -17,16 +18,11 @@ export class VisitaComponent implements OnInit {
   id:number| undefined;
   displayedColumns:string[]=['Id','Actividad','Fecha','Lugar','Observaciones', 'Tipo', 'Estado', 'Opciones'];
   private visitas!:IVisita[];
-  form:FormGroup;
   dataSource =new MatTableDataSource<IVisita>(this.visitas);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private fb: FormBuilder,
-    private _visitaservice:VisitaService,public dialog: MatDialog) { 
-      this.form=this.fb.group({
-        fechaInicio:['',Validators.required],
-        fechaFinal:['',Validators.required]
-      })
+  constructor(
+    private _visitaservice:VisitaService,public dialog: MatDialog, public dialogReporte:MatDialog) { 
     }
 
   ngOnInit(): void {
@@ -51,6 +47,14 @@ export class VisitaComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  //MODAL REPORTES
+  GenerarReportes(){
+    const dialogRefReporte = this.dialogReporte.open(ReportesVisitaComponent, {
+      width: '700px',
+      disableClose: true,
+    });
+  }
+
   AgregarEditarVisita(id?:number){
     const dialogRef = this.dialog.open(AgregarEditarVisitaComponent, {
       width: '700px',
@@ -66,30 +70,7 @@ export class VisitaComponent implements OnInit {
 
    
   }
-  generarReporte(){
-    if(this.form.invalid) {
-      return;
-    }
-    const r:any={
-      fechaInicio:this.form.value.fechaInicio.toISOString().slice(0,10),
-      fechaFinal:this.form.value.fechaFinal.toISOString().slice(0,10)
-    }
-    console.log(r.fechaInicio);
-    this._visitaservice.generarReporte(r).subscribe((data)=>{
-      console.log(data);
-        // const blob=new Blob([r],{ type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})
-      // saveAs(data,"dasda.xlsx")
-      //  file=data.headers.get('content-disposition')
-      // ?.split(';')[1].split('=')[1];
-      let blob:Blob=data.body as Blob;
-      let a=document.createElement('a');
-      a.download="Reporte Institucion";
-      a.href=window.URL.createObjectURL(blob);
-      a.click();
-
-    });
-      
-  }
+  
   darBajaVisita(visita:IVisita, accion: number){
     console.log(visita);
     this.id=visita.id;

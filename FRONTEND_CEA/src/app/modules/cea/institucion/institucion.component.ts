@@ -20,10 +20,13 @@ export class InstitucionComponent implements OnInit,AfterViewInit{
   id:number| undefined;
   displayedColumns:string[]=['Id','Nombre','Tipo','Estado','opciones'];
   private instituciones!:Institucion[];
+
   dataSource =new MatTableDataSource<Institucion>(this.instituciones);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  
   constructor(private _institucionservice:InstitucionService,public dialog: MatDialog){}
+
   ngOnInit(): void {
     this.obtenerInstituciones();
   }
@@ -43,7 +46,6 @@ export class InstitucionComponent implements OnInit,AfterViewInit{
   }
   obtenerInstituciones(){
     this._institucionservice.obtenerInstituciones().subscribe((resp:Institucion[])=>{
-      console.log(resp);
       this.dataSource.data=resp;
     })
 

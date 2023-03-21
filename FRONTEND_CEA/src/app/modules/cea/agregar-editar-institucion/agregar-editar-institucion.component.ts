@@ -9,6 +9,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { InstitucionService } from 'src/app/core/services/institucion.service';
 import { Institucion } from 'src/app/core/interfaces/institucion';
 import Swal from 'sweetalert2';
+import { AlertaService } from 'src/app/core/services/alerta.service';
 
 @Component({
   selector: 'app-agregar-editar-institucion',
@@ -23,6 +24,7 @@ export class AgregarEditarInstitucionComponent implements OnInit {
   form: FormGroup;
   constructor(public dialogRef: MatDialogRef<AgregarEditarInstitucionComponent>,
     private fb: FormBuilder, private _institucion: InstitucionService,
+    private _alertaservice:AlertaService,
     @Inject(MAT_DIALOG_DATA) public data:any) {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
@@ -45,7 +47,6 @@ export class AgregarEditarInstitucionComponent implements OnInit {
           nombre:data.nombre,
           tipo:data.tipo
         })
-        console.log(data);
     })
   }
 
@@ -61,34 +62,16 @@ export class AgregarEditarInstitucionComponent implements OnInit {
     };
     if (this.id==undefined) {
       this._institucion.agregarInstitucion(institucion).subscribe((resp) => {
-        this.mensaje('Agregada');
+        this._alertaservice.mensajeAgregar("Institucion agregada");
       }, (e) => {
         console.log(e.error)
       });
     }else{
       this._institucion.editarInstitucion(this.id,institucion).subscribe(r=>{
-        this.mensaje('Actualizada');
+        this._alertaservice.mensajeAgregar("Institucion modificada");
       });
     }
     this.dialogRef.close(true);
-  };
-
-  mensaje(m:string){
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-    Toast.fire({
-      icon: 'success',
-      title: `Institucion ${m} con Exito`
-    })
   };
 
   cancelar() {

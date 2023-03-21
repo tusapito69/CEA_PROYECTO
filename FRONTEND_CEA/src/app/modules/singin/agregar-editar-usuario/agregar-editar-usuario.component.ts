@@ -1,17 +1,16 @@
 import { Component, Inject, OnInit } from '@angular/core';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSelect } from '@angular/material/select';
 import { Dialog } from '@angular/cdk/dialog';
-
 import { IRol } from 'src/app/core/interfaces/rol';
 import { RolService } from 'src/app/core/services/rol.service';
 import { IUsuario } from 'src/app/core/interfaces/usuario';
 import { PersonaService } from 'src/app/core/services/persona.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import Swal from 'sweetalert2'
+import { AlertaService } from 'src/app/core/services/alerta.service';
+
 
 
 @Component({
@@ -27,13 +26,14 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
   id: number | undefined;
   sel:any;
   constructor(public dialogRef: MatDialogRef<AgregarEditarUsuarioComponent>,private rol:RolService,
-    private fb: FormBuilder, private UsuarioService: UsuarioService, private PersonaService:PersonaService,@Inject(MAT_DIALOG_DATA) public data: any,
-    ){
-      
+    private fb: FormBuilder, 
+    private UsuarioService: UsuarioService,
+    private PersonaService:PersonaService,
+    private _alertaService:AlertaService,
+    @Inject(MAT_DIALOG_DATA) public data: any,){
       this.form = this.propUsuario();
       this.id = data.id;
     }
-
   ngOnInit(): void {
     this.listarRoles();
     this.esEditar(this.id)
@@ -47,7 +47,6 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
   }
 
     getUsuario(id: number){
-      // console.log(id)
       this.UsuarioService.obtenerUsuario(id).subscribe((data) => {
      
       this.form.patchValue({
@@ -60,8 +59,6 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
           contrasenia:data[0].contraseniaUsuario,
           rolid:data[0].rol["id"]
       })
-     console.log(data[0]);
-      
       })
     }
   listaRoles!: IRol[];
@@ -72,7 +69,6 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
   listarRoles(){
     this.rol.obtenerRoles().subscribe((resp)=>{
       this.listaRoles=resp;
-      console.log(this.listaRoles);
     })
   }
   
@@ -94,39 +90,21 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
         estadoPersona: 1
       }
     }
-    console.log(usuario);
     if (this.id==undefined) {
       this.UsuarioService.enviarUsuario(usuario).subscribe(() =>{
-        console.log("Usuario Agregado Exitosamente");
-        this.dialogRef.close();
+        this._alertaService.mensajeAgregar("Usuario agregado");
+        
       });
+      this.dialogRef.close();
       
     }else{
 
       usuario.persona.id=this.id,
       this.UsuarioService.modificarUsuario(this.id,usuario).subscribe(r=>{
-
-      })
-
+        this._alertaService.mensajeAgregar("Usuario modificado");
+      });
+      this.dialogRef.close(true);
     }
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000,
-      didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-
-    Toast.fire({
-      icon: 'success',
-      title: 'Registrado exitosamente'
-    })
-
-    
-  this.dialogRef.close(true);
   }
 
   propUsuario(){

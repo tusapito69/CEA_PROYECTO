@@ -90,7 +90,11 @@
     <mat-form-field appearance="fill">
       <mat-label>Rol</mat-label>
       <mat-select formControlName="rolid">
-        <mat-option *ngFor="let rol of listaRoles" value="{{ rol.id }}">{{rol.nombreRol}}</mat-option>
+        <mat-option *ngFor="let rol of listaRoles" value="{{ rol.id }} ">
+          <span>
+            {{ rol.nombreRol}}
+          </span>
+        </mat-option>
       </mat-select>
     </mat-form-field>
     <div class="error">
@@ -102,9 +106,6 @@
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button type="button" (click)="cancelar()" mat-button>Cancelar</button>
-
-
-
     <button type="submit" mat-button cdkFocusInitial>Aceptar</button>
   </mat-dialog-actions>
 </form>

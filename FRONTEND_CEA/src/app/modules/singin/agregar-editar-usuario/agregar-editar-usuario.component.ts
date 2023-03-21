@@ -27,6 +27,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
   form: FormGroup;
   operacion: string ='Agregar '
   id: number | undefined;
+  sel:any;
   constructor(public dialogRef: MatDialogRef<AgregarEditarUsuarioComponent>,private rol:RolService,
     private fb: FormBuilder, private UsuarioService: UsuarioService, private PersonaService:PersonaService,@Inject(MAT_DIALOG_DATA) public data: any,
     ){
@@ -50,6 +51,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
     getUsuario(id: number){
       // console.log(id)
       this.UsuarioService.obtenerUsuario(id).subscribe((data) => {
+     
       this.form.patchValue({
           nombrePersona:data[0].persona["nombrePersona"],
           apellidoPersona:data[0].persona["apellidoPersona"],
@@ -60,25 +62,19 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
           contrasenia:data[0].contraseniaUsuario,
           rolid:data[0].RolId
       })
-      // console.log(data.persona[nombrePersona]);
-      
+      this.sel= data[0].rol["id"]
+      console.log(data);
       })
-
     }
   listaRoles!: IRol[];
-
   cancelar(){
     this.dialogRef.close();
-    
   };
-
-
-
 
   listarRoles(){
     this.rol.obtenerRoles().subscribe((resp)=>{
       this.listaRoles=resp;
-      // console.log(this.listaRoles);
+      console.log(this.listaRoles);
     })
   }
   

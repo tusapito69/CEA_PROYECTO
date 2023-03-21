@@ -154,7 +154,6 @@ namespace API_SERVER_CEA.Controllers
                             v.fecha <= reporte.FechaFinal && v.estado == 1
                         select new DataVisit
                         {
-                            id=v.id,
                             actividad=v.actividad, 
                             observaciones=v.observaciones,
                             lugar=v.lugar,

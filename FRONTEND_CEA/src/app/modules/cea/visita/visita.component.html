@@ -9,28 +9,20 @@
                     <div class="container">
                         <br>
                         <br>
-                        <div class="card-header">
-                            <div class="crear">
-                                <input type="button" class="btn btn-crear" value="Crear" mat-raised-button (click)="AgregarEditarVisita()"/>
-                              </div>
-                        </div>
-
-                        <div class="card-header">
-                          <div class="crear">
-                            <input
-                              type="button"
-                              class="btn btn-crear"
-                              value="Reporte"
-                              mat-raised-button (click)="GenerarReportes()"
-                            />
-                          </div>
-                        </div>
-
                         <div class="card-body">
-                            <mat-form-field>
+                          <div class="row">
+                            <mat-form-field class="col-5">
                                 <mat-label>Buscar</mat-label>
                                 <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input>
                               </mat-form-field>
+                              <div class="buttons col-7">
+                                <input type="button" class="btn btn-success b" value="Crear" mat-raised-button (click)="AgregarEditarVisita()"/>
+                                <input type="button" class="btn btn-info c"value="Reporte" mat-raised-button (click)="GenerarReportes()"/>
+                              </div>
+                          </div>
+
+
+
                           <div class="mat-elevation-z8">
                             <table  mat-table [dataSource]="dataSource" matSort>
                           

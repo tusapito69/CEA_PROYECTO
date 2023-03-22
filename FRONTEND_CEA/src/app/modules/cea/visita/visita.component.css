@@ -1,14 +1,15 @@
 .buttons{
     text-align: right;
     padding-right: 10px;
-
 }
 .b{
     margin-right: 5px;
     cursor:pointer;
+    width: 15%;
 }
 .c{
     cursor:pointer;
+    width: 15%;
 }
 
 

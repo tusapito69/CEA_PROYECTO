@@ -11,13 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_SERVER_CEA.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-<<<<<<<< HEAD:API_SERVER_CEA/API_SERVER_CEA/Migrations/20230321151001_primera.Designer.cs
-    [Migration("20230321151001_primera")]
-    partial class primera
-========
-    [Migration("20230321134402_Primera")]
+    [Migration("20230322132708_Primera")]
     partial class Primera
->>>>>>>> 3ce46868acf57adeaf4d339cce186e3f30be0084:API_SERVER_CEA/API_SERVER_CEA/Migrations/20230321134402_Primera.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

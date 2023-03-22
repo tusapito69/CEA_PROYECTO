@@ -10,6 +10,7 @@ import { IUsuario } from 'src/app/core/interfaces/usuario';
 import { PersonaService } from 'src/app/core/services/persona.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { AlertaService } from 'src/app/core/services/alerta.service';
+import Swal from 'sweetalert2';
 
 
 
@@ -93,7 +94,11 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
     if (this.id==undefined) {
       this.UsuarioService.enviarUsuario(usuario).subscribe(() =>{
         this._alertaService.mensajeAgregar("Usuario agregado");
-        
+        Swal.fire(
+          'Se ha agregado el usuario correctamente',
+          '',
+          'success'
+        )
       });
       this.dialogRef.close();
       
@@ -105,6 +110,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
       });
       this.dialogRef.close(true);
     }
+   
   }
 
   propUsuario(){

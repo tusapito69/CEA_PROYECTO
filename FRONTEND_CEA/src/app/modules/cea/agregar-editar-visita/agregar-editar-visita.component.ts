@@ -122,6 +122,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       //AGREGAR
       this._visitaService.enviarVisitas(visita).subscribe((resp) => {
         this._alertaService.mensajeAgregar("Visita Agregada");
+        
         this.dialogRef.close(true);
       })
     } else {

@@ -156,14 +156,12 @@
         <span *ngIf="form.get('email')?.hasError('maxlength')">La observacion debe tener como maximo 50 caracteres</span>
       </div>
     </div>
-    <div class="crear">
-      <input type="button" class="btn btn-crear" value="Crear" mat-raised-button (click)="AgregarInstitucion()"/>
-    </div>
+     
+    <mat-dialog-actions align="end">
+      <button type="submit" class="btn btn-info b" mat-button cdkFocusInitial>Aceptar</button>
+      <button type="button" class="btn btn-warning c" (click)="cancelar()" mat-button mat-dialog-close>Cancelar</button>
+    </mat-dialog-actions>
 
-    
   </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <button type="button" (click)="cancelar()" mat-button mat-dialog-close>Cancelar</button>
-    <button type="submit" mat-button cdkFocusInitial>Aceptar</button>
-  </mat-dialog-actions>
+
 </form>

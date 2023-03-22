@@ -10,6 +10,7 @@ import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog
 import { IUsuario } from 'src/app/core/interfaces/usuario';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { AgregarEditarUsuarioComponent } from '../agregar-editar-usuario/agregar-editar-usuario.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuario',
@@ -52,7 +53,7 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
   }
   agregarEditarUsuario(id?: number){
     const dialogRef = this.dialog.open(AgregarEditarUsuarioComponent, {
-      width: '550px',
+      width: '950px',
       disableClose: true,
       data:{id:id}
     });
@@ -63,9 +64,22 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
   
   darBajaUsuario(us:IUsuario, accion: number){
     this.id=us.idUsuario;
-    console.log(us);
     if (this.id!=undefined) {
       us.estadoUsuario=accion;
+      if (accion==1) {
+        Swal.fire(
+          'Se ha activado el usuario correctamente',
+          '',
+          'success'
+        )
+      }
+      else if (accion==0) {
+        Swal.fire(
+          'Se ha desactivado el usuario correctamente',
+          '',
+          'success'
+        )
+      }
       // console.log(us.estadoUsuario);
       // console.log(this.id)
       this._usuarioService.bajaUsuario(this.id,us).subscribe((r) => {

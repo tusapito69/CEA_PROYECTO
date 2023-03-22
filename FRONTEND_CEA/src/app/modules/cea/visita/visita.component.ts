@@ -27,6 +27,7 @@ export class VisitaComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerVisitas();
+    console.log(this.obtenerVisitas());
   }
   ngAfterViewInit():void{
     this.dataSource.paginator = this.paginator;
@@ -36,6 +37,7 @@ export class VisitaComponent implements OnInit {
     obtenerVisitas(){
       this._visitaservice.obtenerVisitas().subscribe((resp:IVisita[])=>{
         this.dataSource.data=resp;
+        console.log(resp);
       })
     };
   //BUSCADOR

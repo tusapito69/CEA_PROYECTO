@@ -27,7 +27,11 @@ export class UsuarioService {
   }
 
 
+
   obtenerUsuario(id:number):Observable<any>{
     return this.httpclient.get<any>(`${environment.API_URL}/api/Users/${id}`);
+  }
+  obtenerTotal(){
+    return this.httpclient.get(`${environment.API_URL}/api/Users/total`);
   }
 }

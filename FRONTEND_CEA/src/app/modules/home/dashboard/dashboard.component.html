@@ -1,3 +1,72 @@
-<p>
-  ESTAMOS EN DASHBOARD
-</p>
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">INICIO</h1>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3><b>{{cantidadVisitas}}</b></h3>
+
+              <p><b>Visitas</b></p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-address-card"></i>
+            </div>
+            <a [routerLink]="['/inventario/producto/']" class="small-box-footer"
+              >Mas informacion <i class="fas fa-arrow-circle-right"></i
+            ></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6" >
+          <!-- small card -->
+          <div class="small-box bg-warning">
+            <div class="inner" >
+              <h3><b>{{cantidadInstituciones}}</b></h3>
+              <p><b>Instituciones</b></p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-university"></i>
+            </div>
+            <a [routerLink]="['/inventario/proveedor']" class="small-box-footer">
+              Mas informacion <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small card -->
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3><b>{{cantidadUsuarios}}</b></h3>
+
+              <p><b>Usuarios</b></p>
+            </div>
+            <div class="icon">
+              <i  class="fa fa-users"></i>
+            </div>
+            <a [routerLink]="['/inventario/sede']" class="small-box-footer">
+              Mas informacion <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+

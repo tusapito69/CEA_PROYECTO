@@ -29,11 +29,7 @@ export class VisitaService {
   generarReporte(r:any){
     return this.httpclient.post(`${environment.API_URL}/api/Visits/reporte`,r ,{observe: 'response',responseType: 'blob' });
   }
-  // downloadPDF(url: string): Observable<any> {
-  //   return this.httpclient.get<any>(url, { responseType: 'blob', observe: 'response' }).pipe(
-  //     map((result:HttpResponse<Blob>) => {
-  //       console.log(result);
-  //       saveAs(result, "Quotation.pdf");
-  //       return result;
-  //     }));
+  obtenerTotal(){
+    return this.httpclient.get(`${environment.API_URL}/api/Visits/total`);
+  }
 }

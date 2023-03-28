@@ -12,6 +12,7 @@ using System.IO;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.InkML;
 
 namespace API_SERVER_CEA.Controllers
 {
@@ -270,7 +271,16 @@ namespace API_SERVER_CEA.Controllers
 
             return UTF8Encoding.UTF8.GetString(result);
         }
+        [HttpGet("total")]
+        public async Task<ActionResult<List<User>>> totalUsuarios()
+        {
+            var n = await contexto.Usuario.CountAsync();
+            return Ok(n);
+
+
+        }
 
     }
+
 }
 

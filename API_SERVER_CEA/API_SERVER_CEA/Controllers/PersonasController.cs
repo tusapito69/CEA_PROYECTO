@@ -1,5 +1,6 @@
 ﻿using API_SERVER_CEA.Context;
 using API_SERVER_CEA.Modelo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ namespace API_SERVER_CEA.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PersonasController : ControllerBase
     {
         private readonly ApplicationContext contexto;

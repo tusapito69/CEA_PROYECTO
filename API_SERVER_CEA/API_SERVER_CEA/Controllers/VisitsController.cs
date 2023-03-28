@@ -18,7 +18,7 @@ namespace API_SERVER_CEA.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class VisitsController : ControllerBase
     {
         private readonly ApplicationContext _context;
@@ -167,7 +167,7 @@ namespace API_SERVER_CEA.Controllers
                             nombreInstitucion=i.Nombre
 
                         };
-            //Crea un tabla a partir del modelo intitucion
+            //Crea un tabla a partir del modelo visita
             DataTable? tabla = new DataTable(typeof(DataVisit).Name);
 
             //Toma las propiedades de Institucion y las asigna a la variable props
@@ -196,6 +196,7 @@ namespace API_SERVER_CEA.Controllers
                 tabla.TableName = "VISITA";
                 var hoja = inst.Worksheets.Add(tabla);
                 hoja.ColumnsUsed().AdjustToContents();
+
                 using (var memoria = new MemoryStream())
                 {
                     inst.SaveAs(memoria);
@@ -203,6 +204,14 @@ namespace API_SERVER_CEA.Controllers
                     return File(memoria.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", nombreExcel);
                 }
             }
+        }
+        [HttpGet("total")]
+        public async Task<ActionResult<List<Visita>>> totalVisitas()
+        {
+            var n=await _context.Visita.CountAsync();
+            return Ok(n);
+
+        
         }
 
     }

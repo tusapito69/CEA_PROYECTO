@@ -31,4 +31,7 @@ export class InstitucionService {
   obtenerActivos():Observable<any>{
     return this.httpclient.get<any>(`${environment.API_URL}/api/Institucion/obtenerActivos`);
   }
+  obtenerTotal(){
+    return this.httpclient.get(`${environment.API_URL}/api/Institucion/total`);
+  }
 }

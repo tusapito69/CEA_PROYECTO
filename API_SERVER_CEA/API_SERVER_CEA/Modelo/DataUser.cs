@@ -5,6 +5,7 @@
 
         public int idUsuario { get; set; }
         public string nombreUsuario { get; set; }
+        public string rolUsuario { get; set; }
         public string contraseniaUsuario { get; set; }
         public string nombreRol { get; set; }
         public string nombrePersona { get; set; }

@@ -16,8 +16,8 @@ namespace API_SERVER_CEA.Modelo
         [Required(ErrorMessage = "Este campo no debe estar vacio")]
         public int estadoUsuario { get; set; }
 
-        public int RolId { get; set; }
-        public Role? Rol { get; set; }
+        [Required(ErrorMessage = "Este campo no debe estar vacio")]
+        public string rolUsuario { get; set; }
 
         public int PersonaId { get; set; }
         public Persona? Persona { get; set; }

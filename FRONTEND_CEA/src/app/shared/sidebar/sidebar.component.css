@@ -1,0 +1,17 @@
+.logo
+{
+    margin-top: 30px;
+    background: white;
+    width: 80%;
+    border-radius: 100%;
+    transition: 0.5s;
+    margin-bottom: 40px;
+}
+.cea{
+    margin-top: 15px;
+    text-align: center;
+    color: white;
+    text-decoration:none;
+    font-size: 25px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

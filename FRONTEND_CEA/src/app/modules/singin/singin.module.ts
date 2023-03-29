@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RolComponent } from './rol/rol.component';
+//import { RolComponent } from './rol/rol.component';
 import { SingInRoutingModule } from './singin-routing.module';
 import { AgregarEditarUsuarioComponent } from './agregar-editar-usuario/agregar-editar-usuario.component';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -21,7 +21,7 @@ import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
-    RolComponent,
+   //RolComponent,
     UsuarioComponent,
     AgregarEditarUsuarioComponent
   ],
@@ -43,7 +43,7 @@ import {MatButtonModule} from '@angular/material/button';
 
   ],
   exports: [
-    RolComponent,
+   //RolComponent,
     UsuarioComponent
   ]
 })

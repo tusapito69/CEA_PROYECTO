@@ -11,16 +11,9 @@ import { Login } from '../interfaces/login';
 export class LoginService {
   private http:HttpClient;
   constructor(private handler: HttpBackend
-    
-    //private _cookieService: CookieService
     ){
       this.http=new HttpClient(handler)
     }
-  // private httpHeaders: HttpHeaders = new HttpHeaders({
-  //   'content-type': 'application/json',
-  //   // Authorization: `Bearer ${this._cookieService.get('access')}`,
-  // });
-
   enviarUsuario(usuario:Login): Observable<Login>{
     return this.http.post<Login>(`${environment.API_URL}/api/Login`,usuario);
   }
@@ -35,6 +28,9 @@ export class LoginService {
   }
   destruirSesion(){
     localStorage.removeItem("usuario");
+  }
+  getUsuario(){
+    return this.http.get(`${environment.API_URL}/api/Login`);
   }
 
 }

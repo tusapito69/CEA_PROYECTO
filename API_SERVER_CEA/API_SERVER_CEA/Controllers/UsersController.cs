@@ -35,15 +35,14 @@ namespace API_SERVER_CEA.Controllers
         public async Task<ActionResult<List<User>>> ObtenerUsuarios()
         {
             var datos = from us in this.contexto.Usuario
-                        join r in this.contexto.Rol on us.RolId equals r.Id
                         join p in this.contexto.Persona on us.PersonaId equals p.Id
                         select new User
                         {
                             idUsuario = us.idUsuario,
                             nombreUsuario = us.nombreUsuario,
+                            rolUsuario = us.rolUsuario,
                             contraseniaUsuario = us.contraseniaUsuario,
                             estadoUsuario = us.estadoUsuario,
-                            Rol = us.Rol,
                             Persona = us.Persona
                         };
 
@@ -70,16 +69,15 @@ namespace API_SERVER_CEA.Controllers
         {
             
             var datos = from us in this.contexto.Usuario
-                        join r in this.contexto.Rol on us.RolId equals r.Id
                         join p in this.contexto.Persona on us.PersonaId equals p.Id
                         where us.idUsuario == id
                         select new User
                         {
                             idUsuario = us.idUsuario,
                             nombreUsuario = us.nombreUsuario,
+                            rolUsuario=us.rolUsuario,
                             contraseniaUsuario= UsersController.Descrypt(us.contraseniaUsuario),
                             estadoUsuario = us.estadoUsuario,
-                            Rol=us.Rol,
                             Persona = us.Persona
                         };
             
@@ -104,7 +102,7 @@ namespace API_SERVER_CEA.Controllers
                 user.estadoUsuario = usuario.estadoUsuario;
                 var i = Encrypt(usuario.contraseniaUsuario);
                 user.contraseniaUsuario = i;
-                user.RolId = usuario.RolId;
+                user.rolUsuario = usuario.rolUsuario;
                 //user.PersonaId = existen.Id;
                 existen.Id = usuario.Persona.Id;
                 existen.nombrePersona = usuario.Persona.nombrePersona;

@@ -71,24 +71,6 @@ namespace API_SERVER_CEA.Migrations
                     b.ToTable("Persona");
                 });
 
-            modelBuilder.Entity("API_SERVER_CEA.Modelo.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<byte>("estadoRol")
-                        .HasColumnType("tinyint unsigned");
-
-                    b.Property<string>("nombreRol")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rol");
-                });
-
             modelBuilder.Entity("API_SERVER_CEA.Modelo.User", b =>
                 {
                     b.Property<int>("idUsuario")
@@ -96,9 +78,6 @@ namespace API_SERVER_CEA.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("PersonaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RolId")
                         .HasColumnType("int");
 
                     b.Property<string>("contraseniaUsuario")
@@ -112,11 +91,13 @@ namespace API_SERVER_CEA.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("rolUsuario")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("idUsuario");
 
                     b.HasIndex("PersonaId");
-
-                    b.HasIndex("RolId");
 
                     b.ToTable("Usuario");
                 });
@@ -176,15 +157,7 @@ namespace API_SERVER_CEA.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API_SERVER_CEA.Modelo.Role", "Rol")
-                        .WithMany()
-                        .HasForeignKey("RolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Persona");
-
-                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("API_SERVER_CEA.Modelo.Visita", b =>

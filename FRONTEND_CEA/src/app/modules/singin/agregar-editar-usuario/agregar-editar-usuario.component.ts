@@ -4,8 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSelect } from '@angular/material/select';
 import { Dialog } from '@angular/cdk/dialog';
-import { IRol } from 'src/app/core/interfaces/rol';
-import { RolService } from 'src/app/core/services/rol.service';
 import { IUsuario } from 'src/app/core/interfaces/usuario';
 import { PersonaService } from 'src/app/core/services/persona.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
@@ -26,7 +24,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
   operacion: string ='Agregar '
   id: number | undefined;
   sel:any;
-  constructor(public dialogRef: MatDialogRef<AgregarEditarUsuarioComponent>,private rol:RolService,
+  constructor(public dialogRef: MatDialogRef<AgregarEditarUsuarioComponent>,
     private fb: FormBuilder, 
     private UsuarioService: UsuarioService,
     private PersonaService:PersonaService,
@@ -36,7 +34,6 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
       this.id = data.id;
     }
   ngOnInit(): void {
-    this.listarRoles();
     this.esEditar(this.id)
   }
 
@@ -58,20 +55,14 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
           celular:data[0].persona["celularPersona"],
           nombreUsuario:data[0].nombreUsuario,
           contrasenia:data[0].contraseniaUsuario,
-          rolid:data[0].rol["id"]
+          rolUsuario:data[0].rolUsuario
       })
       })
     }
-  listaRoles!: IRol[];
+  listaRoles: string [] = ['Administrador','Usuario'];
   cancelar(){
     this.dialogRef.close();
   };
-
-  listarRoles(){
-    this.rol.obtenerRoles().subscribe((resp)=>{
-      this.listaRoles=resp;
-    })
-  }
   
   agregarUsuario(){
     if (this.form.invalid) {
@@ -79,9 +70,9 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
     }
     const usuario:IUsuario = {
       nombreUsuario: this.form.value.nombreUsuario,
+      rolUsuario: this.form.value.rolUsuario,
       contraseniaUsuario: this.form.value.contrasenia,
       estadoUsuario: 1,
-      rolId: this.form.value.rolid,
       persona: {
         nombrePersona:this.form.value.nombrePersona,
         apellidoPersona: this.form.value.apellidoPersona,
@@ -122,7 +113,7 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
       celular:['',[Validators.required, Validators.pattern("^[0-9]*$")]],
       nombreUsuario:['', Validators.required],
       contrasenia:['', Validators.required],
-      rolid:['', Validators.required],
+      rolUsuario:['', Validators.required],
     });
   }
   

@@ -55,6 +55,7 @@ namespace API_SERVER_CEA.Controllers
           
             if (user != null)
             {
+                //var t = Seleccionar(user);
                 var token = Generar(user);
                 return Ok(token);
             }
@@ -91,18 +92,17 @@ namespace API_SERVER_CEA.Controllers
         {
             var security = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credencial = new SigningCredentials(security, SecurityAlgorithms.HmacSha256);
-    
+         
             //Crear los claims
 
             //https://www.youtube.com/watch?v=tm8_merp_v0&t=10s
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier,user.nombreUsuario),
-                //new Claim(ClaimTypes.Role, user.Rol.nombreRol),
+                new Claim(ClaimTypes.Role,user.rolUsuario),
+                //new Claim("rol", user.RolId==1?"Admin": "Usuario"),
                 //new Claim(ClaimTypes.GivenName, user.Persona.nombrePersona),     
                 //new Claim(ClaimTypes.Surname,user.Persona.apellidoPersona)           
-
-
             };
             //Crear el token
             var token = new JwtSecurityToken(
@@ -125,10 +125,28 @@ namespace API_SERVER_CEA.Controllers
                 var userClaims = identity.Claims;
                 return new User
                 {
-                    nombreUsuario = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value
+                    nombreUsuario = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value,
+                    rolUsuario = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Role)?.Value
+           
                 };
             }
             return null;
+        }
+        private dynamic Seleccionar(User user)
+        {
+            var u = from us in this.contexto.Usuario
+                    join p in this.contexto.Persona on us.PersonaId equals p.Id
+                    where us.idUsuario == user.idUsuario
+                    select new User
+                    {
+                        idUsuario = us.idUsuario,
+                        nombreUsuario = us.nombreUsuario,
+                        contraseniaUsuario = UsersController.Descrypt(us.contraseniaUsuario),
+                        estadoUsuario = us.estadoUsuario,
+                        rolUsuario = us.rolUsuario,
+                        Persona = us.Persona
+                    };
+            return u.ToList();
         }
     
     }

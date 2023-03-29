@@ -49,8 +49,6 @@ export class AgregarEditarInstitucionComponent implements OnInit {
         })
     })
   }
-
-
   addEditarInstitucion() {
     if (this.form.invalid) {
       return;

@@ -55,18 +55,29 @@ namespace API_SERVER_CEA.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Rol",
+                name: "Usuario",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    idUsuario = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    nombreRol = table.Column<string>(type: "longtext", nullable: false)
+                    nombreUsuario = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    estadoRol = table.Column<byte>(type: "tinyint unsigned", nullable: false)
+                    contraseniaUsuario = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    estadoUsuario = table.Column<int>(type: "int", nullable: false),
+                    rolUsuario = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PersonaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rol", x => x.Id);
+                    table.PrimaryKey("PK_Usuario", x => x.idUsuario);
+                    table.ForeignKey(
+                        name: "FK_Usuario_Persona_PersonaId",
+                        column: x => x.PersonaId,
+                        principalTable: "Persona",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -109,47 +120,10 @@ namespace API_SERVER_CEA.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "Usuario",
-                columns: table => new
-                {
-                    idUsuario = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    nombreUsuario = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    contraseniaUsuario = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    estadoUsuario = table.Column<int>(type: "int", nullable: false),
-                    RolId = table.Column<int>(type: "int", nullable: false),
-                    PersonaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Usuario", x => x.idUsuario);
-                    table.ForeignKey(
-                        name: "FK_Usuario_Persona_PersonaId",
-                        column: x => x.PersonaId,
-                        principalTable: "Persona",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Usuario_Rol_RolId",
-                        column: x => x.RolId,
-                        principalTable: "Rol",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
             migrationBuilder.CreateIndex(
                 name: "IX_Usuario_PersonaId",
                 table: "Usuario",
                 column: "PersonaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuario_RolId",
-                table: "Usuario",
-                column: "RolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Visita_InstitucionId",
@@ -170,9 +144,6 @@ namespace API_SERVER_CEA.Migrations
 
             migrationBuilder.DropTable(
                 name: "Visita");
-
-            migrationBuilder.DropTable(
-                name: "Rol");
 
             migrationBuilder.DropTable(
                 name: "Institucion");

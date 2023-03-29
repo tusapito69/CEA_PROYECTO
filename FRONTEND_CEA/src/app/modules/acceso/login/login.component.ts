@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       (resp) => {
         this.datos = resp;
         this.loginService.almacenarUsuario(this.datos['tok'])
-        this.route.navigate(['/cea/institucion']);
+        this.route.navigate(['/home/dashboard']);
       },
       (event:HttpErrorResponse) => {
         console.log(event.error.msg)

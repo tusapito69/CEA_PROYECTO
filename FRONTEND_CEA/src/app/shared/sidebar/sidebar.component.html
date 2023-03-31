@@ -49,10 +49,10 @@
             <p>Visita</p>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="user.rol=='Administrador'">
           <a class="nav-link" [routerLink]="['/singin/usuario']">
             <i class="fa fa-users nav-icon" aria-hidden="true"></i>
-            <p> Usuario</p>
+            <p> Usuario  </p>
           </a>
         </li>
         </ul>

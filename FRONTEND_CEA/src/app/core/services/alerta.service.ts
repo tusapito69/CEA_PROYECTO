@@ -24,4 +24,5 @@ export class AlertaService {
       title: `${texto} con exito`
     })
   }
+
 }

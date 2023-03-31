@@ -18,7 +18,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./agregar-editar-usuario.component.css']
 })
 export class AgregarEditarUsuarioComponent implements OnInit  {
-  // hide = true;
+  hide = true;
   datosUsuarios:any={};
   form: FormGroup;
   operacion: string ='Agregar '

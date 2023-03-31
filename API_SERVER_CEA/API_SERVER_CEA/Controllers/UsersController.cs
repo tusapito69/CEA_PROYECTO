@@ -18,7 +18,7 @@ namespace API_SERVER_CEA.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize(Roles ="Administrador")]
     public class UsersController : ControllerBase
     {
         private readonly ApplicationContext contexto;
@@ -47,20 +47,6 @@ namespace API_SERVER_CEA.Controllers
                         };
 
             return await datos.ToListAsync();
-            //    var datos = from us in this.contexto.Usuario
-            //                join r in this.contexto.Rol on us.RolId equals r.Id
-            //                join p in this.contexto.Persona on us.PersonaId equals p.Id
-            //                select new DataUser{ 
-            //                    idUsuario= us.idUsuario, 
-            //                    nombreUsuario=us.nombreUsuario,   
-            //                    nombreRol =r.nombreRol,
-            //                    contraseniaUsuario=us.contraseniaUsuario,
-            //                    nombrePersona = p.nombrePersona, 
-            //                    apellidoPersona= p.apellidoPersona, 
-            //                    estadoUsuario=us.estadoUsuario
-            //                };
-
-            //    return await datos.ToListAsync();
         }
 
 
@@ -116,59 +102,6 @@ namespace API_SERVER_CEA.Controllers
             }
         }
 
-
-
-
-        ////Editar
-        //[HttpPut("{id:int}")]
-        //public async Task<ActionResult> Editar(Usuario usuario, int id)
-        //{
-        //    Persona existen = await contexto.Persona.FirstOrDefaultAsync(x => x.Id == id);
-        //    Usuario existe = await contexto.Usuario.FirstOrDefaultAsync(x => x.Id == id);
-        //    if (existe != null)
-        //    {
-
-        //        existe.nombreUsuario = usuario.nombreUsuario;
-        //        existe.Contrasenia = usuario.Contrasenia;
-        //        existe.Imagen = usuario.Imagen;
-
-        //        existen.Nombre = usuario.Persona.Nombre;
-        //        existen.Apellido = usuario.Persona.Apellido;
-        //        existen.Edad = usuario.Persona.Edad;
-        //        existen.FechaNacimiento = usuario.Persona.FechaNacimiento;
-        //        existe.RolId = usuario.RolId;
-
-
-        //        await contexto.SaveChangesAsync();
-        //        return Ok();
-        //    }
-        //    else
-        //    {
-        //        return BadRequest("No existe el usuario a editar");
-        //    }
-        //}
-
-
-        //[HttpPut("{id:int}")]
-        //public async Task<ActionResult<List<Institucion>>> EditarInstituciones(int id, Institucion institution)
-        //{
-        //    Institucion ins = await contexto.Institucion.FirstOrDefaultAsync(x => x.Id == id);
-        //    if (ins == null)
-        //    {
-        //        return BadRequest("No se encontro la Institucion");
-        //    }
-        //    else
-        //    {
-        //        ins.Nombre = institution.Nombre;
-        //        ins.Tipo = institution.Tipo;
-        //        ins.Estado = institution.Estado;
-        //        await contexto.SaveChangesAsync();
-        //        return Ok();
-        //    }
-        //}
-
-
-
         [HttpPost]
         public async Task<ActionResult<List<User>>> AgregarUsuario(User user)
         {
@@ -188,19 +121,6 @@ namespace API_SERVER_CEA.Controllers
 
             }
         }
-
-
-
-        //public static string Encriptar(string cadena)
-        //{
-        //    SHA256 llave = SHA256.Create();
-        //    ASCIIEncoding e = new ASCIIEncoding();
-        //    byte[] s = null;
-        //    StringBuilder stringBuilder = new StringBuilder();
-        //    s = llave.ComputeHash(e.GetBytes(cadena));
-        //    for (int i = 0; i < s.Length; i++) stringBuilder.AppendFormat("{0:x2}", s[i]);
-        //    return stringBuilder.ToString();
-        //}
 
 
 

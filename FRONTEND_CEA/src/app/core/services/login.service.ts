@@ -30,7 +30,13 @@ export class LoginService {
     localStorage.removeItem("usuario");
   }
   getUsuario(){
-    return this.http.get(`${environment.API_URL}/api/Login`);
+    return this.http.get(`${environment.API_URL}/api/Login`,
+    {headers:this.getHeaders()});
   }
-
+  getHeaders():HttpHeaders{
+    return new HttpHeaders({
+      'content-type': 'application/json',
+      Authorization: `Bearer ${this.leerUsuario()}`,
+    });
+  }
 }

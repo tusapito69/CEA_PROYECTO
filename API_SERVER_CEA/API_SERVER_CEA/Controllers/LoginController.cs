@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Security.Cryptography;
+using Irony.Parsing;
 
 namespace API_SERVER_CEA.Controllers
 {
@@ -71,7 +72,10 @@ namespace API_SERVER_CEA.Controllers
         public IActionResult Get()
         {
             var currentUser = GetCurrentUser();
-            return Ok($"{currentUser.nombreUsuario}");
+            return Ok( new 
+            { usuario=currentUser.nombreUsuario,
+              rol=currentUser.rolUsuario,
+            });
         }
 
         private User Authenticate(LoginUser userlogin)
@@ -132,22 +136,7 @@ namespace API_SERVER_CEA.Controllers
             }
             return null;
         }
-        private dynamic Seleccionar(User user)
-        {
-            var u = from us in this.contexto.Usuario
-                    join p in this.contexto.Persona on us.PersonaId equals p.Id
-                    where us.idUsuario == user.idUsuario
-                    select new User
-                    {
-                        idUsuario = us.idUsuario,
-                        nombreUsuario = us.nombreUsuario,
-                        contraseniaUsuario = UsersController.Descrypt(us.contraseniaUsuario),
-                        estadoUsuario = us.estadoUsuario,
-                        rolUsuario = us.rolUsuario,
-                        Persona = us.Persona
-                    };
-            return u.ToList();
-        }
+
     
     }
 }

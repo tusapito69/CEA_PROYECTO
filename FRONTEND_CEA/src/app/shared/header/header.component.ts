@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 
 export class HeaderComponent implements OnInit {
 
-  user!:string;
+  user:any={};
   constructor(private usuario:LoginService,private router:Router){}
   ngOnInit(): void {
   this.GetUsuario();  
@@ -28,12 +28,10 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['login']);
       }
     })
-   
   }
   GetUsuario(){
     this.usuario.getUsuario().subscribe(a => {
-      console.log(a);
+     this.user=a;
     });
-    
   }
 }

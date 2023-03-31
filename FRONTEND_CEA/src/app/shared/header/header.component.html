@@ -11,19 +11,26 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
+      <li class="nav-item">
+        
+        <a class="nav-link">
+          <i class="fa fa-circle text-success">{{user["usuario"]}}</i>
+        </a>
+      </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a [routerLink]="['/home/dashboard/']" class="nav-link"><i class="fa fa-home nav-icon"></i></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">
-          <i class="fa fa-power-off nav-icon" (click)="CerrarSesion()"></i>
-        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link">
+          <i class="fa fa-power-off nav-icon" (click)="CerrarSesion()"></i>
+        </a>
+      </li>
+    
     </ul>
   </nav>
   <!-- /.navbar -->

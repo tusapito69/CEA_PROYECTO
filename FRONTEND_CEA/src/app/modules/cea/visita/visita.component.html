@@ -11,11 +11,17 @@
                         <br>
                         <div class="card-body">
                           <div class="row">
-                            <mat-form-field class="col-5">
+                            <mat-form-field class="col-3">
                                 <mat-label>Buscar</mat-label>
                                 <input matInput (keyup)="applyFilter($event)"  #input>
                               </mat-form-field>
-                              <div class="buttons col-7">
+                           
+                              <div class="buttons col-9">
+                                <select class="btn btn-danger a" (change)="dataVisita($event)">
+                                  <option value="Reunion">Reunion</option>
+                                  <option value="Taller">Taller</option>
+                                  <option value="Recorrido">Recorrido</option>
+                              </select>
                                 <input type="button" class="btn btn-success b" value="Crear" mat-raised-button (click)="AgregarEditarVisita()"/>
                                 <input type="button" class="btn btn-info c"value="Reporte" mat-raised-button (click)="GenerarReportes()"/>
                               </div>

@@ -22,7 +22,7 @@ export class VisitaComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
-    private _visitaservice:VisitaService,public dialog: MatDialog, public dialogReporte:MatDialog) { 
+    private _visitaservice:VisitaService,public dialog: MatDialog, public dialogReporte:MatDialog) {
     }
 
   ngOnInit(): void {
@@ -69,10 +69,8 @@ export class VisitaComponent implements OnInit {
         this.obtenerVisitas();
       }
     });
-
-   
   }
-  
+
   darBajaVisita(visita:IVisita, accion: number){
     console.log(visita);
     this.id=visita.id;

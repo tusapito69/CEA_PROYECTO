@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_SERVER_CEA.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230329183925_Primera")]
+    [Migration("20230403135753_Primera")]
     partial class Primera
     {
         /// <inheritdoc />

@@ -22,11 +22,12 @@ export class AgregarEditarVisitaComponent implements OnInit {
   operacion: string = 'Agregar ';
   id: number | undefined;
   form: FormGroup;
+  opcionSeleccionada = "";
   constructor(public dialogRef: MatDialogRef<AgregarEditarVisitaComponent>, private fb: FormBuilder,
     private _visitaService: VisitaService, private institucion: InstitucionService, private _personaService: PersonaService,
     private dateAdapter: DateAdapter<any>, @Inject(MAT_DIALOG_DATA) public data:any,
     public dialog: MatDialog,
-    private _alertaService:AlertaService) { 
+    private _alertaService:AlertaService) {
     this.form = this.fb.group({
       actividad: ['', [Validators.required, Validators.maxLength(100)]],
       lugar: ['', Validators.required],
@@ -37,7 +38,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       InstitucionId: ['',Validators.required],
       nombrePersona: ['', Validators.required],
       apellidoPersona: ['', Validators.required],
-      edadPersona: ['',[Validators.required, Validators.pattern("^[0-9]*$"), Validators.max(110)]],
+      edadPersona: [null],
       ciPersona: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11)]],
       celularPersona: ['',[Validators.required, Validators.pattern("^[0-9]*$"),Validators.maxLength(11)]],
     })
@@ -50,7 +51,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
 
     this.esEditar(this.id);
   }
-  
+
   esEditar(id: number | undefined) {
     if (id !== undefined) {
       this.operacion = "Editar";
@@ -86,7 +87,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       this.ListaInstitucion = data;
     })
   };
-  
+
 
   ListaInstitucion!: Institucion[];
   cancelar() {
@@ -114,7 +115,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
         celularPersona: this.form.value.celularPersona,
         estadoPersona: 1
       }
-      
+
     }
     console.log(visita);
 
@@ -122,7 +123,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       //AGREGAR
       this._visitaService.enviarVisitas(visita).subscribe((resp) => {
         this._alertaService.mensajeAgregar("Visita Agregada");
-        
+
         this.dialogRef.close(true);
       })
     } else {
@@ -132,7 +133,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
         this.dialogRef.close(true);
       })
     }
-    
+
   }
 
   AgregarInstitucion(){

@@ -18,10 +18,10 @@ export class LoginService {
     return this.http.post<Login>(`${environment.API_URL}/api/Login`,usuario);
   }
   leerUsuario(){
-  
+
     let usuario=JSON.parse(localStorage.getItem("usuario")||"")
     return usuario;
-   
+
   }
   almacenarUsuario(usuario:any){
     localStorage.setItem("usuario",JSON.stringify(usuario))
@@ -38,5 +38,9 @@ export class LoginService {
       'content-type': 'application/json',
       Authorization: `Bearer ${this.leerUsuario()}`,
     });
+  }
+  existUser(){
+    var write = window.localStorage.getItem('usuario');
+    return write;
   }
 }

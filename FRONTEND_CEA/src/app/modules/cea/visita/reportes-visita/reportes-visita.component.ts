@@ -38,15 +38,11 @@ export class ReportesVisitaComponent implements OnInit {
       fechaInicio:this.form.value.fechaInicio.toISOString().slice(0,10),
       fechaFinal:this.form.value.fechaFinal.toISOString().slice(0,10)
     }
-    console.log(r);
     this._visitaservice.generarReporte(r).subscribe((data)=>{
-      console.log(data);
-      // saveAs(data,"dasda.xlsx")
-      //  file=data.headers.get('content-disposition')
-      // ?.split(';')[1].split('=')[1];
+      let fecha=new Date();
       let blob:Blob=data.body as Blob;
       let a=document.createElement('a');
-      a.download="Reporte Institucion";
+      a.download="Reporte Visita "+fecha;
       a.href=window.URL.createObjectURL(blob);
       a.click();
 

@@ -151,7 +151,7 @@ namespace API_SERVER_CEA.Controllers
                         join p in this._context.Persona on v.PersonaId equals p.Id
                         join i in this._context.Institucion on v.InstitucionId equals i.Id
                         where v.fecha >= reporte.FechaInicio &&
-                            v.fecha <= reporte.FechaFinal && v.estado == 1
+                            v.fecha == reporte.FechaFinal && v.estado == 1
                         select new DataVisit
                         {
                             actividad=v.actividad, 

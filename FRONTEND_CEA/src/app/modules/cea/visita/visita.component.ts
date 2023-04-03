@@ -18,6 +18,7 @@ export class VisitaComponent implements OnInit {
   id:number| undefined;
   displayedColumns:string[]=['Id','Actividad','Fecha','Lugar','Observaciones', 'Tipo', 'Estado', 'Opciones'];
   private visitas!:IVisita[];
+  private datos!:IVisita[];
   dataSource =new MatTableDataSource<IVisita>(this.visitas);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -36,6 +37,7 @@ export class VisitaComponent implements OnInit {
   //LISTAR VISITAS
     obtenerVisitas(){
       this._visitaservice.obtenerVisitas().subscribe((resp:IVisita[])=>{
+        this.datos=resp;
         this.dataSource.data=resp;
         console.log(resp);
       })
@@ -82,5 +84,19 @@ export class VisitaComponent implements OnInit {
       this.obtenerVisitas();
     });
     }
+  }
+  selectReunion(){
+    this.dataSource.data=this.datos.filter(x=>x.tipo=="Reunion")
+    console.log(this.dataSource.data)
+  }
+  selectRecorrido(){
+    this.dataSource.data=this.datos.filter(x=>x.tipo=="Recorrido")
+  }
+  selectTaller(){
+    this.dataSource.data=this.datos.filter(x=>x.tipo=="Taller")
+  }
+  dataVisita(e:any){
+    this.dataSource.data=this.datos.filter(x=>x.tipo==e.target.value)
+    console.log(e.target.value)
   }
 }

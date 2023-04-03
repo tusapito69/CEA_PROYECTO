@@ -21,7 +21,6 @@ export class LoginService {
   
     let usuario=JSON.parse(localStorage.getItem("usuario")||"")
     return usuario;
-   
   }
   almacenarUsuario(usuario:any){
     localStorage.setItem("usuario",JSON.stringify(usuario))

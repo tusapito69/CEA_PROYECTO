@@ -25,7 +25,7 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
   dataSource =new MatTableDataSource<any>(this.usuarios);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
- 
+
   ngAfterViewInit():void{
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -61,7 +61,7 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
       this.obtenerUsuarios();
     })
   }
-  
+
   darBajaUsuario(us:IUsuario, accion: number){
     this.id=us.idUsuario;
     if (this.id!=undefined) {
@@ -87,5 +87,5 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
     });
     }
   }
-  
+
 }

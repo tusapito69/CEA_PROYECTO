@@ -13,7 +13,7 @@ export class UsuarioService {
   obtenerUsuarios():Observable<any>{
     return this.httpclient.get<any>(`${environment.API_URL}/api/Users`);
   }
-  
+
   enviarUsuario(usuario:IUsuario):Observable<any>{
     return this.httpclient.post(`${environment.API_URL}/api/Users`,usuario);
   }
@@ -26,11 +26,10 @@ export class UsuarioService {
     return this.httpclient.put(`${environment.API_URL}/api/Users/baja/${id}`,usuario)
   }
 
-
-
   obtenerUsuario(id:number):Observable<any>{
     return this.httpclient.get<any>(`${environment.API_URL}/api/Users/${id}`);
   }
+  
   obtenerTotal(){
     return this.httpclient.get(`${environment.API_URL}/api/Users/total`);
   }

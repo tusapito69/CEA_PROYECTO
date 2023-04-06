@@ -8,11 +8,12 @@ import { LoginusuarioGuard } from 'src/app/guards/loginusuario.guard';
 
 const routes: Routes = [
   {
-    path: '',  canActivate:[LoginusuarioGuard],
+    path: '',
     children: [
       { path: 'dashboard', component: DashboardComponent} ,
-      { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '**', redirectTo: 'dashboard', pathMatch: 'full'},
     ],
+    canActivate:[LoginusuarioGuard]
   },
 ];
 

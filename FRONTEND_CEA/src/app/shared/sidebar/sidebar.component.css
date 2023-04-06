@@ -1,10 +1,14 @@
+
+aside{
+  background-image: linear-gradient(to right, #00b4db, #0083b0);
+}
+
 .logo
 {
     margin-top: 30px;
-    background: white;
+    background-color: #ffff;
     width: 80%;
     border-radius: 100%;
-    transition: 0.5s;
     margin-bottom: 40px;
 }
 .cea{

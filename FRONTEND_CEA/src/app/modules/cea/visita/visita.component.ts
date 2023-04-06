@@ -51,6 +51,7 @@ export class VisitaComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  
   //MODAL REPORTES
   GenerarReportes(){
     const dialogRefReporte = this.dialogReporte.open(ReportesVisitaComponent, {

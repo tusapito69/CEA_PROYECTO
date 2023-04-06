@@ -7,7 +7,7 @@
           <mat-label>Nombres</mat-label>
           <input formControlName="nombrePersona" matInput>
         </mat-form-field>
-        
+
         <div class="error">
           <span *ngIf="form.get('nombrePersona')?.hasError('required') && form.get('nombrePersona')?.touched">
             El nombre es un campo <strong>requerido</strong>
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="row">
-      
+
     </div>
     <div class="row">
       <div class="column">
@@ -56,7 +56,7 @@
           <span *ngIf="form.get('celular')?.hasError('pattern')">
             El celular sólo debe tener <strong>números</strong>
           </span>
-    
+
         </div>
       </div>
     </div>
@@ -96,11 +96,19 @@
       <div class="column">
         <mat-form-field appearance="fill">
           <mat-label>Contraseña</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="contrasenia" matInput>
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <!-- <mat-form-field appearance="fill">
+          <mat-label>Contraseña</mat-label>
           <input formControlName="contrasenia" matInput>
           <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
-        </mat-form-field>
+        </mat-form-field> -->
         <div class="error">
           <span *ngIf="form.get('contrasenia')?.hasError('required')&& form.get('contrasenia')?.touched">
             La contraseña es un campo <strong>requerido</strong>

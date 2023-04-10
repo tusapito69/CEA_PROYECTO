@@ -38,7 +38,7 @@ namespace API_SERVER_CEA.Controllers
                         select new Visita
                         {
                             id = v.id,
-                            actividad = v.lugar,
+                            actividad = v.actividad,
                             observaciones = v.observaciones,
                             lugar = v.lugar,
                             tipo = v.tipo,
@@ -61,7 +61,7 @@ namespace API_SERVER_CEA.Controllers
                         select new Visita
                         {
                             id = v.id,
-                            actividad = v.lugar,
+                            actividad = v.actividad,
                             observaciones = v.observaciones,
                             lugar = v.lugar,
                             tipo = v.tipo,

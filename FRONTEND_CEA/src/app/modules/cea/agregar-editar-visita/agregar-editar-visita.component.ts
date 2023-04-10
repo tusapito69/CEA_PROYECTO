@@ -17,7 +17,7 @@ import { AlertaService } from 'src/app/core/services/alerta.service';
   styleUrls: ['./agregar-editar-visita.component.css']
 })
 export class AgregarEditarVisitaComponent implements OnInit {
-  ListaTipo: string[] = ['Reunion', 'Taller', 'Recorrido']
+  ListaTipo: string[] = ['Reunion', 'Taller', 'Recorrido','Exterior']
   seleccionada!: string;
   operacion: string = 'Agregar ';
   id: number | undefined;
@@ -29,9 +29,9 @@ export class AgregarEditarVisitaComponent implements OnInit {
     public dialog: MatDialog,
     private _alertaService:AlertaService) {
     this.form = this.fb.group({
-      actividad: ['', [Validators.required, Validators.maxLength(100)]],
+      actividad: ['', [Validators.required, Validators.maxLength(1000)]],
       lugar: ['', Validators.required],
-      observaciones: ['', [Validators.required, Validators.maxLength(250)] ],
+      observaciones: ['', [Validators.required, Validators.maxLength(1000)] ],
       tipo: ['', Validators.required],
       email: ['',[Validators.required, Validators.email]],
       fecha: ['', [Validators.required]],
@@ -88,7 +88,6 @@ export class AgregarEditarVisitaComponent implements OnInit {
     })
   };
 
-
   ListaInstitucion!: Institucion[];
   cancelar() {
     this.dialogRef.close(false);
@@ -98,9 +97,10 @@ export class AgregarEditarVisitaComponent implements OnInit {
     if(this.form.invalid) {
       return;
     }
+
     const visita: IVisita = {
       actividad: this.form.value.actividad,
-      fecha: this.form.value.fecha,
+      fecha: this.form.value.fecha.toISOString().slice(0,10),
       lugar: this.form.value.lugar,
       observaciones: this.form.value.observaciones,
       tipo: this.form.value.tipo,

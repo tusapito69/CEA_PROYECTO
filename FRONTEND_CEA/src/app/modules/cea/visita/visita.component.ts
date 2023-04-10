@@ -8,6 +8,7 @@ import { IVisita } from '../../../core/interfaces/visita';
 import { AgregarEditarVisitaComponent } from '../agregar-editar-visita/agregar-editar-visita.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReportesVisitaComponent } from './reportes-visita/reportes-visita.component';
+import { DialogDetailVisitComponent } from './dialog-detail-visit/dialog-detail-visit.component';
 
 @Component({
   selector: 'app-visita',
@@ -16,15 +17,17 @@ import { ReportesVisitaComponent } from './reportes-visita/reportes-visita.compo
 })
 export class VisitaComponent implements OnInit {
   id:number| undefined;
-  displayedColumns:string[]=['Id','Actividad','Fecha','Lugar','Observaciones', 'Tipo', 'Estado', 'Opciones'];
+  displayedColumns:string[]=['Id','Nombre','Apellido','Edad','CI','Celular','Institucion','Tipo', 'Estado', 'Opciones'];
   private visitas!:IVisita[];
   private datos!:IVisita[];
+  private visi!:IVisita[];
   dataSource =new MatTableDataSource<IVisita>(this.visitas);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
-    private _visitaservice:VisitaService,public dialog: MatDialog, public dialogReporte:MatDialog) {
+    private _visitaservice:VisitaService,public dialog: MatDialog, public dialogReporte:MatDialog,public dialog1: MatDialog) {
     }
+
 
   ngOnInit(): void {
     this.obtenerVisitas();
@@ -42,6 +45,7 @@ export class VisitaComponent implements OnInit {
         console.log(resp);
       })
     };
+
   //BUSCADOR
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -51,7 +55,7 @@ export class VisitaComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  
+
   //MODAL REPORTES
   GenerarReportes(){
     const dialogRefReporte = this.dialogReporte.open(ReportesVisitaComponent, {
@@ -60,9 +64,21 @@ export class VisitaComponent implements OnInit {
     });
   }
 
+  openDialogDetail(visita?:IVisita) {
+    const dialogRef = this.dialog1.open(DialogDetailVisitComponent,{
+
+      width: '60%',
+      disableClose: false,
+      data:{visita:visita},
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
   AgregarEditarVisita(id?:number){
     const dialogRef = this.dialog.open(AgregarEditarVisitaComponent, {
-      width: '700px',
+      width: '60%',
       disableClose: true,
       data:{id:id}
     });
@@ -84,18 +100,16 @@ export class VisitaComponent implements OnInit {
     });
     }
   }
-  selectReunion(){
-    this.dataSource.data=this.datos.filter(x=>x.tipo=="Reunion")
-    console.log(this.dataSource.data)
-  }
-  selectRecorrido(){
-    this.dataSource.data=this.datos.filter(x=>x.tipo=="Recorrido")
-  }
-  selectTaller(){
-    this.dataSource.data=this.datos.filter(x=>x.tipo=="Taller")
-  }
   dataVisita(e:any){
-    this.dataSource.data=this.datos.filter(x=>x.tipo==e.target.value)
+    this.dataSource.data=this.datos.filter(x=>x.tipo==e.target.value);
+    console.log(e.target.value)
+    e.target.value="";
     console.log(e.target.value)
   }
+
+  dataLimpiar(e:any){
+    this.dataSource.data=this.datos;
+    console.log(this.dataSource.data)
+  }
+
 }

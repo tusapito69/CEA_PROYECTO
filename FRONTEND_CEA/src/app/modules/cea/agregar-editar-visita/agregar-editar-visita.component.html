@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>{{ operacion }} Visita</h2>
 
 <form [formGroup]="form" (ngSubmit)="agregarVisita()">
-  <mat-dialog-content>
+  <mat-dialog-content class="mat-typography">
     <div class="row">
       <div class="column">
         <p>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="row">
-      <div class="column">
+      <div class="col-4">
         <p>
           <mat-form-field appearance="fill">
             <mat-label>CI</mat-label>
@@ -44,7 +44,20 @@
         </div>
       </div>
 
-      <div class="column">
+      <div class="col-4">
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo</mat-label>
+          <mat-select [(ngModel)]="opcionSeleccionada" formControlName="tipo">
+            <mat-option *ngFor="let tipo of ListaTipo" [value]="tipo">{{tipo}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="error">
+          <span *ngIf="form.get('tipo')?.hasError('required')&& form.get('tipo')?.touched ">El tipo es un campo
+            <strong>requerido</strong></span>
+        </div>
+      </div>
+
+      <div class="col-4">
         <div *ngIf="opcionSeleccionada == 'Recorrido'">
           <p>
             <mat-form-field appearance="fill">
@@ -59,26 +72,17 @@
           </div>
         </div>
       </div>
+
     </div>
 
+
+
     <div class="row">
-      <div class="column">
-        <p>
-          <mat-form-field appearance="fill">
-            <mat-label>Actividad</mat-label>
-            <input formControlName="actividad" matInput autocomplete="off" />
-          </mat-form-field>
-        </p>
-        <div class="error">
-          <span *ngIf="form.get('actividad')?.hasError('required') && form.get('actividad')?.touched">La actividad es un
-            campo <strong>Requerido</strong></span>
-        </div>
-      </div>
-      <div class="column">
+      <div class="col-4">
         <mat-form-field appearance="fill">
           <mat-label>Fecha</mat-label>
           <input formControlName="fecha" matInput [matDatepicker]="picker" />
-          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-hint>DD/MM/YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -87,10 +91,8 @@
             <strong>Requerido</strong></span>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="column">
+      <div class="col-4">
         <p>
           <mat-form-field appearance="fill">
             <mat-label>Lugar</mat-label>
@@ -102,21 +104,8 @@
             <strong>Requerido</strong></span>
         </div>
       </div>
-      <div class="column">
-        <mat-form-field appearance="fill">
-          <mat-label>Tipo</mat-label>
-          <mat-select [(ngModel)]="opcionSeleccionada" formControlName="tipo">
-            <mat-option *ngFor="let tipo of ListaTipo" [value]="tipo">{{tipo}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="error">
-          <span *ngIf="form.get('tipo')?.hasError('required')&& form.get('tipo')?.touched ">El tipo es un campo
-            <strong>requerido</strong></span>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="column">
+
+      <div class="col-4">
         <p>
           <mat-form-field appearance="fill">
             <mat-label>Celular</mat-label>
@@ -130,6 +119,11 @@
             caracteres</span>
         </div>
       </div>
+
+
+    </div>
+    <div class="row">
+
       <div class="column">
         <mat-form-field appearance="fill">
           <mat-label>Institucion</mat-label>
@@ -139,8 +133,35 @@
           </mat-select>
         </mat-form-field>
       </div>
-    </div>
+      <div class="column">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
+        <div class="error">
+          <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">El email es un campo
+            <strong>Requerido</strong></span>
+          <span *ngIf="form.get('email')?.hasError('email')">Debe ingresar una direccion de email valida</span>
+        </div>
+      </div>
 
+    </div>
+    <div class="row">
+      <div class="column">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Actividad</mat-label>
+            <input formControlName="actividad" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
+        <div class="error">
+          <span *ngIf="form.get('actividad')?.hasError('required') && form.get('actividad')?.touched">La actividad es un
+            campo <strong>Requerido</strong></span>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <p>
         <mat-form-field appearance="fill">
@@ -155,24 +176,13 @@
     </div>
 
     <div class="row">
-      <p>
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <input formControlName="email" matInput autocomplete="off" />
-        </mat-form-field>
-      </p>
-      <div class="error">
-        <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">El email es un campo
-          <strong>Requerido</strong></span>
-        <span *ngIf="form.get('email')?.hasError('email')">Debe ingresar una direccion de email valida</span>
-      </div>
     </div>
 
-    <mat-dialog-actions align="end">
-      <button type="submit" class="btn btn-info b" mat-button cdkFocusInitial>Aceptar</button>
-      <button type="button" class="btn btn-warning c" (click)="cancelar()" mat-button mat-dialog-close>Cancelar</button>
-    </mat-dialog-actions>
-
   </mat-dialog-content>
-
+  <mat-dialog-actions align="end">
+    <button type="submit" class="btn btn-info b" mat-button cdkFocusInitial>Aceptar</button>
+    <button type="button" class="btn btn-warning c" (click)="cancelar()" mat-button mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>
 </form>
+
+

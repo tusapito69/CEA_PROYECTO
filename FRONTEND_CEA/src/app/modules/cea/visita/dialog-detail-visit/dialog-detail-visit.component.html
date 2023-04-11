@@ -1,0 +1,70 @@
+<h1 mat-dialog-title>Detalle Visita</h1>
+<mat-dialog-content class="mat-typography">
+      <div class="container">
+        <div class="row">
+          <div class="col-7">
+            <div class="row">
+              <div class="label">Nombres y Apellidos: <span class="value">{{data.visita.persona.nombrePersona}} {{data.visita.persona.apellidoPersona}}</span></div>
+            </div>
+          </div>
+
+          <div class="col-2" *ngIf="data.visita.persona.edadPersona != null">
+            <div class="row">
+              <div class="label">Edad: <span class="value">{{data.visita.persona.edadPersona}}</span></div>
+            </div>
+          </div>
+
+          <div class="col-3">
+            <div class="row">
+              <div class="label">C.I.:  <span class="value">{{data.visita.persona.ciPersona}}</span></div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row" >
+          <div class="col-3">
+            <div class="row">
+              <div class="label">Celular: <span class="value">{{data.visita.persona.celularPersona}}</span></div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+              <div class="label">Email: <span class="value">{{data.visita.email}}</span></div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="label">Fecha:<span class="value">{{data.visita.fecha | date:'shortDate'}}</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="label">Lugar: <span class="value">{{data.visita.lugar}}</span></div>
+          </div>
+          <div class="col-6">
+            <div class="label">Tipo: <span class="value">{{data.visita.tipo}}</span></div>
+
+          </div>
+        </div>
+        <div class="">
+          <div class="row">
+            <div class="label">Actividad:<span class="value">{{data.visita.actividad}}</span></div>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="row">
+            <div class="label">Observaciones:</div>
+          </div>
+
+          <div class="row">
+            <span class="value">{{data.visita.observaciones}}</span>
+          </div>
+        </div>
+      </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close class="btn">Cerrar</button>
+</mat-dialog-actions>

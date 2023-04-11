@@ -20,6 +20,7 @@ import { VisitaComponent } from './visita/visita.component';
 import { AgregarEditarVisitaComponent } from './agregar-editar-visita/agregar-editar-visita.component';
 import { SeleccionarVisitaComponent } from './seleccionar-visita/seleccionar-visita.component';
 import { ReportesVisitaComponent } from './visita/reportes-visita/reportes-visita.component';
+import { DialogDetailVisitComponent } from './visita/dialog-detail-visit/dialog-detail-visit.component';
 
 
 
@@ -31,7 +32,8 @@ import { ReportesVisitaComponent } from './visita/reportes-visita/reportes-visit
     VisitaComponent,
     AgregarEditarVisitaComponent,
     SeleccionarVisitaComponent,
-    ReportesVisitaComponent
+    ReportesVisitaComponent,
+    DialogDetailVisitComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,7 @@ import { ReportesVisitaComponent } from './visita/reportes-visita/reportes-visit
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule
-   
+
   ],
   exports:[
     InstitucionComponent,

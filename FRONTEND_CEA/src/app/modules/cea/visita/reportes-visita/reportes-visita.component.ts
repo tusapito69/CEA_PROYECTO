@@ -6,6 +6,7 @@ import { VisitaService } from 'src/app/core/services/visita.service';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Dialog } from '@angular/cdk/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
+import { AlertaService } from 'src/app/core/services/alerta.service';
 MatDialogRef
 
 @Component({
@@ -16,7 +17,7 @@ MatDialogRef
 export class ReportesVisitaComponent implements OnInit {
   tipos:string []=['Reunion','Taller','Recorrido','Exterior'];
   form: FormGroup;
-  constructor(  private fb: FormBuilder, private _visitaservice: VisitaService, public dialogRefReporte: MatDialogRef<ReportesVisitaComponent>) {
+  constructor( private _alerta:AlertaService,  private fb: FormBuilder, private _visitaservice: VisitaService, public dialogRefReporte: MatDialogRef<ReportesVisitaComponent>) {
     this.form=this.fb.group({
       fechaInicio:['',Validators.required],
       fechaFinal:['',Validators.required],
@@ -30,6 +31,7 @@ export class ReportesVisitaComponent implements OnInit {
   cancelar(){
     this.dialogRefReporte.close();
   };
+
 
   generarReporte(){
     if(this.form.invalid) {
@@ -47,8 +49,8 @@ export class ReportesVisitaComponent implements OnInit {
       a.download="Reporte Visita "+fecha;
       a.href=window.URL.createObjectURL(blob);
       a.click();
-
+      this._alerta.mensajeAgregar("Reporte Generado Exitosamente");
     });
-     this.cancelar(); 
+     this.cancelar();
   }
 }

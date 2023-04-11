@@ -55,7 +55,7 @@ namespace API_SERVER_CEA.Controllers
             var user = Authenticate(userLogin);
             if (user != null)
             {
-               
+              
                 if (user.estadoUsuario != 1)
                 {
                     return BadRequest(new { estado = $"El usuario {userLogin.UserName}  se encuentra desactivado" });
@@ -112,7 +112,7 @@ namespace API_SERVER_CEA.Controllers
                 _config["Jwt:Issuer"],
                 _config["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(3),
+                expires: DateTime.Now.AddMinutes(120),
                 signingCredentials: credencial);
             return new
             {

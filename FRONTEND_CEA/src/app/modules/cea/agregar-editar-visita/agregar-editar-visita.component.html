@@ -78,19 +78,6 @@
 
 
     <div class="row">
-      <div class="col-4">
-        <mat-form-field appearance="fill">
-          <mat-label>Fecha</mat-label>
-          <input formControlName="fecha" matInput [matDatepicker]="picker" />
-          <mat-hint>DD/MM/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <div class="error">
-          <span *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">La fecha es un campo
-            <strong>Requerido</strong></span>
-        </div>
-      </div>
 
       <div class="col-4">
         <p>
@@ -119,6 +106,19 @@
             caracteres</span>
         </div>
       </div>
+      <div class="col-4">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
+        <div class="error">
+          <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">El email es un campo
+            <strong>Requerido</strong></span>
+          <span *ngIf="form.get('email')?.hasError('email')">Debe ingresar una direccion de email valida</span>
+        </div>
+      </div>
 
 
     </div>
@@ -134,18 +134,19 @@
         </mat-form-field>
       </div>
       <div class="column">
-        <p>
-          <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input formControlName="email" matInput autocomplete="off" />
-          </mat-form-field>
-        </p>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha</mat-label>
+          <input formControlName="fecha" matInput [matDatepicker]="picker" />
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
         <div class="error">
-          <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">El email es un campo
+          <span *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">La fecha es un campo
             <strong>Requerido</strong></span>
-          <span *ngIf="form.get('email')?.hasError('email')">Debe ingresar una direccion de email valida</span>
         </div>
       </div>
+
 
     </div>
     <div class="row">
@@ -169,10 +170,6 @@
           <input formControlName="observaciones" matInput autocomplete="off" />
         </mat-form-field>
       </p>
-      <div class="error">
-        <span *ngIf="form.get('observacion')?.hasError('required') && form.get('observacion')?.touched">La observacion
-          es un campo <strong>Requerido</strong></span>
-      </div>
     </div>
 
     <div class="row">
@@ -180,7 +177,7 @@
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button type="submit" class="btn btn-info b" mat-button cdkFocusInitial>Aceptar</button>
+    <button type="submit"  [disabled]="form.invalid"  class="btn btn-info b" mat-button cdkFocusInitial>Aceptar</button>
     <button type="button" class="btn btn-warning c" (click)="cancelar()" mat-button mat-dialog-close>Cancelar</button>
 </mat-dialog-actions>
 </form>

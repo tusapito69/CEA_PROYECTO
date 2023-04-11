@@ -14,7 +14,7 @@ namespace API_SERVER_CEA.Modelo
         public string lugar { get; set; }
 
         [Required(ErrorMessage = "Este campo no debe estar vacio")]
-        public string observaciones { get; set; }
+        public string? observaciones { get; set; }
 
         [Required(ErrorMessage = "Este campo no debe estar vacio")]
         public string tipo { get; set; }

@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Detalle Visita</h1>
+<h1>Detalle de Visita</h1>
 <mat-dialog-content class="mat-typography">
       <div class="container">
         <div class="row">
@@ -34,7 +34,7 @@
             </div>
           </div>
           <div class="col-3">
-            <div class="label">Fecha:<span class="value">{{data.visita.fecha | date:'shortDate'}}</span></div>
+            <div class="label">Fecha:<span class="value">{{data.visita.fecha.slice(0,-9)}}</span></div>
           </div>
         </div>
         <div class="row">
@@ -48,7 +48,7 @@
         </div>
         <div class="">
           <div class="row">
-            <div class="label">Actividad:<span class="value">{{data.visita.actividad}}</span></div>
+            <div class="label">Actividad:<br><span class="value">{{data.visita.actividad}}</span></div>
           </div>
         </div>
 
@@ -56,12 +56,9 @@
 
         <div class="row">
           <div class="row">
-            <div class="label">Observaciones:</div>
+            <div class="label">Observaciones:<br> <span class="value">{{data.visita.observaciones}}</span></div>
           </div>
 
-          <div class="row">
-            <span class="value">{{data.visita.observaciones}}</span>
-          </div>
         </div>
       </div>
 </mat-dialog-content>

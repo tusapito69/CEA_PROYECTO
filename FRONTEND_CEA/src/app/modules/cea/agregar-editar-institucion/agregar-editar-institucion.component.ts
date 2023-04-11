@@ -18,7 +18,7 @@ import { AlertaService } from 'src/app/core/services/alerta.service';
 })
 export class AgregarEditarInstitucionComponent implements OnInit {
   operacion:string='Agregar ';
-  institutions: string[] = ['Unidad Educativa', 'Institucion'];
+  institutions: string[] = ['Unidad Educativa', 'Institucion','Colectivo','Grupo Voluntario'];
   hide = true;
   id:number|undefined;
   form: FormGroup;

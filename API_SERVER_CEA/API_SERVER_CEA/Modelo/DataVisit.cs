@@ -4,16 +4,19 @@
     {
 
         public string actividad{ get; set; }
-        public string observaciones { get; set; }
-        public string lugar { get; set; }
-        public string tipo { get; set; }
-        public string email { get; set; }
-        public  DateTime fecha { get; set; }
         public string nombrePersona { get; set; }
         public string apellidoPersona { get; set; }
+        public string nombreInstitucion { get; set; }
         public int ciPersona { get; set; }
         public int celularPersona { get; set; }
-        public string nombreInstitucion { get; set; }
+        public string lugar { get; set; }
+        public  DateTime fecha { get; set; }
+        public string email { get; set; }
+        public string observaciones { get; set; }
+        public string tipo { get; set; }
+       
+       
+        
 
     }
 }

@@ -33,11 +33,11 @@ export class HeaderComponent implements OnInit {
     this.usuario.getUsuario().subscribe(a => {
       this.user = a;
       if (this.user.usuario == null) {
-     
+
         Swal.fire({
-          title: '¿La sesion expiro vuelva a iniciar sesion?',
+          title: 'La sesión ha expirado, vuelva a iniciar sesión',
           confirmButtonText: 'Ok'
-        }).then((result)=>{ 
+        }).then((result)=>{
           if(result.isConfirmed){
             localStorage.removeItem("usuario");
             this.router.navigate(['login']);

@@ -48,7 +48,7 @@ namespace API_SERVER_CEA.Controllers
         }
 
         //GET: activos
-        [HttpGet ("obtenerActivos")]
+        [HttpGet("obtenerActivos")]
         public async Task<ActionResult<List<Institucion>>> ObtenerInstitucionesActivos()
         {
             var datos = from ins in this.contexto.Institucion where ins.Estado == 1 select ins;
@@ -73,6 +73,12 @@ namespace API_SERVER_CEA.Controllers
                 return Ok();
             }
         }
+        [HttpDelete]
+        public async Task<ActionResult<List<Institucion>>> eliminadoLogicoInstitucion(int id, int accion)
+        {
+            Institucion inst = await contexto.Institucion.FirstOrDefaultAsync(x => x.Id == id);
+            return Ok();
+        }
 
         [HttpGet("{id:int}")]
 
@@ -92,6 +98,5 @@ namespace API_SERVER_CEA.Controllers
             return Ok(n);
 
         }
-
     }
 }

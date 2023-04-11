@@ -15,6 +15,5 @@
         public int celularPersona { get; set; }
         public string nombreInstitucion { get; set; }
 
-
     }
 }

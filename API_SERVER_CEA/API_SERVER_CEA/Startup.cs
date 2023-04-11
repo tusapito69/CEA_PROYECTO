@@ -28,11 +28,13 @@ namespace API_SERVER_CEA
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API_SERVER_CEA", Version = "v1" });
             });
-            var connectionString = Configuration.GetConnectionString("cadenaConexion");
-            services.AddDbContext<ApplicationContext>(options =>
-            {
-                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-            });
+            //var connectionString = Configuration.GetConnectionString("cadenaConexion");
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(
+                    Configuration.GetConnectionString("cadenaConexion")));
+            //services.AddDbContext<ApplicationContext>(options =>
+            //{
+            //    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            //});
 
             services.AddCors(options => options.AddPolicy("AllowWebApp",
                      builder => builder.AllowAnyOrigin()

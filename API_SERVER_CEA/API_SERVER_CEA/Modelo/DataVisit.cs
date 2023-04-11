@@ -16,7 +16,5 @@
         public string tipo { get; set; }
        
        
-        
-
     }
 }

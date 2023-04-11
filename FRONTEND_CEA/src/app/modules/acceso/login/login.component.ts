@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         this.route.navigate(['/home/dashboard']);
       },
       (event:HttpErrorResponse) => {
-        console.log(event.error.msg)
+        console.log(event.error.estado)
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
         })
         Toast.fire({
           icon: 'error',
-          title: event.error['er']
+          title: event.error['estado']
         })
         this.form.reset();
       }

@@ -11,27 +11,40 @@ import Swal from 'sweetalert2';
 
 export class HeaderComponent implements OnInit {
 
-  user:any={};
-  constructor(private usuario:LoginService,private router:Router){}
+  user: any = {};
+  constructor(private usuario: LoginService, private router: Router) { }
   ngOnInit(): void {
-  this.GetUsuario();  
+    this.GetUsuario();
   }
-  CerrarSesion(){
+  CerrarSesion() {
     Swal.fire({
       title: '¿Desea cerrar sesion?',
       showDenyButton: true,
       confirmButtonText: 'Ok',
       denyButtonText: `Cancelar`,
-    }).then((result)=>{
-      if(result.isConfirmed){
+    }).then((result) => {
+      if (result.isConfirmed) {
         this.usuario.destruirSesion();
         this.router.navigate(['login']);
       }
     })
   }
-  GetUsuario(){
+  GetUsuario() {
     this.usuario.getUsuario().subscribe(a => {
-     this.user=a;
+      this.user = a;
+      if (this.user.usuario == null) {
+     
+        Swal.fire({
+          title: '¿La sesion expiro vuelva a iniciar sesion?',
+          confirmButtonText: 'Ok'
+        }).then((result)=>{ 
+          if(result.isConfirmed){
+            localStorage.removeItem("usuario");
+            this.router.navigate(['login']);
+          }
+        })
+      }
     });
   }
+
 }

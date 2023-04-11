@@ -53,18 +53,22 @@ namespace API_SERVER_CEA.Controllers
         public  IActionResult Login(LoginUser userLogin)
         {
             var user = Authenticate(userLogin);
-          
             if (user != null)
             {
-                //var t = Seleccionar(user);
-                var token = Generar(user);
-                return Ok(token);
+               
+                if (user.estadoUsuario != 1)
+                {
+                    return BadRequest(new { estado = $"El usuario {userLogin.UserName}  se encuentra desactivado" });
+                }
+                else
+                {
+                    var token = Generar(user);
+                    return Ok(token);
+                }
+                
             }
-            else
-            {
-                return BadRequest(new { er = $"El Usuario {userLogin.UserName}  no esta registrado" });
-            }
-          
+            return BadRequest(new { estado = "Las credenciales de sesion del usuario ingresado fueron incorrectas verifique e ingrese nuevamente" });
+
 
 
         }
@@ -82,16 +86,14 @@ namespace API_SERVER_CEA.Controllers
         {
 
             string ePass = UsersController.Encrypt(userlogin.Password);
-            var currentuser = contexto.Usuario.FirstOrDefault(user => user.nombreUsuario == userlogin.UserName && user.contraseniaUsuario == ePass);
-         
+            var currentuser = contexto.Usuario.FirstOrDefault(user => user.nombreUsuario == userlogin.UserName && user.contraseniaUsuario == ePass );
             if (currentuser != null)
             {
-               
+              
                 return currentuser;
             }
             return null;
         }
-
         private dynamic Generar(User user)
         {
             var security = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -103,17 +105,14 @@ namespace API_SERVER_CEA.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier,user.nombreUsuario),
-                new Claim(ClaimTypes.Role,user.rolUsuario),
-                //new Claim("rol", user.RolId==1?"Admin": "Usuario"),
-                //new Claim(ClaimTypes.GivenName, user.Persona.nombrePersona),     
-                //new Claim(ClaimTypes.Surname,user.Persona.apellidoPersona)           
+                new Claim(ClaimTypes.Role,user.rolUsuario),         
             };
             //Crear el token
             var token = new JwtSecurityToken(
                 _config["Jwt:Issuer"],
                 _config["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(60),
+                expires: DateTime.Now.AddMinutes(3),
                 signingCredentials: credencial);
             return new
             {
@@ -136,7 +135,5 @@ namespace API_SERVER_CEA.Controllers
             }
             return null;
         }
-
-    
     }
 }

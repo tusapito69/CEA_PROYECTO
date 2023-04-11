@@ -34,6 +34,19 @@
             </mat-form-field>
           </div>
         </div>
+        <div class="col">
+          <div class="colum">
+            <mat-form-field appearance="fill">
+              <mat-label>Tipo</mat-label>
+              <mat-select formControlName="tipo">
+                <mat-option  *ngFor="let t of tipos" value="{{t}}">{{t}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+          <div class="error">
+              <span *ngIf="form.get('tipo')?.hasError('required')&& form.get('tipo')?.touched ">Seleccione un tipo es <strong>requerido</strong></span>
+          </div>
+          </div>
+        </div>
 
       </div>
     </div>

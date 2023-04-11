@@ -9,11 +9,12 @@ import { Login } from '../interfaces/login';
   providedIn: 'root'
 })
 export class LoginService {
+
   private http:HttpClient;
   constructor(private handler: HttpBackend
     ){
       this.http=new HttpClient(handler)
-    }
+  }
   enviarUsuario(usuario:Login): Observable<Login>{
     return this.http.post<Login>(`${environment.API_URL}/api/Login`,usuario);
   }
@@ -23,7 +24,7 @@ export class LoginService {
     return usuario;
   }
   almacenarUsuario(usuario:any){
-    localStorage.setItem("usuario",JSON.stringify(usuario))
+    localStorage.setItem("usuario",JSON.stringify(usuario));
   }
   destruirSesion(){
     localStorage.removeItem("usuario");
@@ -42,4 +43,6 @@ export class LoginService {
     var write = window.localStorage.getItem('usuario');
     return write;
   }
+ 
+
 }

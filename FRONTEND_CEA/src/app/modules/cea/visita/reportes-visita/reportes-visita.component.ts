@@ -14,12 +14,13 @@ MatDialogRef
   styleUrls: ['./reportes-visita.component.css']
 })
 export class ReportesVisitaComponent implements OnInit {
-  
+  tipos:string []=['Reunion','Taller','Recorrido','Exterior'];
   form: FormGroup;
   constructor(  private fb: FormBuilder, private _visitaservice: VisitaService, public dialogRefReporte: MatDialogRef<ReportesVisitaComponent>) {
     this.form=this.fb.group({
       fechaInicio:['',Validators.required],
-      fechaFinal:['',Validators.required]
+      fechaFinal:['',Validators.required],
+      tipo:['',Validators.required]
     })
    }
 
@@ -36,7 +37,8 @@ export class ReportesVisitaComponent implements OnInit {
     }
     const r:any={
       fechaInicio:this.form.value.fechaInicio.toISOString().slice(0,10),
-      fechaFinal:this.form.value.fechaFinal.toISOString().slice(0,10)
+      fechaFinal:this.form.value.fechaFinal.toISOString().slice(0,10),
+      tipo:this.form.value.tipo
     }
     this._visitaservice.generarReporte(r).subscribe((data)=>{
       let fecha=new Date();

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { VisitaService } from 'src/app/core/services/visita.service';
@@ -8,31 +8,37 @@ import { IVisita } from '../../../core/interfaces/visita';
 import { AgregarEditarVisitaComponent } from '../agregar-editar-visita/agregar-editar-visita.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReportesVisitaComponent } from './reportes-visita/reportes-visita.component';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-visita',
   templateUrl: './visita.component.html',
   styleUrls: ['./visita.component.css']
 })
-export class VisitaComponent implements OnInit {
+export class VisitaComponent implements OnInit,AfterViewInit {
   id:number| undefined;
-  displayedColumns:string[]=['Id','Actividad','Fecha','Lugar','Observaciones', 'Tipo', 'Estado', 'Opciones'];
   private visitas!:IVisita[];
   private datos!:IVisita[];
+
+
+  displayedColumns:string[]=['Id','Actividad','Fecha','Lugar','Observaciones', 'Tipo', 'Estado', 'Opciones'];
   dataSource =new MatTableDataSource<IVisita>(this.visitas);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
   constructor(
-    private _visitaservice:VisitaService,public dialog: MatDialog, public dialogReporte:MatDialog) {
+    private _visitaservice:VisitaService,public dialog: MatDialog, public dialogReporte:MatDialog,
+    private _liveAnnouncer: LiveAnnouncer) {
     }
 
   ngOnInit(): void {
     this.obtenerVisitas();
-    console.log(this.obtenerVisitas());
   }
   ngAfterViewInit():void{
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    
   }
   //LISTAR VISITAS
     obtenerVisitas(){
@@ -84,18 +90,35 @@ export class VisitaComponent implements OnInit {
     });
     }
   }
-  selectReunion(){
-    this.dataSource.data=this.datos.filter(x=>x.tipo=="Reunion")
-    console.log(this.dataSource.data)
-  }
-  selectRecorrido(){
-    this.dataSource.data=this.datos.filter(x=>x.tipo=="Recorrido")
-  }
-  selectTaller(){
-    this.dataSource.data=this.datos.filter(x=>x.tipo=="Taller")
+  limpiar(){
+    this.dataSource.data=this.visitas;
   }
   dataVisita(e:any){
     this.dataSource.data=this.datos.filter(x=>x.tipo==e.target.value)
     console.log(e.target.value)
+  }
+  announceSortChange(sortState: Sort) {
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
+  eliminadoLogico(visi: IVisita, accion: number) {
+    var result = accion == 1 ? "activar" : "desactivar";
+    Swal.fire({
+      title: `¿Desea ${result} esta visita?`,
+      showDenyButton: true,
+      confirmButtonText: 'Ok',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.darBajaVisita(visi, accion);
+      }
+    })
   }
 }

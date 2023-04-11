@@ -38,7 +38,7 @@ namespace API_SERVER_CEA.Controllers
                         select new Visita
                         {
                             id = v.id,
-                            actividad = v.lugar,
+                            actividad = v.actividad,
                             observaciones = v.observaciones,
                             lugar = v.lugar,
                             tipo = v.tipo,
@@ -61,7 +61,7 @@ namespace API_SERVER_CEA.Controllers
                         select new Visita
                         {
                             id = v.id,
-                            actividad = v.lugar,
+                            actividad = v.actividad,
                             observaciones = v.observaciones,
                             lugar = v.lugar,
                             tipo = v.tipo,
@@ -99,7 +99,6 @@ namespace API_SERVER_CEA.Controllers
         {
             Visita v = await _context.Visita.FirstOrDefaultAsync(x => x.id == id);
             Persona p = await _context.Persona.FirstOrDefaultAsync(x => x.Id == v.PersonaId);
-            Institucion i = await _context.Institucion.FirstOrDefaultAsync(x => x.Id == v.InstitucionId);
             if (v == null)
             {
                 return BadRequest("No se encontro la visita");
@@ -114,14 +113,12 @@ namespace API_SERVER_CEA.Controllers
                 v.fecha = visita.fecha;
                 v.estado = visita.estado;
                 v.InstitucionId = visita.InstitucionId;
-                //p.Id = visita.Persona.Id;
                 p.nombrePersona = visita.Persona.nombrePersona;
                 p.apellidoPersona = visita.Persona.apellidoPersona;
                 p.edadPersona = visita.Persona.edadPersona;
                 p.ciPersona = visita.Persona.ciPersona;
                 p.celularPersona = visita.Persona.celularPersona;
                 p.estadoPersona = visita.Persona.estadoPersona;
-
                 await _context.SaveChangesAsync();
                 return Ok();
             }
@@ -151,7 +148,7 @@ namespace API_SERVER_CEA.Controllers
                         join p in this._context.Persona on v.PersonaId equals p.Id
                         join i in this._context.Institucion on v.InstitucionId equals i.Id
                         where v.fecha >= reporte.FechaInicio &&
-                            v.fecha <= reporte.FechaFinal && v.estado == 1
+                            v.fecha <= reporte.FechaFinal && v.estado == 1 && v.tipo == reporte.Tipo
                         select  new DataVisit
                         {
                             actividad=v.actividad, 
@@ -210,8 +207,6 @@ namespace API_SERVER_CEA.Controllers
         {
             var n=await _context.Visita.CountAsync();
             return Ok(n);
-
-        
         }
 
     }

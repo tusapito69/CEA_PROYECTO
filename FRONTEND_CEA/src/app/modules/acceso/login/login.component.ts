@@ -29,33 +29,37 @@ export class LoginComponent implements OnInit {
 
   loguear(): void {
     const usuario: Login = this.form.value;
-    this.loginService.enviarUsuario(usuario).subscribe(
-      (resp) => {
-        this.datos = resp;
-        this.loginService.almacenarUsuario(this.datos['tok'])
-        this.route.navigate(['/home/dashboard']);
-      },
-      (event:HttpErrorResponse) => {
-        console.log(event.error.estado)
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        Toast.fire({
-          icon: 'error',
-          title: event.error['estado']
-        })
-        this.form.reset();
-      }
-    );
-   
+    console.log(usuario)
+    if (usuario.contraseniaUsuario != '' && usuario.nombreUsuario != '' ){
+      this.loginService.enviarUsuario(usuario).subscribe(
+        (resp) => {
+          this.datos = resp;
+          this.loginService.almacenarUsuario(this.datos['tok'])
+          this.route.navigate(['/home/dashboard']);
+        },
+        (event:HttpErrorResponse) => {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'error',
+            title: event.error['estado']
+          })
+          //this.form.reset();
+        }
+      );
+
+
+
+    }
+    //this.form.reset();
   }
 
 

@@ -190,9 +190,9 @@ namespace API_SERVER_CEA.Controllers
             }
             using (var inst = new XLWorkbook())
             {
-                tabla.TableName = "VISITA";
+                tabla.TableName = "VISITA " + reporte.Tipo.ToUpper();
                 var hoja = inst.Worksheets.Add(tabla);
-                hoja.ColumnsUsed().AdjustToContents();
+                hoja.ColumnsUsed();
 
                 using (var memoria = new MemoryStream())
                 {

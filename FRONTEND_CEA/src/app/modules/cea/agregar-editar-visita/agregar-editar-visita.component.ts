@@ -31,7 +31,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
     this.form = this.fb.group({
       actividad: ['', [Validators.required, Validators.maxLength(1000)]],
       lugar: ['', Validators.required],
-      observaciones: ['', [Validators.required, Validators.maxLength(1000)] ],
+      observaciones: [''],
       tipo: ['', Validators.required],
       email: ['',[Validators.required, Validators.email]],
       fecha: ['', [Validators.required]],
@@ -100,7 +100,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
 
     const visita: IVisita = {
       actividad: this.form.value.actividad,
-      fecha: this.form.value.fecha.toISOString().slice(0,10),
+      fecha: this.form.value.fecha,
       lugar: this.form.value.lugar,
       observaciones: this.form.value.observaciones,
       tipo: this.form.value.tipo,

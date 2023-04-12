@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
 
   loguear(): void {
     const usuario: Login = this.form.value;
-    console.log(usuario)
     if (usuario.contraseniaUsuario != '' && usuario.nombreUsuario != '' ){
       this.loginService.enviarUsuario(usuario).subscribe(
         (resp) => {
@@ -52,14 +51,14 @@ export class LoginComponent implements OnInit {
             icon: 'error',
             title: event.error['estado']
           })
-          //this.form.reset();
+          this.form.reset();
         }
       );
 
 
 
     }
-    //this.form.reset();
+    this.form.reset();
   }
 
 

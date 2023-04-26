@@ -11,5 +11,5 @@ export interface IVisita {
     estado?: number|null;
     persona: IPersona;
     InstitucionId: number;
-    barriozona:string;
+    barrio_zona:string;
 }

@@ -34,12 +34,12 @@ export class AgregarEditarVisitaComponent implements OnInit {
       observaciones: [''],
       tipo: ['', Validators.required],
       email: ['',[ Validators.email]],
-      barriozona:[''],
+      barrio_zona:[''],
       fecha: ['', [Validators.required]],
       InstitucionId: ['',Validators.required],
       nombrePersona: ['', Validators.required],
       apellidoPersona: ['', Validators.required],
-      edadPersona: [null,Validators.pattern("^[0-9]*$")],
+      edadPersona: ['',Validators.pattern("^[0-9]*$")],
       ciPersona: ['',Validators.maxLength(11)],
       celularPersona: ['',Validators.maxLength(11)],
     })
@@ -65,7 +65,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       this.form.patchValue({
         actividad: data[0].actividad,
         lugar: data[0].lugar,
-        barriozona:data[0].barriozona,
+        barrio_zona:data[0].barriozona,
         observaciones: data[0].observaciones,
         tipo: data[0].tipo,
         fecha: data[0].fecha,
@@ -106,7 +106,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       observaciones: this.form.value.observaciones,
       tipo: this.form.value.tipo,
       email: this.form.value.email,
-      barriozona:this.form.value.barriozona,
+      barrio_zona:this.form.value.barrio_zona,
       estado: 1,
       InstitucionId: this.form.value.InstitucionId,
       persona: {
@@ -119,7 +119,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       }
 
     }
-    console.log(visita);
+    console.log(visita.barrio_zona);
 
     if (this.id == undefined) {
       //AGREGAR

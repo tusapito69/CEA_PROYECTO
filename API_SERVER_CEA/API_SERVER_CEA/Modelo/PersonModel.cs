@@ -13,7 +13,7 @@ namespace API_SERVER_CEA.Modelo
         [Required(ErrorMessage = "Este campo no debe estar vacio")]
         public string? apellidoPersona { get; set; }
 
-        public int? edadPersona { get; set; }
+        public string? edadPersona { get; set; }
 
         public string? ciPersona { get; set; }
 

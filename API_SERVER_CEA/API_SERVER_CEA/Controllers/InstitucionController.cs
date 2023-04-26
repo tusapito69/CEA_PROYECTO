@@ -73,12 +73,6 @@ namespace API_SERVER_CEA.Controllers
                 return Ok();
             }
         }
-        [HttpDelete]
-        public async Task<ActionResult<List<Institucion>>> eliminadoLogicoInstitucion(int id, int accion)
-        {
-            Institucion inst = await contexto.Institucion.FirstOrDefaultAsync(x => x.Id == id);
-            return Ok();
-        }
 
         [HttpGet("{id:int}")]
 

@@ -58,18 +58,14 @@
       </div>
 
       <div class="col-4">
-        <div *ngIf="opcionSeleccionada == 'Recorrido'">
+        <div>
           <p>
             <mat-form-field appearance="fill">
               <mat-label>Edad</mat-label>
               <input formControlName="edadPersona" matInput autocomplete="off" />
             </mat-form-field>
           </p>
-          <div class="error">
-            <!-- <span *ngIf="form.get('edadPersona')?.hasError('required') && form.get('edadPersona')?.touched">La edad es
-              un campo <strong>Requerido</strong></span>
-            <span *ngIf="form.get('edadPersona')?.hasError('maxlength')">La edad debe tener como maximo 110 años</span> -->
-          </div>
+        
         </div>
       </div>
 
@@ -100,8 +96,8 @@
           </mat-form-field>
         </p>
         <div class="error">
-          <span *ngIf="form.get('celularPersona')?.hasError('required') && form.get('celularPersona')?.touched">El
-            celular es un campo <strong>Requerido</strong></span>
+          <!-- <span *ngIf="form.get('celularPersona')?.hasError('required') && form.get('celularPersona')?.touched">El
+            celular es un campo <strong>Requerido</strong></span> -->
           <span *ngIf="form.get('celularPersona')?.hasError('maxlength')">El celular debe tener como maximo 11
             caracteres</span>
         </div>
@@ -114,8 +110,8 @@
           </mat-form-field>
         </p>
         <div class="error">
-          <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">El email es un campo
-            <strong>Requerido</strong></span>
+          <!-- <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">El email es un campo
+            <strong>Requerido</strong></span> -->
           <span *ngIf="form.get('email')?.hasError('email')">Debe ingresar una direccion de email valida</span>
         </div>
       </div>
@@ -124,7 +120,7 @@
     </div>
     <div class="row">
 
-      <div class="column">
+      <div class="col-4">
         <mat-form-field appearance="fill">
           <mat-label>Institucion</mat-label>
           <mat-select formControlName="InstitucionId">
@@ -133,7 +129,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="column">
+      <div class="col-4">
         <mat-form-field appearance="fill">
           <mat-label>Fecha</mat-label>
           <input formControlName="fecha" matInput [matDatepicker]="picker" />
@@ -144,6 +140,17 @@
         <div class="error">
           <span *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">La fecha es un campo
             <strong>Requerido</strong></span>
+        </div>
+      </div>
+      <div class="col-4">
+        <div>
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Barrio/Zona</mat-label>
+              <input formControlName="barriozona" matInput autocomplete="off" />
+            </mat-form-field>
+          </p>
+        
         </div>
       </div>
 

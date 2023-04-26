@@ -46,7 +46,8 @@ namespace API_SERVER_CEA.Controllers
                             fecha = v.fecha,
                             estado = v.estado,
                             Persona = v.Persona,
-                            Institucion = v.Institucion
+                            Institucion = v.Institucion,
+                            barrio_zona = v.barrio_zona
                         };
             return await datos.ToListAsync();
         }
@@ -69,7 +70,8 @@ namespace API_SERVER_CEA.Controllers
                             fecha = v.fecha,
                             estado = v.estado,
                             Persona = v.Persona,
-                            Institucion = v.Institucion
+                            Institucion = v.Institucion,
+                            barrio_zona=v.barrio_zona
                         };
             return await datos.ToListAsync();
         }
@@ -112,6 +114,7 @@ namespace API_SERVER_CEA.Controllers
                 v.email = visita.email;
                 v.fecha = visita.fecha;
                 v.estado = visita.estado;
+                v.barrio_zona = visita.barrio_zona;
                 v.InstitucionId = visita.InstitucionId;
                 p.nombrePersona = visita.Persona.nombrePersona;
                 p.apellidoPersona = visita.Persona.apellidoPersona;
@@ -141,7 +144,9 @@ namespace API_SERVER_CEA.Controllers
             }
         }
 
+       
         [HttpPost("reporte")]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Exportar_Excel(Reporte reporte)
         {
             var query = from v in _context.Visita
@@ -149,16 +154,18 @@ namespace API_SERVER_CEA.Controllers
                         join i in this._context.Institucion on v.InstitucionId equals i.Id
                         where v.fecha >= reporte.FechaInicio &&
                             v.fecha <= reporte.FechaFinal && v.estado == 1 && v.tipo == reporte.Tipo
-                        select  new DataVisit
+                        select new DataVisit
                         {
-                            actividad=v.actividad, 
-                            observaciones=v.observaciones,
-                            lugar=v.lugar,
-                            tipo=v.tipo,
-                            fecha=v.fecha,
-                            nombrePersona=p.nombrePersona,
-                            apellidoPersona=p.apellidoPersona,
-                            ciPersona=p.ciPersona,
+                            actividad = v.actividad,
+                            observaciones = v.observaciones,
+                            lugar = v.lugar,
+                            tipo = v.tipo,
+                            fecha = v.fecha,
+                            barriozona = v.barrio_zona,
+                            nombrePersona = p.nombrePersona,
+                            apellidoPersona = p.apellidoPersona,
+                            edad = p.edadPersona,
+                            ciPersona = p.ciPersona,
                             celularPersona=p.celularPersona,
                             email=v.email,
                             nombreInstitucion=i.Nombre
@@ -167,7 +174,7 @@ namespace API_SERVER_CEA.Controllers
             //Crea un tabla a partir del modelo visita
             DataTable? tabla = new DataTable(typeof(DataVisit).Name);
 
-            //Toma las propiedades de Institucion y las asigna a la variable props
+            //Toma las propiedades de Visita y las asigna a la variable props
             PropertyInfo[] props = typeof(DataVisit).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             //Añade las propiedades alas columnas en base a su tipo(string,int,etc)
@@ -197,7 +204,7 @@ namespace API_SERVER_CEA.Controllers
                 using (var memoria = new MemoryStream())
                 {
                     inst.SaveAs(memoria);
-                    var nombreExcel = string.Concat("Reporte Institucion", DateTime.Now.ToString(), ".xlsx");
+                    var nombreExcel = string.Concat("Reporte Visita", DateTime.Now.ToString(), ".xlsx");
                     return File(memoria.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", nombreExcel);
                 }
             }

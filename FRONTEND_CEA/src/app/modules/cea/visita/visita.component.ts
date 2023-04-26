@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReportesVisitaComponent } from './reportes-visita/reportes-visita.component';
 import { DialogDetailVisitComponent } from './dialog-detail-visit/dialog-detail-visit.component';
 import Swal from 'sweetalert2';
+import { LoginService } from 'src/app/core/services/login.service';
 
 @Component({
   selector: 'app-visita',
@@ -25,14 +26,17 @@ export class VisitaComponent implements OnInit,AfterViewInit {
   dataSource =new MatTableDataSource<IVisita>(this.visitas);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  user:any={};
 
   constructor(
-    private _visitaservice:VisitaService,public dialog: MatDialog, public dialogReporte:MatDialog,public dialog1: MatDialog) {
+    private _visitaservice:VisitaService,public dialog: MatDialog, public dialogReporte:MatDialog,public dialog1: MatDialog,
+    private _usuario:LoginService) {
     }
 
 
   ngOnInit(): void {
     this.obtenerVisitas();
+    this.obtenerUsuario();
   }
   ngAfterViewInit():void{
     this.dataSource.paginator = this.paginator;
@@ -44,7 +48,6 @@ export class VisitaComponent implements OnInit,AfterViewInit {
       this._visitaservice.obtenerVisitas().subscribe((resp:IVisita[])=>{
         this.datos=resp;
         this.dataSource.data=resp;
-        console.log(resp);
       })
     };
 
@@ -68,7 +71,6 @@ export class VisitaComponent implements OnInit,AfterViewInit {
 
   openDialogDetail(visita?:IVisita) {
     const dialogRef = this.dialog1.open(DialogDetailVisitComponent,{
-
       width: '60%',
       disableClose: false,
       data:{visita:visita},
@@ -93,7 +95,6 @@ export class VisitaComponent implements OnInit,AfterViewInit {
   }
 
   darBajaVisita(visita:IVisita, accion: number){
-    console.log(visita);
     this.id=visita.id;
     if (this.id!=undefined) {
       visita.estado=accion;
@@ -104,9 +105,8 @@ export class VisitaComponent implements OnInit,AfterViewInit {
   }
   dataVisita(e:any){
     this.dataSource.data=this.datos.filter(x=>x.tipo==e.target.value);
-    console.log(e.target.value)
     e.target.value="";
-    console.log(e.target.value)
+  
   }
 
   eliminadoLogico(visi: IVisita, accion: number) {
@@ -128,4 +128,10 @@ export class VisitaComponent implements OnInit,AfterViewInit {
     console.log(this.dataSource.data)
   }
 
+  obtenerUsuario(){
+    this._usuario.getUsuario().subscribe(a=>{
+      this.user=a;
+     
+    });
+  }
 }

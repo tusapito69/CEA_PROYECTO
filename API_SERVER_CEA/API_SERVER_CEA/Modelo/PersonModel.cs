@@ -15,11 +15,9 @@ namespace API_SERVER_CEA.Modelo
 
         public int? edadPersona { get; set; }
 
-        [Required(ErrorMessage = "Este campo no debe estar vacio")]
-        public int ciPersona { get; set; }
+        public string? ciPersona { get; set; }
 
-        [Required(ErrorMessage = "Este campo no debe estar vacio")]
-        public int celularPersona { get; set; }
+        public string? celularPersona { get; set; }
         
         public byte estadoPersona { get; set; }
     }

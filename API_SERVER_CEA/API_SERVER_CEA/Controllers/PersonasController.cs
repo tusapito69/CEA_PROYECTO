@@ -21,10 +21,10 @@ namespace API_SERVER_CEA.Controllers
         [HttpPost]
         public async Task<ActionResult<List<Persona>>> AgregarPersona(Persona persona)
         {
-            var p = await contexto.Persona.FirstOrDefaultAsync(x => x.ciPersona == persona.ciPersona);
-            if (p != null)
+         
+            if (persona == null)
             {
-                return BadRequest("Este Persona ya existe");
+                return BadRequest();
             }
             else
             {

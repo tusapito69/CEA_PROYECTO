@@ -24,8 +24,6 @@ export class ReportesVisitaComponent implements OnInit {
       tipo:['',Validators.required]
     })
    }
-
-
   ngOnInit() {
   }
   cancelar(){
@@ -46,7 +44,7 @@ export class ReportesVisitaComponent implements OnInit {
       let fecha=new Date();
       let blob:Blob=data.body as Blob;
       let a=document.createElement('a');
-      a.download="Reporte Visita "+fecha;
+      a.download="Reporte Visita "+ r.tipo + fecha;
       a.href=window.URL.createObjectURL(blob);
       a.click();
       this._alerta.mensajeAgregar("Reporte Generado Exitosamente");

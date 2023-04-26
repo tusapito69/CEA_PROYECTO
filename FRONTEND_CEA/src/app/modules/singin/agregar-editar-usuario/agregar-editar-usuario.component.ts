@@ -17,64 +17,63 @@ import Swal from 'sweetalert2';
   templateUrl: './agregar-editar-usuario.component.html',
   styleUrls: ['./agregar-editar-usuario.component.css']
 })
-export class AgregarEditarUsuarioComponent implements OnInit  {
+export class AgregarEditarUsuarioComponent implements OnInit {
   hide = true;
-  datosUsuarios:any={};
+  datosUsuarios: any = {};
   form: FormGroup;
-  operacion: string ='Agregar '
+  operacion: string = 'Agregar'
   id: number | undefined;
-  sel:any;
+  sel: any;
   constructor(public dialogRef: MatDialogRef<AgregarEditarUsuarioComponent>,
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private UsuarioService: UsuarioService,
-    private PersonaService:PersonaService,
-    private _alertaService:AlertaService,
-    @Inject(MAT_DIALOG_DATA) public data: any,){
-      this.form = this.propUsuario();
-      this.id = data.id;
-    }
+    private PersonaService: PersonaService,
+    private _alertaService: AlertaService,
+    @Inject(MAT_DIALOG_DATA) public data: any,) {
+    this.form = this.propUsuario();
+    this.id = data.id;
+  }
   ngOnInit(): void {
     this.esEditar(this.id)
   }
 
-  esEditar(id:number | undefined){
-   if (id !== undefined){
-    this.operacion = 'Editar ';
-    this.getUsuario(id);
-   }
+  esEditar(id: number | undefined) {
+    if (id !== undefined) {
+      this.operacion = 'Editar ';
+      this.getUsuario(id);
+    }
   }
 
-    getUsuario(id: number){
-      this.UsuarioService.obtenerUsuario(id).subscribe((data) => {
-     
+  getUsuario(id: number) {
+    this.UsuarioService.obtenerUsuario(id).subscribe((data) => {
       this.form.patchValue({
-          nombrePersona:data[0].persona["nombrePersona"],
-          apellidoPersona:data[0].persona["apellidoPersona"],
-          edad:data[0].persona["edadPersona"],
-          ci:data[0].persona["ciPersona"],
-          celular:data[0].persona["celularPersona"],
-          nombreUsuario:data[0].nombreUsuario,
-          contrasenia:data[0].contraseniaUsuario,
-          rolUsuario:data[0].rolUsuario
+        nombrePersona: data[0].persona["nombrePersona"],
+        apellidoPersona: data[0].persona["apellidoPersona"],
+        edad: data[0].persona["edadPersona"],
+        ci: data[0].persona["ciPersona"],
+        celular: data[0].persona["celularPersona"],
+        nombreUsuario: data[0].nombreUsuario,
+        contrasenia: data[0].contraseniaUsuario,
+        rolUsuario: data[0].rolUsuario
       })
-      })
-    }
-  listaRoles: string [] = ['Administrador','Usuario'];
-  cancelar(){
+    })
+  }
+  listaRoles: string[] = ['Administrador', 'Usuario'];
+  cancelar() {
     this.dialogRef.close();
   };
-  
-  agregarUsuario(){
+
+  agregarUsuario() {
     if (this.form.invalid) {
       return;
     }
-    const usuario:IUsuario = {
+    const usuario: IUsuario = {
       nombreUsuario: this.form.value.nombreUsuario,
       rolUsuario: this.form.value.rolUsuario,
       contraseniaUsuario: this.form.value.contrasenia,
       estadoUsuario: 1,
       persona: {
-        nombrePersona:this.form.value.nombrePersona,
+        nombrePersona: this.form.value.nombrePersona,
         apellidoPersona: this.form.value.apellidoPersona,
         edadPersona: this.form.value.edad,
         ciPersona: this.form.value.ci,
@@ -82,39 +81,34 @@ export class AgregarEditarUsuarioComponent implements OnInit  {
         estadoPersona: 1
       }
     }
-    if (this.id==undefined) {
-      this.UsuarioService.enviarUsuario(usuario).subscribe(() =>{
+    if (this.id == undefined) {
+      this.UsuarioService.enviarUsuario(usuario).subscribe(() => {
         this._alertaService.mensajeAgregar("Usuario agregado");
-        Swal.fire(
-          'Se ha agregado el usuario correctamente',
-          '',
-          'success'
-        )
       });
       this.dialogRef.close();
-      
-    }else{
 
-      usuario.persona.id=this.id,
-      this.UsuarioService.modificarUsuario(this.id,usuario).subscribe(r=>{
-        this._alertaService.mensajeAgregar("Usuario modificado");
-      });
+    }else {
+
+      usuario.persona.id = this.id,
+        this.UsuarioService.modificarUsuario(this.id, usuario).subscribe(r => {
+          this._alertaService.mensajeAgregar("Usuario modificado");
+        });
       this.dialogRef.close(true);
     }
-   
+
   }
 
-  propUsuario(){
+  propUsuario() {
     return this.fb.group({
-      nombrePersona:['', Validators.required],
-      apellidoPersona:['', Validators.required],
-      edad:['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-      ci:['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-      celular:['',[Validators.required, Validators.pattern("^[0-9]*$")]],
-      nombreUsuario:['', Validators.required],
-      contrasenia:['', Validators.required],
-      rolUsuario:['', Validators.required],
+      nombrePersona: ['', Validators.required],
+      apellidoPersona: ['', Validators.required],
+      edad: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      ci: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      celular: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      nombreUsuario: ['', Validators.required],
+      contrasenia: ['', Validators.required],
+      rolUsuario: ['', Validators.required],
     });
   }
-  
+
 }

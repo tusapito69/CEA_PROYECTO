@@ -28,8 +28,6 @@ namespace API_SERVER_CEA.Controllers
             this.contexto = context;
         }
 
-
-
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<List<User>>> ObtenerUsuarios()

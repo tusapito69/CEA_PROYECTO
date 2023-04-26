@@ -33,14 +33,15 @@ export class AgregarEditarVisitaComponent implements OnInit {
       lugar: ['', Validators.required],
       observaciones: [''],
       tipo: ['', Validators.required],
-      email: ['',[Validators.required, Validators.email]],
+      email: ['',[ Validators.email]],
+      barriozona:[''],
       fecha: ['', [Validators.required]],
       InstitucionId: ['',Validators.required],
       nombrePersona: ['', Validators.required],
       apellidoPersona: ['', Validators.required],
-      edadPersona: [null],
-      ciPersona: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.maxLength(11)]],
-      celularPersona: ['',[Validators.required, Validators.pattern("^[0-9]*$"),Validators.maxLength(11)]],
+      edadPersona: [null,Validators.pattern("^[0-9]*$")],
+      ciPersona: ['',Validators.maxLength(11)],
+      celularPersona: ['',Validators.maxLength(11)],
     })
     this.id = data.id;
     dateAdapter.setLocale('es')
@@ -60,11 +61,11 @@ export class AgregarEditarVisitaComponent implements OnInit {
   }
 
   getVisita(id: number){
-    console.log(id);
     this._visitaService.obtenerVisita(id).subscribe(data => {
       this.form.patchValue({
         actividad: data[0].actividad,
         lugar: data[0].lugar,
+        barriozona:data[0].barriozona,
         observaciones: data[0].observaciones,
         tipo: data[0].tipo,
         fecha: data[0].fecha,
@@ -105,6 +106,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       observaciones: this.form.value.observaciones,
       tipo: this.form.value.tipo,
       email: this.form.value.email,
+      barriozona:this.form.value.barriozona,
       estado: 1,
       InstitucionId: this.form.value.InstitucionId,
       persona: {

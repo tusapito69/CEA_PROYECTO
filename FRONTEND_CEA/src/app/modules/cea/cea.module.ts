@@ -39,7 +39,6 @@ import { DialogDetailVisitComponent } from './visita/dialog-detail-visit/dialog-
     CommonModule,
     CeaRoutingModule,
     SharedModule,
-
     MatFormFieldModule,
     MatPaginatorModule,
     MatTableModule,

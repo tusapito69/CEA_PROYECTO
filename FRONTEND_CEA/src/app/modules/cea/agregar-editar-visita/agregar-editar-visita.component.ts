@@ -34,12 +34,12 @@ export class AgregarEditarVisitaComponent implements OnInit {
       observaciones: [''],
       tipo: ['', Validators.required],
       email: ['',[ Validators.email]],
-      barriozona:[''],
+      barrio_zona:[''],
       fecha: ['', [Validators.required]],
       InstitucionId: ['',Validators.required],
       nombrePersona: ['', Validators.required],
       apellidoPersona: ['', Validators.required],
-      edadPersona: [null,Validators.pattern("^[0-9]*$")],
+      edadPersona: ['',Validators.pattern("^[0-9]*$")],
       ciPersona: ['',Validators.maxLength(11)],
       celularPersona: ['',Validators.maxLength(11)],
     })
@@ -65,16 +65,18 @@ export class AgregarEditarVisitaComponent implements OnInit {
       this.form.patchValue({
         actividad: data[0].actividad,
         lugar: data[0].lugar,
-        barriozona:data[0].barriozona,
+
         observaciones: data[0].observaciones,
         tipo: data[0].tipo,
         fecha: data[0].fecha,
-        email: data[0].email,
+
         nombrePersona: data[0].persona["nombrePersona"],
         apellidoPersona: data[0].persona["apellidoPersona"],
         edadPersona: data[0].persona["edadPersona"],
         ciPersona: data[0].persona["ciPersona"],
         celularPersona: data[0].persona["celularPersona"],
+        barrio_zona:data[0].persona["barrio_zona"],
+        email: data[0].persona["email"],
         InstitucionId: data[0].institucion["id"]
       })
       this.seleccionada = data[0].institucion["id"];
@@ -105,8 +107,6 @@ export class AgregarEditarVisitaComponent implements OnInit {
       lugar: this.form.value.lugar,
       observaciones: this.form.value.observaciones,
       tipo: this.form.value.tipo,
-      email: this.form.value.email,
-      barriozona:this.form.value.barriozona,
       estado: 1,
       InstitucionId: this.form.value.InstitucionId,
       persona: {
@@ -115,6 +115,8 @@ export class AgregarEditarVisitaComponent implements OnInit {
         edadPersona: this.form.value.edadPersona,
         ciPersona: this.form.value.ciPersona,
         celularPersona: this.form.value.celularPersona,
+        email: this.form.value.email,
+        barrio_zona:this.form.value.barrio_zona,
         estadoPersona: 1
       }
 
@@ -125,7 +127,6 @@ export class AgregarEditarVisitaComponent implements OnInit {
       //AGREGAR
       this._visitaService.enviarVisitas(visita).subscribe((resp) => {
         this._alertaService.mensajeAgregar("Visita Agregada");
-
         this.dialogRef.close(true);
       })
     } else {

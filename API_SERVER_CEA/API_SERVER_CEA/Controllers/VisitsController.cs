@@ -42,12 +42,10 @@ namespace API_SERVER_CEA.Controllers
                             observaciones = v.observaciones,
                             lugar = v.lugar,
                             tipo = v.tipo,
-                            email = v.email,
                             fecha = v.fecha,
                             estado = v.estado,
                             Persona = v.Persona,
                             Institucion = v.Institucion,
-                            barrio_zona = v.barrio_zona
                         };
             return await datos.ToListAsync();
         }
@@ -66,12 +64,10 @@ namespace API_SERVER_CEA.Controllers
                             observaciones = v.observaciones,
                             lugar = v.lugar,
                             tipo = v.tipo,
-                            email = v.email,
                             fecha = v.fecha,
                             estado = v.estado,
                             Persona = v.Persona,
                             Institucion = v.Institucion,
-                            barrio_zona=v.barrio_zona
                         };
             return await datos.ToListAsync();
         }
@@ -111,16 +107,16 @@ namespace API_SERVER_CEA.Controllers
                 v.observaciones = visita.observaciones;
                 v.lugar = visita.lugar;
                 v.tipo = visita.tipo;
-                v.email = visita.email;
                 v.fecha = visita.fecha;
                 v.estado = visita.estado;
-                v.barrio_zona = visita.barrio_zona;
                 v.InstitucionId = visita.InstitucionId;
                 p.nombrePersona = visita.Persona.nombrePersona;
                 p.apellidoPersona = visita.Persona.apellidoPersona;
                 p.edadPersona = visita.Persona.edadPersona;
                 p.ciPersona = visita.Persona.ciPersona;
                 p.celularPersona = visita.Persona.celularPersona;
+                p.barrio_zona = visita.Persona.barrio_zona;
+                p.email = visita.Persona.email;
                 p.estadoPersona = visita.Persona.estadoPersona;
                 await _context.SaveChangesAsync();
                 return Ok();
@@ -161,13 +157,12 @@ namespace API_SERVER_CEA.Controllers
                             lugar = v.lugar,
                             tipo = v.tipo,
                             fecha = v.fecha,
-                            barriozona = v.barrio_zona,
                             nombrePersona = p.nombrePersona,
                             apellidoPersona = p.apellidoPersona,
                             edad = p.edadPersona,
                             ciPersona = p.ciPersona,
                             celularPersona=p.celularPersona,
-                            email=v.email,
+                            barriozona = p.barrio_zona,
                             nombreInstitucion=i.Nombre
 
                         };

@@ -18,7 +18,7 @@ namespace API_SERVER_CEA.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Administrador")]
+   // [Authorize(Roles = "Administrador")]
     public class UsersController : ControllerBase
     {
         private readonly ApplicationContext contexto;
@@ -94,7 +94,10 @@ namespace API_SERVER_CEA.Controllers
                 existen.edadPersona = usuario.Persona.edadPersona;
                 existen.ciPersona = usuario.Persona.ciPersona;
                 existen.celularPersona = usuario.Persona.celularPersona;
+                existen.barrio_zona = usuario.Persona.barrio_zona;
+                existen.email = usuario.Persona.email;
                 existen.estadoPersona = usuario.Persona.estadoPersona;
+         
                 await contexto.SaveChangesAsync();
                 return Ok();
             }

@@ -35,6 +35,8 @@ namespace API_SERVER_CEA.Migrations
                     edadPersona = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ciPersona = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     celularPersona = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    barrio_zona = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     estadoPersona = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
@@ -75,9 +77,7 @@ namespace API_SERVER_CEA.Migrations
                     fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     lugar = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     observaciones = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    barrio_zona = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     tipo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     estado = table.Column<int>(type: "int", nullable: false),
                     InstitucionId = table.Column<int>(type: "int", nullable: false),
                     PersonaId = table.Column<int>(type: "int", nullable: false)

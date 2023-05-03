@@ -58,6 +58,8 @@ namespace API_SERVER_CEA.Controllers
                 pers.edadPersona = persona.edadPersona;
                 pers.ciPersona = persona.ciPersona;
                 pers.celularPersona = persona.celularPersona;
+                pers.barrio_zona = persona.barrio_zona;
+                pers.email = persona.email;
                 pers.estadoPersona = persona.estadoPersona;
                 await contexto.SaveChangesAsync();
                 return Ok();

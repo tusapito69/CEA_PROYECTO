@@ -41,11 +41,12 @@ export class VisitaComponent implements OnInit,AfterViewInit {
   ngAfterViewInit():void{
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    
+
   }
   //LISTAR VISITAS
     obtenerVisitas(){
       this._visitaservice.obtenerVisitas().subscribe((resp:IVisita[])=>{
+        console.log(resp);
         this.datos=resp;
         this.dataSource.data=resp;
       })
@@ -106,7 +107,7 @@ export class VisitaComponent implements OnInit,AfterViewInit {
   dataVisita(e:any){
     this.dataSource.data=this.datos.filter(x=>x.tipo==e.target.value);
     e.target.value="";
-  
+
   }
 
   eliminadoLogico(visi: IVisita, accion: number) {
@@ -131,7 +132,7 @@ export class VisitaComponent implements OnInit,AfterViewInit {
   obtenerUsuario(){
     this._usuario.getUsuario().subscribe(a=>{
       this.user=a;
-     
+
     });
   }
 }

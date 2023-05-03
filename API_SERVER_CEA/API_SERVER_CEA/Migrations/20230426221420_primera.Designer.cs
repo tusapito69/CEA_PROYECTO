@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_SERVER_CEA.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230426201232_primera")]
+    [Migration("20230426221420_primera")]
     partial class primera
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,9 @@ namespace API_SERVER_CEA.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("barrio_zona")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("celularPersona")
                         .HasColumnType("nvarchar(max)");
 
@@ -66,6 +69,9 @@ namespace API_SERVER_CEA.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("edadPersona")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte>("estadoPersona")
@@ -129,12 +135,6 @@ namespace API_SERVER_CEA.Migrations
 
                     b.Property<string>("actividad")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("barrio_zona")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("estado")

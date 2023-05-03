@@ -40,8 +40,8 @@ export class AgregarEditarVisitaComponent implements OnInit {
       nombrePersona: ['', Validators.required],
       apellidoPersona: ['', Validators.required],
       edadPersona: ['',Validators.pattern("^[0-9]*$")],
-      ciPersona: ['',Validators.maxLength(11)],
-      celularPersona: ['',Validators.maxLength(11)],
+      ciPersona: ['',[Validators.maxLength(11),Validators.pattern("^[0-9]*$")]],
+      celularPersona: ['',[Validators.maxLength(11),Validators.pattern("^[0-9]*$")]],
     })
     this.id = data.id;
     dateAdapter.setLocale('es')
@@ -65,16 +65,17 @@ export class AgregarEditarVisitaComponent implements OnInit {
       this.form.patchValue({
         actividad: data[0].actividad,
         lugar: data[0].lugar,
-        barrio_zona:data[0].barriozona,
         observaciones: data[0].observaciones,
         tipo: data[0].tipo,
         fecha: data[0].fecha,
-        email: data[0].email,
+
         nombrePersona: data[0].persona["nombrePersona"],
         apellidoPersona: data[0].persona["apellidoPersona"],
         edadPersona: data[0].persona["edadPersona"],
         ciPersona: data[0].persona["ciPersona"],
         celularPersona: data[0].persona["celularPersona"],
+        barrio_zona:data[0].persona["barrio_zona"],
+        email: data[0].persona["email"],
         InstitucionId: data[0].institucion["id"]
       })
       this.seleccionada = data[0].institucion["id"];
@@ -105,8 +106,6 @@ export class AgregarEditarVisitaComponent implements OnInit {
       lugar: this.form.value.lugar,
       observaciones: this.form.value.observaciones,
       tipo: this.form.value.tipo,
-      email: this.form.value.email,
-      barrio_zona:this.form.value.barrio_zona,
       estado: 1,
       InstitucionId: this.form.value.InstitucionId,
       persona: {
@@ -115,17 +114,17 @@ export class AgregarEditarVisitaComponent implements OnInit {
         edadPersona: this.form.value.edadPersona,
         ciPersona: this.form.value.ciPersona,
         celularPersona: this.form.value.celularPersona,
+        email: this.form.value.email,
+        barrio_zona:this.form.value.barrio_zona,
         estadoPersona: 1
       }
 
     }
-    console.log(visita.barrio_zona);
 
     if (this.id == undefined) {
       //AGREGAR
       this._visitaService.enviarVisitas(visita).subscribe((resp) => {
         this._alertaService.mensajeAgregar("Visita Agregada");
-
         this.dialogRef.close(true);
       })
     } else {

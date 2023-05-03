@@ -52,9 +52,12 @@ export class AgregarEditarUsuarioComponent implements OnInit {
         edad: data[0].persona["edadPersona"],
         ci: data[0].persona["ciPersona"],
         celular: data[0].persona["celularPersona"],
+        barrio_zona: data[0].persona["barrio_zona"],
+        email: data[0].persona["email"],
         nombreUsuario: data[0].nombreUsuario,
         contrasenia: data[0].contraseniaUsuario,
-        rolUsuario: data[0].rolUsuario
+        rolUsuario: data[0].rolUsuario,
+
       })
     })
   }
@@ -78,6 +81,8 @@ export class AgregarEditarUsuarioComponent implements OnInit {
         edadPersona: this.form.value.edad,
         ciPersona: this.form.value.ci,
         celularPersona: this.form.value.celular,
+        email: this.form.value.email,
+        barrio_zona:this.form.value.barrio_zona,
         estadoPersona: 1
       }
     }
@@ -104,10 +109,13 @@ export class AgregarEditarUsuarioComponent implements OnInit {
       apellidoPersona: ['', Validators.required],
       edad: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       ci: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      email: ['',[ Validators.email]],
+      barrio_zona:[''],
       celular: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       nombreUsuario: ['', Validators.required],
       contrasenia: ['', Validators.required],
       rolUsuario: ['', Validators.required],
+
     });
   }
 

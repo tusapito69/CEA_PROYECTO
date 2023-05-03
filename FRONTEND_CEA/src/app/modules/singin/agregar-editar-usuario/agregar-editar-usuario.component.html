@@ -128,6 +128,23 @@
           </span>
         </div>
       </div>
+      <div class="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Barrio/Zona</mat-label>
+          <input formControlName="barrio_zona" matInput>
+        </mat-form-field>
+      </div>
+      <div class="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" matInput>
+        </mat-form-field>
+        <div class="error">
+          <!-- <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">El email es un campo
+            <strong>Requerido</strong></span> -->
+          <span *ngIf="form.get('email')?.hasError('email')">Debe ingresar una direccion de email valida</span>
+        </div>
+      </div>
     </div>
   </mat-dialog-content>
   <mat-dialog-actions align="end">

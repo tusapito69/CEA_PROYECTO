@@ -38,10 +38,14 @@
           </mat-form-field>
         </p>
         <div class="error">
-          <span *ngIf="form.get('ciPersona')?.hasError('required') && form.get('ciPersona')?.touched">El C.I. es un
-            campo <strong>Requerido</strong></span>
           <span *ngIf="form.get('ciPersona')?.hasError('maxlength')">El C.I. debe tener como maximo 11 caracteres</span>
         </div>
+        <div>
+          <span class="error" *ngIf="form.get('ciPersona')?.hasError('pattern')">
+            La edad sólo debe tener <strong>números</strong>
+          </span>
+        </div>
+
       </div>
 
       <div class="col-4">
@@ -64,9 +68,14 @@
               <mat-label>Edad</mat-label>
               <input formControlName="edadPersona" matInput autocomplete="off" />
             </mat-form-field>
+            
           </p>
-        
+                  
+        <span class="error" *ngIf="form.get('edadPersona')?.hasError('pattern')">
+          La edad sólo debe tener <strong>números</strong>
+        </span>
         </div>
+
       </div>
 
     </div>
@@ -100,6 +109,9 @@
             celular es un campo <strong>Requerido</strong></span> -->
           <span *ngIf="form.get('celularPersona')?.hasError('maxlength')">El celular debe tener como maximo 11
             caracteres</span>
+            <span *ngIf="form.get('celularPersona')?.hasError('pattern')">
+              El celular sólo debe tener <strong>números</strong>
+            </span>
         </div>
       </div>
       <div class="col-4">
@@ -150,7 +162,7 @@
               <input formControlName="barrio_zona" matInput autocomplete="off" />
             </mat-form-field>
           </p>
-        
+
         </div>
       </div>
 

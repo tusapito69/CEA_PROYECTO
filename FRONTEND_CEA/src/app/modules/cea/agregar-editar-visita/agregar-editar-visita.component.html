@@ -132,11 +132,35 @@
     </div>
     <div class="row">
 
-      <div class="col-4">
+      <!-- <div class="col-4">
         <mat-form-field appearance="fill">
+
           <mat-label>Institucion</mat-label>
           <mat-select formControlName="InstitucionId">
             <mat-option *ngFor="let Institucion of ListaInstitucion" [value]="Institucion.id">{{Institucion.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha</mat-label>
+          <input formControlName="fecha" matInput [matDatepicker]="picker" />
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <div class="error">
+          <span *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">La fecha es un campo
+            <strong>Requerido</strong></span>
+        </div>
+      </div> -->
+      <div class="col-4">
+        <mat-form-field appearance="fill">
+          <mat-label>Buscar Institucion</mat-label>
+          <input matInput autocomplete="off"  (keyup)="seleccionarInstitucion($event)"/>
+          <mat-select formControlName="InstitucionId">
+            <mat-option *ngFor="let Institucion of dataInstitucion" [value]="Institucion.id">{{Institucion.nombre}} 
             </mat-option>
           </mat-select>
         </mat-form-field>

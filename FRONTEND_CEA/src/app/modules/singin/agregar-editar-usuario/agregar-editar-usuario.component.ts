@@ -9,7 +9,7 @@ import { PersonaService } from 'src/app/core/services/persona.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { AlertaService } from 'src/app/core/services/alerta.service';
 import Swal from 'sweetalert2';
-
+import { IPersona } from 'src/app/core/interfaces/persona';
 
 
 @Component({
@@ -67,14 +67,10 @@ export class AgregarEditarUsuarioComponent implements OnInit {
   };
 
   agregarUsuario() {
-    if (this.form.invalid) {
-      return;
-    }
     const usuario: IUsuario = {
       nombreUsuario: this.form.value.nombreUsuario,
       rolUsuario: this.form.value.rolUsuario,
       contraseniaUsuario: this.form.value.contrasenia,
-      estadoUsuario: 1,
       persona: {
         nombrePersona: this.form.value.nombrePersona,
         apellidoPersona: this.form.value.apellidoPersona,
@@ -84,8 +80,13 @@ export class AgregarEditarUsuarioComponent implements OnInit {
         email: this.form.value.email,
         barrio_zona:this.form.value.barrio_zona,
         estadoPersona: 1
-      }
+      },
+      estadoUsuario: 1
     }
+    if (this.form.invalid) {
+      return;
+    }
+   
     if (this.id == undefined) {
       this.UsuarioService.enviarUsuario(usuario).subscribe(() => {
         this._alertaService.mensajeAgregar("Usuario agregado");
@@ -93,14 +94,12 @@ export class AgregarEditarUsuarioComponent implements OnInit {
       this.dialogRef.close();
 
     }else {
-
-      usuario.persona.id = this.id,
-        this.UsuarioService.modificarUsuario(this.id, usuario).subscribe(r => {
-          this._alertaService.mensajeAgregar("Usuario modificado");
-        });
+      console.log(usuario)
+      this.UsuarioService.modificarUsuario(this.id, usuario).subscribe(r => {
+        this._alertaService.mensajeAgregar("Usuario modificado");
+      });
       this.dialogRef.close(true);
     }
-
   }
 
   propUsuario() {
@@ -114,8 +113,7 @@ export class AgregarEditarUsuarioComponent implements OnInit {
       celular: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       nombreUsuario: ['', Validators.required],
       contrasenia: ['', Validators.required],
-      rolUsuario: ['', Validators.required],
-
+      rolUsuario: ['', Validators.required]
     });
   }
 

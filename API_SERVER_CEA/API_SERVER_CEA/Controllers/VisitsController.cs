@@ -206,7 +206,7 @@ namespace API_SERVER_CEA.Controllers
         [HttpGet("total")]
         public async Task<ActionResult<List<Visita>>> totalVisitas()
         {
-            var n=await _context.Visita.CountAsync();
+            var n=await _context.Visita.CountAsync(v=>v.estado==1);
             return Ok(n);
         }
 

@@ -88,7 +88,7 @@ namespace API_SERVER_CEA.Controllers
         [HttpGet("total")]
         public async Task<ActionResult<List<Institucion>>> totalInstituciones()
         {
-            var n = await contexto.Institucion.CountAsync();
+            var n = await contexto.Institucion.CountAsync(i=>i.Estado==1);
             return Ok(n);
 
         }

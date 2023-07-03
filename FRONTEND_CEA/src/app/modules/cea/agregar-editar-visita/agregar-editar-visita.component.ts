@@ -10,6 +10,7 @@ import { IPersona } from '../../../core/interfaces/persona';
 import { Institucion } from '../../../core/interfaces/institucion';
 import { InstitucionComponent } from '../institucion/institucion.component';
 import { AlertaService } from 'src/app/core/services/alerta.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-agregar-editar-visita',
@@ -22,7 +23,10 @@ export class AgregarEditarVisitaComponent implements OnInit {
   operacion: string = 'Agregar ';
   id: number | undefined;
   form: FormGroup;
+  texto!:string;
   opcionSeleccionada = "";
+  ListaInstitucion!: Institucion[];
+  dataInstitucion!:Institucion[];
   constructor(public dialogRef: MatDialogRef<AgregarEditarVisitaComponent>, private fb: FormBuilder,
     private _visitaService: VisitaService, private institucion: InstitucionService, private _personaService: PersonaService,
     private dateAdapter: DateAdapter<any>, @Inject(MAT_DIALOG_DATA) public data:any,
@@ -68,7 +72,6 @@ export class AgregarEditarVisitaComponent implements OnInit {
         observaciones: data[0].observaciones,
         tipo: data[0].tipo,
         fecha: data[0].fecha,
-
         nombrePersona: data[0].persona["nombrePersona"],
         apellidoPersona: data[0].persona["apellidoPersona"],
         edadPersona: data[0].persona["edadPersona"],
@@ -87,10 +90,12 @@ export class AgregarEditarVisitaComponent implements OnInit {
   obtenerInstitucion(){
     this.institucion.obtenerActivos().subscribe((data)=>{
       this.ListaInstitucion = data;
+      this.dataInstitucion=data;
     })
   };
 
-  ListaInstitucion!: Institucion[];
+  
+  dataInsti=this.ListaInstitucion;
   cancelar() {
     this.dialogRef.close(false);
   }
@@ -143,5 +148,12 @@ export class AgregarEditarVisitaComponent implements OnInit {
       disableClose: true
     });
   }
-
+  seleccionarInstitucion(event:Event){
+    const resul=(event.target as HTMLInputElement).value;
+    if (resul==='') {
+        this.dataInstitucion=this.ListaInstitucion;
+    }
+    this.dataInstitucion=this.dataInstitucion.filter(x=>x.nombre.toLowerCase().includes(resul));
+      console.log(this.dataInstitucion);
+  }
 }

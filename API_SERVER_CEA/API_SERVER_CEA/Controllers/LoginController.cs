@@ -68,9 +68,6 @@ namespace API_SERVER_CEA.Controllers
                 
             }
             return BadRequest(new { estado = "Las credenciales de sesion del usuario ingresado fueron incorrectas verifique e ingrese nuevamente" });
-
-
-
         }
         [HttpGet]
         public IActionResult Get()

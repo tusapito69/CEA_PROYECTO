@@ -69,7 +69,7 @@ namespace API_SERVER_CEA.Controllers
         }
 
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<ActionResult> EditarUsuario(int id, User usuario)
         {
 
@@ -87,7 +87,7 @@ namespace API_SERVER_CEA.Controllers
                 var i = Encrypt(usuario.contraseniaUsuario);
                 user.contraseniaUsuario = i;
                 user.rolUsuario = usuario.rolUsuario;
-                existen.Id = usuario.Persona.Id;
+                //existen.Id = usuario.Persona.Id;
                 existen.nombrePersona = usuario.Persona.nombrePersona;
                 existen.apellidoPersona = usuario.Persona.apellidoPersona;
                 existen.edadPersona = usuario.Persona.edadPersona;
@@ -121,7 +121,6 @@ namespace API_SERVER_CEA.Controllers
 
             }
         }
-
 
 
         //ELIMINAR 
@@ -192,10 +191,8 @@ namespace API_SERVER_CEA.Controllers
         [HttpGet("total")]
         public async Task<ActionResult<List<User>>> totalUsuarios()
         {
-            var n = await contexto.Usuario.CountAsync();
+            var n = await contexto.Usuario.CountAsync(u=>u.estadoUsuario==1) ;
             return Ok(n);
-
-
         }
 
     }

@@ -17,26 +17,22 @@ import Swal from 'sweetalert2';
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css']
 })
-export class UsuarioComponent implements OnInit,AfterViewInit{
+export class UsuarioComponent implements AfterViewInit{
   id:number| undefined;
   displayedColumns: string[] = ['id','usuario','rol','nombre','apellido','estado','opciones'];
   constructor(private _usuarioService:UsuarioService,public dialog: MatDialog){}
-  private usuarios!:any[];
-  dataSource =new MatTableDataSource<any>(this.usuarios);
+  private usuarios!:any;
+  dataSource =new MatTableDataSource<IUsuario[]>(this.usuarios);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  ngAfterViewInit():void{
+  ngAfterViewInit(){
+    this.obtenerUsuarios();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
   }
-  ngOnInit():void{
-    this.obtenerUsuarios();
-  }
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-  // }
+
   obtenerUsuarios(){
     this._usuarioService.obtenerUsuarios().subscribe((resp)=>{
       console.log(resp);
@@ -46,7 +42,6 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -57,8 +52,10 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
       disableClose: true,
       data:{id:id}
     });
-    dialogRef.afterClosed().subscribe(()=>{
-      this.obtenerUsuarios();
+    dialogRef.afterClosed().subscribe((r)=>{
+      if(r){
+        this.obtenerUsuarios();
+      }
     })
   }
 
@@ -66,26 +63,23 @@ export class UsuarioComponent implements OnInit,AfterViewInit{
     this.id=us.idUsuario;
     if (this.id!=undefined) {
       us.estadoUsuario=accion;
-      if (accion==1) {
-        Swal.fire(
-          'Se ha activado el usuario correctamente',
-          '',
-          'success'
-        )
-      }
-      else if (accion==0) {
-        Swal.fire(
-          'Se ha desactivado el usuario correctamente',
-          '',
-          'success'
-        )
-      }
-      // console.log(us.estadoUsuario);
-      // console.log(this.id)
       this._usuarioService.bajaUsuario(this.id,us).subscribe((r) => {
         this.obtenerUsuarios();
     });
     }
   }
-
+  eliminadoLogico(user: IUsuario, accion: number) {
+    var result = accion == 1 ? "activar" : "desactivar";
+    Swal.fire({
+      title: `¿Desea ${result} este usuario?`,
+      showDenyButton: true,
+      confirmButtonText: 'Ok',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.darBajaUsuario(user, accion);
+      }
+    })
+  }
+  
 }

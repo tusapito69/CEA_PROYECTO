@@ -132,7 +132,6 @@ export class VisitaComponent implements OnInit,AfterViewInit {
   obtenerUsuario(){
     this._usuario.getUsuario().subscribe(a=>{
       this.user=a;
-
     });
   }
 }

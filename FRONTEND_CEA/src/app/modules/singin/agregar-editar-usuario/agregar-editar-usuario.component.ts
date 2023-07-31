@@ -86,7 +86,7 @@ export class AgregarEditarUsuarioComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-   
+
     if (this.id == undefined) {
       this.UsuarioService.enviarUsuario(usuario).subscribe(() => {
         this._alertaService.mensajeAgregar("Usuario agregado");

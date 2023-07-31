@@ -21,6 +21,7 @@ import { AgregarEditarVisitaComponent } from './agregar-editar-visita/agregar-ed
 import { SeleccionarVisitaComponent } from './seleccionar-visita/seleccionar-visita.component';
 import { ReportesVisitaComponent } from './visita/reportes-visita/reportes-visita.component';
 import { DialogDetailVisitComponent } from './visita/dialog-detail-visit/dialog-detail-visit.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 
@@ -49,8 +50,8 @@ import { DialogDetailVisitComponent } from './visita/dialog-detail-visit/dialog-
     MatIconModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
-
+    MatNativeDateModule,
+    MatAutocompleteModule
   ],
   exports:[
     InstitucionComponent,

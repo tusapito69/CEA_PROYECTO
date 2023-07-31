@@ -3,9 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginusuarioGuard } from 'src/app/guards/loginusuario.guard';
 
-
-
-
 const routes: Routes = [
   {
     path: '',

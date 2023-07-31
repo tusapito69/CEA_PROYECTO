@@ -42,7 +42,7 @@
         </div>
         <div>
           <span class="error" *ngIf="form.get('ciPersona')?.hasError('pattern')">
-            La edad sólo debe tener <strong>números</strong>
+            El C.I. sólo debe tener <strong>números</strong>
           </span>
         </div>
 
@@ -68,9 +68,9 @@
               <mat-label>Edad</mat-label>
               <input formControlName="edadPersona" matInput autocomplete="off" />
             </mat-form-field>
-            
+
           </p>
-                  
+
         <span class="error" *ngIf="form.get('edadPersona')?.hasError('pattern')">
           La edad sólo debe tener <strong>números</strong>
         </span>
@@ -79,12 +79,8 @@
       </div>
 
     </div>
-
-
-
     <div class="row">
-
-      <div class="col-4">
+      <div class="col-6">
         <p>
           <mat-form-field appearance="fill">
             <mat-label>Lugar</mat-label>
@@ -96,37 +92,48 @@
             <strong>Requerido</strong></span>
         </div>
       </div>
+<!--
+      <div class="col-6">
+        <mat-form-field appearance="fill">
+          <mat-label>Buscar Institucion</mat-label>
+          <input matInput autocomplete="off"  (keyup)="seleccionarInstitucion($event)"/>
+          <mat-select formControlName="InstitucionId">
+            <mat-option *ngFor="let Institucion of dataInstitucion" [value]="Institucion.id">{{Institucion.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div> -->
 
-      <div class="col-4">
-        <p>
-          <mat-form-field appearance="fill">
-            <mat-label>Celular</mat-label>
-            <input formControlName="celularPersona" matInput autocomplete="off" />
-          </mat-form-field>
-        </p>
-        <div class="error">
-          <!-- <span *ngIf="form.get('celularPersona')?.hasError('required') && form.get('celularPersona')?.touched">El
-            celular es un campo <strong>Requerido</strong></span> -->
-          <span *ngIf="form.get('celularPersona')?.hasError('maxlength')">El celular debe tener como maximo 11
-            caracteres</span>
-            <span *ngIf="form.get('celularPersona')?.hasError('pattern')">
-              El celular sólo debe tener <strong>números</strong>
-            </span>
-        </div>
+      <div class="col-6">
+        <mat-form-field class="example-full-width">
+          <mat-label>Institucion</mat-label>
+          <input type="text"
+                 (keyup)="seleccionarInstitucion($event)"
+                 placeholder="Pick one"
+                 aria-label="Number"
+                 matInput
+                 [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-select formControlName="InstitucionId">
+              <mat-option *ngFor="let Institucion of dataInstitucion" [value]="Institucion.id">{{Institucion.nombre}}
+              </mat-option>
+            </mat-select>
+            <!-- <mat-option *ngFor="let Institucion of dataInstitucion" [value]="Institucion.id">{{Institucion.nombre}}
+            </mat-option> -->
+          </mat-autocomplete>
+        </mat-form-field>
       </div>
-      <div class="col-4">
-        <p>
-          <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input formControlName="email" matInput autocomplete="off" />
-          </mat-form-field>
-        </p>
-        <div class="error">
-          <!-- <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">El email es un campo
-            <strong>Requerido</strong></span> -->
-          <span *ngIf="form.get('email')?.hasError('email')">Debe ingresar una direccion de email valida</span>
-        </div>
-      </div>
+
+
+
+
+    </div>
+
+
+
+    <div class="row">
+
+
 
 
     </div>
@@ -155,17 +162,9 @@
             <strong>Requerido</strong></span>
         </div>
       </div> -->
-      <div class="col-4">
-        <mat-form-field appearance="fill">
-          <mat-label>Buscar Institucion</mat-label>
-          <input matInput autocomplete="off"  (keyup)="seleccionarInstitucion($event)"/>
-          <mat-select formControlName="InstitucionId">
-            <mat-option *ngFor="let Institucion of dataInstitucion" [value]="Institucion.id">{{Institucion.nombre}} 
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-4">
+
+
+      <div class="col-6">
         <mat-form-field appearance="fill">
           <mat-label>Fecha</mat-label>
           <input formControlName="fecha" matInput [matDatepicker]="picker" />
@@ -178,7 +177,7 @@
             <strong>Requerido</strong></span>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-6">
         <div>
           <p>
             <mat-form-field appearance="fill">
@@ -191,7 +190,40 @@
       </div>
 
 
+
+
     </div>
+
+    <div class="row">
+      <div class="col-6">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Celular</mat-label>
+            <input formControlName="celularPersona" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
+        <div class="error">
+          <span *ngIf="form.get('celularPersona')?.hasError('maxlength')">El celular debe tener como maximo 17
+            caracteres</span>
+            <span *ngIf="form.get('celularPersona')?.hasError('pattern')">
+              El celular sólo debe tener <strong>números</strong>
+            </span>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
+        <div class="error">
+          <span *ngIf="form.get('email')?.hasError('email')">Debe ingresar una direccion de email valida</span>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="column">
         <p>

@@ -11,6 +11,7 @@ import { Institucion } from '../../../core/interfaces/institucion';
 import { InstitucionComponent } from '../institucion/institucion.component';
 import { AlertaService } from 'src/app/core/services/alerta.service';
 import { filter } from 'rxjs';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-agregar-editar-visita',
@@ -44,8 +45,8 @@ export class AgregarEditarVisitaComponent implements OnInit {
       nombrePersona: ['', Validators.required],
       apellidoPersona: ['', Validators.required],
       edadPersona: ['',Validators.pattern("^[0-9]*$")],
-      ciPersona: ['',[Validators.maxLength(11),Validators.pattern("^[0-9]*$")]],
-      celularPersona: ['',[Validators.maxLength(11),Validators.pattern("^[0-9]*$")]],
+      ciPersona: ['',[Validators.maxLength(11)]],
+      celularPersona: ['',[Validators.maxLength(17),Validators.pattern("^[0-9+-]*$")]],
     })
     this.id = data.id;
     dateAdapter.setLocale('es')
@@ -94,7 +95,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
     })
   };
 
-  
+
   dataInsti=this.ListaInstitucion;
   cancelar() {
     this.dialogRef.close(false);
@@ -153,7 +154,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
     if (resul==='') {
         this.dataInstitucion=this.ListaInstitucion;
     }
-    this.dataInstitucion=this.dataInstitucion.filter(x=>x.nombre.toLowerCase().includes(resul));
+    this.dataInstitucion=this.dataInstitucion.filter(x=>x.nombre.toLowerCase().includes(resul.toLowerCase()));
       console.log(this.dataInstitucion);
   }
 }

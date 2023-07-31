@@ -4,6 +4,7 @@ export interface IPersona{
     apellidoPersona:string,
     ciPersona:string,
     edadPersona:string,
+    genero:number,
     celularPersona:string,
     barrio_zona:string;
     email:string,

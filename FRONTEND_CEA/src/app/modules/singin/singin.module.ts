@@ -16,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 
@@ -39,7 +40,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatSelectModule,
     MatIconModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatRadioModule
 
   ],
   exports: [

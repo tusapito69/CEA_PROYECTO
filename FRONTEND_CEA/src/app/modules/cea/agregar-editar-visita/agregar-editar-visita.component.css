@@ -334,3 +334,8 @@ mat-form-field {
   .fade {
     transition: opacity 0.15s linear;
   }
+
+
+  .mat-mdc-radio-button ~ .mat-mdc-radio-button {
+    margin-left: 16px;
+  }

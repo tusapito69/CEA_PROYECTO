@@ -46,6 +46,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       apellidoPersona: ['', Validators.required],
       edadPersona: ['',Validators.pattern("^[0-9]*$")],
       ciPersona: ['',[Validators.maxLength(11)]],
+      genero: ['',[Validators.maxLength(1),Validators.required]],
       celularPersona: ['',[Validators.maxLength(17),Validators.pattern("^[0-9+-]*$")]],
     })
     this.id = data.id;
@@ -77,6 +78,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
         apellidoPersona: data[0].persona["apellidoPersona"],
         edadPersona: data[0].persona["edadPersona"],
         ciPersona: data[0].persona["ciPersona"],
+        genero: data[0].persona["genero"],
         celularPersona: data[0].persona["celularPersona"],
         barrio_zona:data[0].persona["barrio_zona"],
         email: data[0].persona["email"],
@@ -119,6 +121,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
         apellidoPersona: this.form.value.apellidoPersona,
         edadPersona: this.form.value.edadPersona,
         ciPersona: this.form.value.ciPersona,
+        genero: this.form.value.genero,
         celularPersona: this.form.value.celularPersona,
         email: this.form.value.email,
         barrio_zona:this.form.value.barrio_zona,

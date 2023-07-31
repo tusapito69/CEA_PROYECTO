@@ -22,6 +22,7 @@ import { SeleccionarVisitaComponent } from './seleccionar-visita/seleccionar-vis
 import { ReportesVisitaComponent } from './visita/reportes-visita/reportes-visita.component';
 import { DialogDetailVisitComponent } from './visita/dialog-detail-visit/dialog-detail-visit.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 
@@ -51,7 +52,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatRadioModule
   ],
   exports:[
     InstitucionComponent,

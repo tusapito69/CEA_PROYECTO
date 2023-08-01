@@ -94,6 +94,7 @@ namespace API_SERVER_CEA.Controllers
                 existen.ciPersona = usuario.Persona.ciPersona;
                 existen.celularPersona = usuario.Persona.celularPersona;
                 existen.barrio_zona = usuario.Persona.barrio_zona;
+                existen.genero= usuario.Persona.genero;
                 existen.email = usuario.Persona.email;
                 existen.estadoPersona = usuario.Persona.estadoPersona;
          

@@ -12,6 +12,7 @@
         public string? ciPersona { get; set; }
         public string? celularPersona { get; set; }
         public string lugar { get; set; }
+        public string? genero { get; set; }
         public  DateTime fecha { get; set; }
         //public string? email { get; set; }
         public string? observaciones { get; set; }

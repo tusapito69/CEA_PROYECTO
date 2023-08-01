@@ -114,6 +114,7 @@ namespace API_SERVER_CEA.Controllers
                 p.apellidoPersona = visita.Persona.apellidoPersona;
                 p.edadPersona = visita.Persona.edadPersona;
                 p.ciPersona = visita.Persona.ciPersona;
+                p.genero=visita.Persona.genero;
                 p.celularPersona = visita.Persona.celularPersona;
                 p.barrio_zona = visita.Persona.barrio_zona;
                 p.email = visita.Persona.email;
@@ -161,7 +162,8 @@ namespace API_SERVER_CEA.Controllers
                             apellidoPersona = p.apellidoPersona,
                             edad = p.edadPersona,
                             ciPersona = p.ciPersona,
-                            celularPersona=p.celularPersona,
+                            celularPersona = p.celularPersona,
+                            genero = p.genero == 1 ? "Masculino":"Femenino",
                             barriozona = p.barrio_zona,
                             nombreInstitucion=i.Nombre,
                         };

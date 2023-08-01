@@ -125,14 +125,20 @@
       </div>
 
       <div class="col-4">
-        <mat-form-field>
-          <mat-label>Género</mat-label>
-          <mat-radio-group aria-label="Se">
-            <mat-radio-button value="1">Masculino</mat-radio-button>
-            <mat-radio-button value="2">Femenino</mat-radio-button>
-            <mat-radio-button value="3">Otro</mat-radio-button>
-          </mat-radio-group>
-        </mat-form-field>
+        <label id="example-radio-group-label">Seleccione el Género</label>
+        <mat-radio-group
+          class="example-radio-group"
+          appearance="fill"
+          formControlName="genero">
+          <mat-radio-button class="example-radio-button" [value]="0">Masculino</mat-radio-button>
+          <mat-radio-button class="example-radio-button" [value]="1">Femenino</mat-radio-button>
+          <mat-radio-button class="example-radio-button" [value]="2">Otro</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="error">
+        <span *ngIf="form.get('genero')?.hasError('required')&& form.get('genero')?.touched">
+          El género es <strong>requerido</strong>
+        </span>
       </div>
     </div>
 

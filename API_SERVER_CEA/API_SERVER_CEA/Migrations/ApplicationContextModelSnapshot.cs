@@ -75,6 +75,9 @@ namespace API_SERVER_CEA.Migrations
                     b.Property<byte>("estadoPersona")
                         .HasColumnType("tinyint");
 
+                    b.Property<int?>("genero")
+                        .HasColumnType("int");
+
                     b.Property<string>("nombrePersona")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

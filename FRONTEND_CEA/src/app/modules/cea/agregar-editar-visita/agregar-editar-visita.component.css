@@ -336,6 +336,14 @@ mat-form-field {
   }
 
 
-  .mat-mdc-radio-button ~ .mat-mdc-radio-button {
-    margin-left: 16px;
+  .example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
   }
+
+  .example-radio-button {
+    margin: 5px;
+  }
+

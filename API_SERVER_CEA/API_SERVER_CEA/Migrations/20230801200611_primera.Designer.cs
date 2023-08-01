@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_SERVER_CEA.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230426221420_primera")]
+    [Migration("20230801200611_primera")]
     partial class primera
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,6 +76,9 @@ namespace API_SERVER_CEA.Migrations
 
                     b.Property<byte>("estadoPersona")
                         .HasColumnType("tinyint");
+
+                    b.Property<int?>("genero")
+                        .HasColumnType("int");
 
                     b.Property<string>("nombrePersona")
                         .IsRequired()

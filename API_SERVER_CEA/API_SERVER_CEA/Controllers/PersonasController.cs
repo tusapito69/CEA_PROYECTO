@@ -57,6 +57,7 @@ namespace API_SERVER_CEA.Controllers
                 pers.apellidoPersona = persona.apellidoPersona;
                 pers.edadPersona = persona.edadPersona;
                 pers.ciPersona = persona.ciPersona;
+                pers.genero = persona.genero;
                 pers.celularPersona = persona.celularPersona;
                 pers.barrio_zona = persona.barrio_zona;
                 pers.email = persona.email;

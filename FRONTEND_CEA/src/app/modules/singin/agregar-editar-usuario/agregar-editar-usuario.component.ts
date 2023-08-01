@@ -24,6 +24,7 @@ export class AgregarEditarUsuarioComponent implements OnInit {
   operacion: string = 'Agregar'
   id: number | undefined;
   sel: any;
+
   constructor(public dialogRef: MatDialogRef<AgregarEditarUsuarioComponent>,
     private fb: FormBuilder,
     private UsuarioService: UsuarioService,
@@ -58,7 +59,6 @@ export class AgregarEditarUsuarioComponent implements OnInit {
         nombreUsuario: data[0].nombreUsuario,
         contrasenia: data[0].contraseniaUsuario,
         rolUsuario: data[0].rolUsuario,
-
       })
     })
   }

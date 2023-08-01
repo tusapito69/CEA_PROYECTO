@@ -17,6 +17,9 @@ namespace API_SERVER_CEA.Modelo
 
         public string? ciPersona { get; set; }
 
+        public int? genero { get; set; }
+
+
         public string? celularPersona { get; set; }
         public string? barrio_zona { get; set; }
 

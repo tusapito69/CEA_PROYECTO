@@ -110,16 +110,16 @@
           <input type="text"
                  (keyup)="seleccionarInstitucion($event)"
                  placeholder="Pick one"
-                 aria-label="Number"
                  matInput
                  [matAutocomplete]="auto">
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-select formControlName="InstitucionId">
+            <!-- <mat-select formControlName="InstitucionId">
               <mat-option *ngFor="let Institucion of dataInstitucion" [value]="Institucion.id">{{Institucion.nombre}}
               </mat-option>
-            </mat-select>
-            <!-- <mat-option *ngFor="let Institucion of dataInstitucion" [value]="Institucion.id">{{Institucion.nombre}}
-            </mat-option> -->
+            </mat-select> -->
+
+            <mat-option  *ngFor="let Institucion of dataInstitucion" [value]="Institucion.nombre" (click)="idSelect(Institucion)" >{{Institucion.nombre}}
+            </mat-option>
           </mat-autocomplete>
         </mat-form-field>
       </div>

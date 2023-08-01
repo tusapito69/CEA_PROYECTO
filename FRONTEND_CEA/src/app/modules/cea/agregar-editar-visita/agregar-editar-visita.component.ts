@@ -19,6 +19,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
   styleUrls: ['./agregar-editar-visita.component.css']
 })
 export class AgregarEditarVisitaComponent implements OnInit {
+  selectinst!: string;
   ListaTipo: string[] = ['Reunion', 'Taller', 'Recorrido','Exterior']
   seleccionada!: string;
   operacion: string = 'Agregar ';
@@ -41,7 +42,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       email: ['',[ Validators.email]],
       barrio_zona:[''],
       fecha: ['', [Validators.required]],
-      InstitucionId: ['',Validators.required],
+      InstitucionId: [''],
       nombrePersona: ['', Validators.required],
       apellidoPersona: ['', Validators.required],
       edadPersona: ['',Validators.pattern("^[0-9]*$")],
@@ -57,6 +58,16 @@ export class AgregarEditarVisitaComponent implements OnInit {
     this.obtenerInstitucion();
 
     this.esEditar(this.id);
+  }
+
+  idSelect(id:Institucion){
+    if (id !== undefined) {
+      this.form.value.InstitucionId = id.id;
+      console.log(this.form.value.InstitucionId = id.id);
+    }
+    else{
+      console.log("Debe seleccionar asjdhkasj  ")
+    }
   }
 
   esEditar(id: number | undefined) {
@@ -158,6 +169,13 @@ export class AgregarEditarVisitaComponent implements OnInit {
         this.dataInstitucion=this.ListaInstitucion;
     }
     this.dataInstitucion=this.dataInstitucion.filter(x=>x.nombre.toLowerCase().includes(resul.toLowerCase()));
+    if (this.dataInstitucion ) {
       console.log(this.dataInstitucion);
+      this.form.value.InstitucionId = this.dataInstitucion[0].id;
+      console.log(this.form.value.InstitucionId = this.dataInstitucion[0].id);
+    }
+    else
+    { console.log("asdasdasdasdasd")}
+
   }
 }

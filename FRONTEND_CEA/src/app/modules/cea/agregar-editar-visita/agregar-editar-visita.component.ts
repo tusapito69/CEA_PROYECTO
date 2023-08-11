@@ -28,6 +28,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
   texto!:string;
   opcionSeleccionada = "";
   ListaInstitucion!: Institucion[];
+  existe:any;
   dataInstitucion!:Institucion[];
   constructor(public dialogRef: MatDialogRef<AgregarEditarVisitaComponent>, private fb: FormBuilder,
     private _visitaService: VisitaService, private institucion: InstitucionService, private _personaService: PersonaService,
@@ -42,7 +43,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       email: ['',[ Validators.email]],
       barrio_zona:[''],
       fecha: ['', [Validators.required]],
-      InstitucionId: [''],
+      InstitucionId: [],
       nombrePersona: ['', Validators.required],
       apellidoPersona: ['', Validators.required],
       edadPersona: ['',Validators.pattern("^[0-9]*$")],
@@ -60,15 +61,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
     this.esEditar(this.id);
   }
 
-  idSelect(id:Institucion){
-    if (id !== undefined) {
-      this.form.value.InstitucionId = id.id;
-      console.log(this.form.value.InstitucionId = id.id);
-    }
-    else{
-      console.log("Debe seleccionar asjdhkasj  ")
-    }
-  }
+  
 
   esEditar(id: number | undefined) {
     if (id !== undefined) {
@@ -118,7 +111,6 @@ export class AgregarEditarVisitaComponent implements OnInit {
     if(this.form.invalid) {
       return;
     }
-
     const visita: IVisita = {
       actividad: this.form.value.actividad,
       fecha: this.form.value.fecha,
@@ -140,10 +132,11 @@ export class AgregarEditarVisitaComponent implements OnInit {
       }
 
     }
-
     if (this.id == undefined) {
+      console.log(visita)
       //AGREGAR
       this._visitaService.enviarVisitas(visita).subscribe((resp) => {
+        
         this._alertaService.mensajeAgregar("Visita Agregada");
         this.dialogRef.close(true);
       })
@@ -170,12 +163,15 @@ export class AgregarEditarVisitaComponent implements OnInit {
     }
     this.dataInstitucion=this.dataInstitucion.filter(x=>x.nombre.toLowerCase().includes(resul.toLowerCase()));
     if (this.dataInstitucion ) {
-      console.log(this.dataInstitucion);
+      this.existe=resul
       this.form.value.InstitucionId = this.dataInstitucion[0].id;
-      console.log(this.form.value.InstitucionId = this.dataInstitucion[0].id);
+      // console.log(this.form.value.InstitucionId = this.dataInstitucion[0].id);
     }
     else
     { console.log("asdasdasdasdasd")}
 
+  }
+  idSelect(idInst:any){
+    this.form.value.InstitucionId=idInst;
   }
 }

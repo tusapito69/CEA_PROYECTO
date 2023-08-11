@@ -21,6 +21,7 @@ export class AgregarEditarInstitucionComponent implements OnInit {
   institutions: string[] = ['Unidad Educativa', 'Institucion','Colectivo','Grupo Voluntario'];
   hide = true;
   id:number|undefined;
+  
   form: FormGroup;
   constructor(public dialogRef: MatDialogRef<AgregarEditarInstitucionComponent>,
     private fb: FormBuilder, private _institucion: InstitucionService,

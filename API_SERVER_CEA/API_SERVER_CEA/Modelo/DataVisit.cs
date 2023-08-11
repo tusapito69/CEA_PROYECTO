@@ -2,7 +2,6 @@
 {
     public class DataVisit
     {
-
         public string actividad{ get; set; }
         public string nombrePersona { get; set; }
         public string apellidoPersona { get; set; }

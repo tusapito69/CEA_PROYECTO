@@ -103,7 +103,7 @@
           </mat-select>
         </mat-form-field>
       </div> -->
-
+    
       <div class="col-4">
         <mat-form-field class="example-full-width">
           <mat-label>Institucion</mat-label>
@@ -111,16 +111,24 @@
                  (keyup)="seleccionarInstitucion($event)"
                  placeholder="Pick one"
                  matInput
-                 [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete">
-            <!-- <mat-select formControlName="InstitucionId">
-              <mat-option *ngFor="let Institucion of dataInstitucion" [value]="Institucion.id">{{Institucion.nombre}}
+                 >
+                 <mat-select formControlName="InstitucionId">
+                  <ng-container *ngFor="let Institucion of dataInstitucion" >
+                    <mat-option *ngIf="existe" [value]="Institucion.id">{{Institucion.nombre}} 
+                    </mat-option>
+                  </ng-container>
+            
+            </mat-select>
+          <!-- <mat-autocomplete   #auto="matAutocomplete" >
+            
+            <ng-container *ngFor="let Institucion of dataInstitucion">
+              <mat-option [value]="Institucion.nombre" >
+                {{Institucion.nombre}}
               </mat-option>
-            </mat-select> -->
-
-            <mat-option  *ngFor="let Institucion of dataInstitucion" [value]="Institucion.nombre" (click)="idSelect(Institucion)" >{{Institucion.nombre}}
+            </ng-container>
+            <mat-option    *ngFor="let Institucion of dataInstitucion"  [value]="Institucion.nombre" (click)="idSelect(Institucion.id)" >{{Institucion.nombre}}
             </mat-option>
-          </mat-autocomplete>
+          </mat-autocomplete> -->
         </mat-form-field>
       </div>
 

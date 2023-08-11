@@ -15,6 +15,8 @@ namespace API_SERVER_CEA.Context
         public DbSet<Persona> Persona { get; set; }
         public DbSet<Institucion> Institucion { get; set; }
         public DbSet<Visita> Visita { get; set; }
+        public DbSet<ActivityModel> Activity { get; set; }
+        public DbSet<ImagesModel> Images { get; set; }
 
 
 

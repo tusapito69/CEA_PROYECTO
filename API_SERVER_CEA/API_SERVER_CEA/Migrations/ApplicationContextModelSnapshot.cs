@@ -22,7 +22,7 @@ namespace API_SERVER_CEA.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("API_SERVER_CEA.Modelo.Institucion", b =>
+            modelBuilder.Entity("API_SERVER_CEA.Modelo.Activity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace API_SERVER_CEA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Institucion");
+                    b.ToTable("Activity");
                 });
 
             modelBuilder.Entity("API_SERVER_CEA.Modelo.Persona", b =>
@@ -177,7 +177,7 @@ namespace API_SERVER_CEA.Migrations
 
             modelBuilder.Entity("API_SERVER_CEA.Modelo.Visita", b =>
                 {
-                    b.HasOne("API_SERVER_CEA.Modelo.Institucion", "Institucion")
+                    b.HasOne("API_SERVER_CEA.Modelo.Activity", "Activity")
                         .WithMany()
                         .HasForeignKey("InstitucionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -189,7 +189,7 @@ namespace API_SERVER_CEA.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Institucion");
+                    b.Navigation("Activity");
 
                     b.Navigation("Persona");
                 });

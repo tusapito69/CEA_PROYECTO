@@ -108,10 +108,9 @@ export class AgregarEditarVisitaComponent implements OnInit {
     })
   };
 
-
   dataInsti=this.ListaInstitucion;
   cancelar() {
-    this.dialogRef.close(false);
+      this.dialogRef.close(false);
   }
 
   agregarVisita() {
@@ -163,19 +162,17 @@ export class AgregarEditarVisitaComponent implements OnInit {
       disableClose: true
     });
   }
+
+
   seleccionarInstitucion(event:Event){
     const resul=(event.target as HTMLInputElement).value;
     if (resul==='') {
         this.dataInstitucion=this.ListaInstitucion;
     }
     this.dataInstitucion=this.dataInstitucion.filter(x=>x.nombre.toLowerCase().includes(resul.toLowerCase()));
-    if (this.dataInstitucion ) {
+    if (this.dataInstitucion[0].id == undefined) {
       console.log(this.dataInstitucion);
       this.form.value.InstitucionId = this.dataInstitucion[0].id;
-      console.log(this.form.value.InstitucionId = this.dataInstitucion[0].id);
     }
-    else
-    { console.log("asdasdasdasdasd")}
-
   }
 }

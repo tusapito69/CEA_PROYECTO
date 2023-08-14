@@ -38,11 +38,8 @@ namespace API_SERVER_CEA.Controllers
                         select new Visita
                         {
                             id = v.id,
-                            actividad = v.actividad,
                             observaciones = v.observaciones,
-                            lugar = v.lugar,
                             tipo = v.tipo,
-                            fecha = v.fecha,
                             estado = v.estado,
                             Persona = v.Persona,
                             Institucion = v.Institucion,
@@ -60,11 +57,8 @@ namespace API_SERVER_CEA.Controllers
                         select new Visita
                         {
                             id = v.id,
-                            actividad = v.actividad,
                             observaciones = v.observaciones,
-                            lugar = v.lugar,
                             tipo = v.tipo,
-                            fecha = v.fecha,
                             estado = v.estado,
                             Persona = v.Persona,
                             Institucion = v.Institucion,
@@ -103,11 +97,8 @@ namespace API_SERVER_CEA.Controllers
             }
             else
             {
-                v.actividad = visita.actividad;
                 v.observaciones = visita.observaciones;
-                v.lugar = visita.lugar;
                 v.tipo = visita.tipo;
-                v.fecha = visita.fecha;
                 v.estado = visita.estado;
                 v.InstitucionId = visita.InstitucionId;
                 p.nombrePersona = visita.Persona.nombrePersona;
@@ -149,15 +140,16 @@ namespace API_SERVER_CEA.Controllers
             var query = from v in _context.Visita
                         join p in this._context.Persona on v.PersonaId equals p.Id
                         join i in this._context.Institucion on v.InstitucionId equals i.Id
-                        where v.fecha >= reporte.FechaInicio &&
-                            v.fecha <= reporte.FechaFinal && v.estado == 1 && v.tipo == reporte.Tipo
+                        join a in this._context.Activity on v.id equals a.Id
+                        where a.fecha >= reporte.FechaInicio &&
+                            a.fecha <= reporte.FechaFinal && v.estado == 1 && v.tipo == reporte.Tipo
                         select new DataVisit
                         {
-                            actividad = v.actividad,
+                            actividad = a.nombre,
                             observaciones = v.observaciones,
-                            lugar = v.lugar,
+                            lugar = a.lugar,
                             tipo = v.tipo,
-                            fecha = v.fecha,
+                            fecha = a.fecha,
                             nombrePersona = p.nombrePersona,
                             apellidoPersona = p.apellidoPersona,
                             edad = p.edadPersona,

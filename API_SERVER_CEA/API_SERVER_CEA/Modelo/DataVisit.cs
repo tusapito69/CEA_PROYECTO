@@ -15,8 +15,6 @@
         public  DateTime fecha { get; set; }
         //public string? email { get; set; }
         public string? observaciones { get; set; }
-        public string tipo { get; set; }
-       
-       
+        public string tipo { get; set; }  
     }
 }

@@ -23,6 +23,7 @@ import { ReportesVisitaComponent } from './visita/reportes-visita/reportes-visit
 import { DialogDetailVisitComponent } from './visita/dialog-detail-visit/dialog-detail-visit.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatRadioModule} from '@angular/material/radio';
+import { ActividadComponent } from './actividad/actividad.component';
 
 
 
@@ -35,7 +36,8 @@ import {MatRadioModule} from '@angular/material/radio';
     AgregarEditarVisitaComponent,
     SeleccionarVisitaComponent,
     ReportesVisitaComponent,
-    DialogDetailVisitComponent
+    DialogDetailVisitComponent,
+    ActividadComponent
   ],
   imports: [
     CommonModule,

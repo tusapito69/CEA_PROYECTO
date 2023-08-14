@@ -14,8 +14,6 @@ import { SingInModule } from './modules/singin/singin.module';
 import { CeaModule } from './modules/cea/cea.module';
 import { InterceptorService } from './core/services/interceptor.service';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,

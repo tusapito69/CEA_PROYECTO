@@ -18,7 +18,7 @@ namespace API_SERVER_CEA.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+          
     public class VisitsController : ControllerBase
     {
         private readonly ApplicationContext _context;
@@ -201,6 +201,34 @@ namespace API_SERVER_CEA.Controllers
         public async Task<ActionResult<List<Visita>>> totalVisitas()
         {
             var n=await _context.Visita.CountAsync(v=>v.estado==1);
+            return Ok(n);
+        }
+
+        [HttpGet("totalReunion")]
+        public async Task<ActionResult<List<Visita>>> totalReuniones()
+        {
+            var n = await _context.Visita.CountAsync(v => v.estado == 1 && v.tipo=="Reunion");
+            return Ok(n);
+        }
+
+
+        [HttpGet("totalRecorridos")]
+        public async Task<ActionResult<List<Visita>>> totalRecorridos()
+        {
+            var n = await _context.Visita.CountAsync(v => v.estado == 1 && v.tipo == "Recorrido");
+            return Ok(n);
+        }
+        [HttpGet("totalTalleres")]
+        public async Task<ActionResult<List<Visita>>> totalTalleres()
+        {
+            var n = await _context.Visita.CountAsync(v => v.estado == 1 && v.tipo == "Taller");
+            return Ok(n);
+        }
+
+        [HttpGet("totalExteriores")]
+        public async Task<ActionResult<List<Visita>>> totalExteriores()
+        {
+            var n = await _context.Visita.CountAsync(v => v.estado == 1 && v.tipo == "Exterior");
             return Ok(n);
         }
 

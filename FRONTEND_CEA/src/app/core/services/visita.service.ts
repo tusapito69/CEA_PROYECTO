@@ -32,4 +32,17 @@ export class VisitaService {
   obtenerTotal(){
     return this.httpclient.get(`${environment.API_URL}/api/Visits/total`);
   }
+  obtenerTotalRecorridos(){
+    return this.httpclient.get(`${environment.API_URL}/api/Visits/totalReunion`);
+  }
+  obtenerTotalReuniones(){
+    return this.httpclient.get(`${environment.API_URL}/api/Visits/totalRecorridos`);
+  }
+  obtenerTotalTalleres(){
+    return this.httpclient.get(`${environment.API_URL}/api/Visits/totalTalleres`);
+  }
+  obtenerTotalExteriores(){
+    return this.httpclient.get(`${environment.API_URL}/api/Visits/totalExteriores`);
+  }
+
 }

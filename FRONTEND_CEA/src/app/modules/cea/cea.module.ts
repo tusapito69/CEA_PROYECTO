@@ -24,6 +24,7 @@ import { DialogDetailVisitComponent } from './visita/dialog-detail-visit/dialog-
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatRadioModule} from '@angular/material/radio';
 import { ActividadComponent } from './actividad/actividad.component';
+import { AgregarEditarActividadComponent } from './agregar-editar-actividad/agregar-editar-actividad.component';
 
 
 
@@ -37,7 +38,9 @@ import { ActividadComponent } from './actividad/actividad.component';
     SeleccionarVisitaComponent,
     ReportesVisitaComponent,
     DialogDetailVisitComponent,
+    AgregarEditarActividadComponent,
     ActividadComponent
+
   ],
   imports: [
     CommonModule,
@@ -60,7 +63,8 @@ import { ActividadComponent } from './actividad/actividad.component';
   exports:[
     InstitucionComponent,
     VisitaComponent,
-    SeleccionarVisitaComponent
+    SeleccionarVisitaComponent,
+
   ]
 })
 export class CeaModule { }

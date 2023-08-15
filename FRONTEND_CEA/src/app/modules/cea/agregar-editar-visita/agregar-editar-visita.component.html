@@ -79,75 +79,7 @@
       </div>
 
     </div>
-    <div class="row">
-      <div class="col-4">
-        <p>
-          <mat-form-field appearance="fill">
-            <mat-label>Lugar</mat-label>
-            <input formControlName="lugar" matInput autocomplete="off" />
-          </mat-form-field>
-        </p>
-        <div class="error">
-          <span *ngIf="form.get('lugar')?.hasError('required') && form.get('lugar')?.touched">El lugar es un campo
-            <strong>Requerido</strong></span>
-        </div>
-      </div>
-<!--
-      <div class="col-6">
-        <mat-form-field appearance="fill">
-          <mat-label>Buscar Institucion</mat-label>
-          <input matInput autocomplete="off"  (keyup)="seleccionarInstitucion($event)"/>
-          <mat-select formControlName="InstitucionId">
-            <mat-option *ngFor="let Institucion of dataInstitucion" [value]="Institucion.id">{{Institucion.nombre}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div> -->
-    
-      <div class="col-4">
-        <mat-form-field class="example-full-width">
-          <mat-label>Institucion</mat-label>
-          <input type="text"
-                 (keyup)="seleccionarInstitucion($event)"
-                 placeholder="Pick one"
-                 matInput
-                 >
-                 <mat-select formControlName="InstitucionId">
-                  <ng-container *ngFor="let Institucion of dataInstitucion" >
-                    <mat-option *ngIf="existe" [value]="Institucion.id">{{Institucion.nombre}} 
-                    </mat-option>
-                  </ng-container>
-            
-            </mat-select>
-          <!-- <mat-autocomplete   #auto="matAutocomplete" >
-            
-            <ng-container *ngFor="let Institucion of dataInstitucion">
-              <mat-option [value]="Institucion.nombre" >
-                {{Institucion.nombre}}
-              </mat-option>
-            </ng-container>
-            <mat-option    *ngFor="let Institucion of dataInstitucion"  [value]="Institucion.nombre" (click)="idSelect(Institucion.id)" >{{Institucion.nombre}}
-            </mat-option>
-          </mat-autocomplete> -->
-        </mat-form-field>
-      </div>
 
-      <div class="col-4">
-        <label id="example-radio-group-label">Seleccione el Género</label>
-        <mat-radio-group
-          class="example-radio-group"
-          appearance="fill"
-          formControlName="genero">
-          <mat-radio-button class="example-radio-button" [value]="1">Masculino</mat-radio-button>
-          <mat-radio-button class="example-radio-button" [value]="0">Femenino</mat-radio-button>
-        </mat-radio-group>
-      </div>
-      <div class="error">
-        <span *ngIf="form.get('genero')?.hasError('required')&& form.get('genero')?.touched">
-          El género es <strong>requerido</strong>
-        </span>
-      </div>
-    </div>
 
 
 
@@ -157,62 +89,7 @@
 
 
     </div>
-    <div class="row">
 
-      <!-- <div class="col-4">
-        <mat-form-field appearance="fill">
-
-          <mat-label>Institucion</mat-label>
-          <mat-select formControlName="InstitucionId">
-            <mat-option *ngFor="let Institucion of ListaInstitucion" [value]="Institucion.id">{{Institucion.nombre}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-4">
-        <mat-form-field appearance="fill">
-          <mat-label>Fecha</mat-label>
-          <input formControlName="fecha" matInput [matDatepicker]="picker" />
-          <mat-hint>DD/MM/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <div class="error">
-          <span *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">La fecha es un campo
-            <strong>Requerido</strong></span>
-        </div>
-      </div> -->
-
-
-      <div class="col-6">
-        <mat-form-field appearance="fill">
-          <mat-label>Fecha</mat-label>
-          <input formControlName="fecha" matInput [matDatepicker]="picker" />
-          <mat-hint>DD/MM/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <div class="error">
-          <span *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">La fecha es un campo
-            <strong>Requerido</strong></span>
-        </div>
-      </div>
-      <div class="col-6">
-        <div>
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Barrio/Zona</mat-label>
-              <input formControlName="barrio_zona" matInput autocomplete="off" />
-            </mat-form-field>
-          </p>
-
-        </div>
-      </div>
-
-
-
-
-    </div>
 
     <div class="row">
       <div class="col-6">

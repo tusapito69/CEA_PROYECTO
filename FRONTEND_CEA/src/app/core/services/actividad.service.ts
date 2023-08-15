@@ -12,10 +12,10 @@ export class ActividadService {
   private ruta:string="/api/Institucion";
   usuario!:any;
 
-  constructor(private httpclient:HttpClient) {} 
+  constructor(private httpclient:HttpClient) {}
   obtenerActividades():Observable <any>{
     return this.httpclient.get<any>(`${environment.API_URL}/api/Actividad`);
-   
+
   }
   agregarActividad(actividad:IActividad):Observable<IActividad>{
     return this.httpclient.post<IActividad>(`${environment.API_URL}/api/Actividad`,actividad);
@@ -32,5 +32,9 @@ export class ActividadService {
   }
   obtenerTotal(){
     return this.httpclient.get(`${environment.API_URL}/api/Actividad/total`);
+  }
+
+  darBaja(){
+    
   }
 }

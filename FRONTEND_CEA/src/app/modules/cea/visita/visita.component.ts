@@ -134,4 +134,6 @@ export class VisitaComponent implements OnInit,AfterViewInit {
       this.user=a;
     });
   }
+
+  
 }

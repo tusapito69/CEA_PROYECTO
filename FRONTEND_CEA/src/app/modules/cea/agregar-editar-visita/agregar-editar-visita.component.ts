@@ -61,7 +61,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
     this.esEditar(this.id);
   }
 
-  
+
 
   esEditar(id: number | undefined) {
     if (id !== undefined) {
@@ -112,8 +112,6 @@ export class AgregarEditarVisitaComponent implements OnInit {
     }
     const visita: IVisita = {
       actividad: this.form.value.actividad,
-      fecha: this.form.value.fecha,
-      lugar: this.form.value.lugar,
       observaciones: this.form.value.observaciones,
       tipo: this.form.value.tipo,
       estado: 1,
@@ -135,7 +133,7 @@ export class AgregarEditarVisitaComponent implements OnInit {
       console.log(visita)
       //AGREGAR
       this._visitaService.enviarVisitas(visita).subscribe((resp) => {
-        
+
         this._alertaService.mensajeAgregar("Visita Agregada");
         this.dialogRef.close(true);
       })

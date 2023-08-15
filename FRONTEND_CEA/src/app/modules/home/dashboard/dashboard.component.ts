@@ -13,6 +13,10 @@ export class DashboardComponent implements OnInit,AfterViewInit{
   cantidadInstituciones!:any;
   cantidadVisitas!:any;
   cantidadUsuarios!:any;
+  cantidadExteriores!:any;
+  cantidadRecorridos!:any;
+  cantidadReuniones!:any;
+  cantidadTalleres!:any;
   user:any={};
   constructor(private _visitaService:VisitaService,
     private _institucionService:InstitucionService,
@@ -23,6 +27,10 @@ export class DashboardComponent implements OnInit,AfterViewInit{
     this.totVisitas();
     this.totInstitucion();
     this.totUsuarios();
+    this.totVisitaExteriores();
+    this.totVisitaRecorridos();
+    this.totVisitaReuniones();
+    this.totVisitaTalleres();
   }
   ngAfterViewInit(): void {
     
@@ -47,5 +55,24 @@ export class DashboardComponent implements OnInit,AfterViewInit{
       }
     })
   }
-
+  totVisitaExteriores(){
+    this._visitaService.obtenerTotalExteriores().subscribe((resp)=>{
+     this.cantidadExteriores=resp;
+    });
+  }
+  totVisitaRecorridos(){
+    this._visitaService.obtenerTotalRecorridos().subscribe((resp)=>{
+     this.cantidadRecorridos=resp;
+    });
+  }
+  totVisitaReuniones(){
+    this._visitaService.obtenerTotalReuniones().subscribe((resp)=>{
+     this.cantidadReuniones=resp;
+    });
+  }
+  totVisitaTalleres(){
+    this._visitaService.obtenerTotalTalleres().subscribe((resp)=>{
+     this.cantidadTalleres=resp;
+    });
+  }
 }

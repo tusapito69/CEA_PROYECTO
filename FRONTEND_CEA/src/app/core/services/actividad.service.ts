@@ -14,13 +14,8 @@ export class ActividadService {
 
   constructor(private httpclient:HttpClient) {}
   obtenerActividades():Observable <any>{
-<<<<<<< HEAD
-    return this.httpclient.get<any>(`${environment.API_URL}/api/Actividad`);
-
-=======
     return this.httpclient.get<any>(`${environment.API_URL}/api/Activity`);
-   
->>>>>>> 8e1d0d889f531efc851512d80f6e5818d587ae50
+
   }
   agregarActividad(actividad:IActividad):Observable<IActividad>{
     return this.httpclient.post<IActividad>(`${environment.API_URL}/api/Activity`,actividad);
@@ -40,6 +35,6 @@ export class ActividadService {
   }
 
   darBaja(){
-    
+
   }
 }

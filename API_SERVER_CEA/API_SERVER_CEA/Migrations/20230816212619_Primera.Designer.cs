@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_SERVER_CEA.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230801200611_primera")]
-    partial class primera
+    [Migration("20230816212619_Primera")]
+    partial class Primera
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,67 @@ namespace API_SERVER_CEA.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("API_SERVER_CEA.Modelo.Activity", b =>
+            modelBuilder.Entity("API_SERVER_CEA.Modelo.ActivityModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ImagenId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ImagesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("estado")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("lugar")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImagesId");
+
+                    b.ToTable("Activity");
+                });
+
+            modelBuilder.Entity("API_SERVER_CEA.Modelo.ImagesModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("estado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ruta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("API_SERVER_CEA.Modelo.Institucion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,7 +104,7 @@ namespace API_SERVER_CEA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Activity");
+                    b.ToTable("Institucion");
                 });
 
             modelBuilder.Entity("API_SERVER_CEA.Modelo.Persona", b =>
@@ -130,25 +190,17 @@ namespace API_SERVER_CEA.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
 
+                    b.Property<int>("ActividadId")
+                        .HasColumnType("int");
+
                     b.Property<int>("InstitucionId")
                         .HasColumnType("int");
 
                     b.Property<int>("PersonaId")
                         .HasColumnType("int");
 
-                    b.Property<string>("actividad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("estado")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("fecha")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("lugar")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("observaciones")
                         .HasColumnType("nvarchar(max)");
@@ -159,11 +211,22 @@ namespace API_SERVER_CEA.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("ActividadId");
+
                     b.HasIndex("InstitucionId");
 
                     b.HasIndex("PersonaId");
 
                     b.ToTable("Visita");
+                });
+
+            modelBuilder.Entity("API_SERVER_CEA.Modelo.ActivityModel", b =>
+                {
+                    b.HasOne("API_SERVER_CEA.Modelo.ImagesModel", "Images")
+                        .WithMany()
+                        .HasForeignKey("ImagesId");
+
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("API_SERVER_CEA.Modelo.User", b =>
@@ -179,7 +242,13 @@ namespace API_SERVER_CEA.Migrations
 
             modelBuilder.Entity("API_SERVER_CEA.Modelo.Visita", b =>
                 {
-                    b.HasOne("API_SERVER_CEA.Modelo.Activity", "Activity")
+                    b.HasOne("API_SERVER_CEA.Modelo.ActivityModel", "Actividad")
+                        .WithMany()
+                        .HasForeignKey("ActividadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API_SERVER_CEA.Modelo.Institucion", "Institucion")
                         .WithMany()
                         .HasForeignKey("InstitucionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -191,7 +260,9 @@ namespace API_SERVER_CEA.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Activity");
+                    b.Navigation("Actividad");
+
+                    b.Navigation("Institucion");
 
                     b.Navigation("Persona");
                 });

@@ -17,7 +17,7 @@ import { InterceptorService } from './core/services/interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
-  
+
   ],
   imports: [
     BrowserModule,
@@ -28,9 +28,9 @@ import { InterceptorService } from './core/services/interceptor.service';
     HomeModule,
     BrowserAnimationsModule,
     SingInModule,
-    CeaModule,
-   
-    
+    CeaModule
+
+
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:InterceptorService,multi:true}

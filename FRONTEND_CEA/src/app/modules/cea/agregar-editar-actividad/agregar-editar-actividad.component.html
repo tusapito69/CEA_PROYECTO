@@ -1,30 +1,72 @@
-<!-- <h2 mat-dialog-title>{{operacion}} Institucion </h2>
-<form [formGroup]="form" (ngSubmit)="addEditarInstitucion()" >
-    <mat-dialog-content>
+<h2 mat-dialog-title>{{ operacion }} Actividad</h2>
 
-        <mat-form-field appearance="fill">
+<form [formGroup]="form" (ngSubmit)="addEditarActividad">
+  <mat-dialog-content class="mat-typography">
+    <div class="row">
+      <div class="column">
+        <p>
+          <mat-form-field appearance="fill">
             <mat-label>Nombre</mat-label>
-            <input matInput formControlName="nombre">
-        </mat-form-field>
+            <input formControlName="nombre" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
         <div class="error">
-            <span *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched ">El nombre es un campo <strong>requerido</strong></span>
+          <span *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched">El nombre
+            es un campo <strong>Requerido</strong></span>
         </div>
-        <br>
-        <mat-form-field appearance="fill">
-            <mat-label>Tipo</mat-label>
-            <mat-select formControlName="tipo">
-              <mat-option  *ngFor="let ins of institutions" value="{{ins}}">{{ins}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column">
+        <p>
+          <mat-form-field appearance="fill">
+            <mat-label>Descripcion</mat-label>
+            <input formControlName="descripcion" matInput autocomplete="off" />
+          </mat-form-field>
+        </p>
         <div class="error">
-            <span *ngIf="form.get('tipo')?.hasError('required')&& form.get('tipo')?.touched ">Seleccione un tipo es <strong>requerido</strong></span>
+          <span *ngIf="form.get('descripcion')?.hasError('required') && form.get('descripcion')?.touched">La descripcion es un campo <strong>Requerido</strong></span>
         </div>
+      </div>
+    </div>
 
-    </mat-dialog-content>
+    <div class="row">
+      <div class="col">
+        <div class="column">
+          <mat-form-field appearance="fill">
+            <mat-label>Fecha</mat-label>
+            <input formControlName="fecha" matInput [matDatepicker]="picker" />
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <div class="error">
+            <span *ngIf="form.get('fecha')?.hasError('required') && form.get('fecha')?.touched">La fecha es un campo
+              <strong>Requerido</strong></span>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="column">
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Lugar</mat-label>
+              <input formControlName="lugar" matInput autocomplete="off" />
+            </mat-form-field>
+          </p>
+          <div class="error">
+            <span *ngIf="form.get('lugar')?.hasError('required') && form.get('lugar')?.touched">La descripcion es un campo <strong>Requerido</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <mat-dialog-actions align="end">
-      <button  [disabled]="form.invalid" type="submit" class="btn btn-info b" mat-button cdkFocusInitial>Aceptar</button>
-      <button type="button" class="btn btn-warning c" (click)="cancelar()" mat-button mat-dialog-close>Cancelar</button>
-    </mat-dialog-actions>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button type="submit"  [disabled]="form.invalid"  class="btn btn-info b" mat-button cdkFocusInitial>Aceptar</button>
+    <button type="button" class="btn btn-warning c" (click)="cancelar()" mat-button mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>
+</form>
 
-</form> -->
+

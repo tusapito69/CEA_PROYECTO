@@ -30,6 +30,15 @@ namespace API_SERVER_CEA.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+<<<<<<< HEAD
+=======
+                    b.Property<int>("ImagenId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ImagesId")
+                        .HasColumnType("int");
+
+>>>>>>> 65288529320a76cbab070f307540aa17d097ced3
                     b.Property<string>("descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -50,6 +59,11 @@ namespace API_SERVER_CEA.Migrations
 
                     b.HasKey("Id");
 
+<<<<<<< HEAD
+=======
+                    b.HasIndex("ImagesId");
+
+>>>>>>> 65288529320a76cbab070f307540aa17d097ced3
                     b.ToTable("Activity");
                 });
 
@@ -65,17 +79,23 @@ namespace API_SERVER_CEA.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+<<<<<<< HEAD
                     b.Property<int>("idActivity")
                         .HasColumnType("int");
 
+=======
+>>>>>>> 65288529320a76cbab070f307540aa17d097ced3
                     b.Property<string>("ruta")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+<<<<<<< HEAD
                     b.HasIndex("idActivity");
 
+=======
+>>>>>>> 65288529320a76cbab070f307540aa17d097ced3
                     b.ToTable("Images");
                 });
 
@@ -215,6 +235,7 @@ namespace API_SERVER_CEA.Migrations
                     b.ToTable("Visita");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("API_SERVER_CEA.Modelo.ImagesModel", b =>
                 {
                     b.HasOne("API_SERVER_CEA.Modelo.ActivityModel", "Activity")
@@ -224,6 +245,15 @@ namespace API_SERVER_CEA.Migrations
                         .IsRequired();
 
                     b.Navigation("Activity");
+=======
+            modelBuilder.Entity("API_SERVER_CEA.Modelo.ActivityModel", b =>
+                {
+                    b.HasOne("API_SERVER_CEA.Modelo.ImagesModel", "Images")
+                        .WithMany()
+                        .HasForeignKey("ImagesId");
+
+                    b.Navigation("Images");
+>>>>>>> 65288529320a76cbab070f307540aa17d097ced3
                 });
 
             modelBuilder.Entity("API_SERVER_CEA.Modelo.User", b =>

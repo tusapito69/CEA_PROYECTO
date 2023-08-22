@@ -81,18 +81,8 @@
     </div>
 
 
-
-
     <div class="row">
-
-
-
-
-    </div>
-
-
-    <div class="row">
-      <div class="col-6">
+      <div class="col-4">
         <p>
           <mat-form-field appearance="fill">
             <mat-label>Celular</mat-label>
@@ -108,7 +98,7 @@
         </div>
       </div>
 
-      <div class="col-6">
+      <div class="col-4">
         <p>
           <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
@@ -118,6 +108,44 @@
         <div class="error">
           <span *ngIf="form.get('email')?.hasError('email')">Debe ingresar una direccion de email valida</span>
         </div>
+      </div>
+
+      <div class="col-4">
+
+
+        <mat-form-field appearance="fill">
+          <mat-label>Buscar Institucion</mat-label>
+          <input matInput autocomplete="off"  (keyup)="seleccionarInstitucion($event)"/>
+          <mat-select formControlName="InstitucionId">
+            <mat-option *ngFor="let Institucion of dataInstitucion" [value]="Institucion.id">{{Institucion.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- <mat-form-field class="example-full-width">
+          <mat-label>Institucion</mat-label>
+          <input type="text"
+                 (keyup)="seleccionarInstitucion($event)"
+                 placeholder="Pick one"
+                 matInput
+                 >
+                 <mat-select formControlName="InstitucionId">
+                  <ng-container *ngFor="let Institucion of dataInstitucion" >
+                    <mat-option *ngIf="existe" [value]="Institucion.id">{{Institucion.nombre}}
+                    </mat-option>
+                  </ng-container>
+            </mat-select> -->
+          <!-- <mat-autocomplete   #auto="matAutocomplete" >
+
+            <ng-container *ngFor="let Institucion of dataInstitucion">
+              <mat-option [value]="Institucion.nombre" >
+                {{Institucion.nombre}}
+              </mat-option>
+            </ng-container>
+            <mat-option    *ngFor="let Institucion of dataInstitucion"  [value]="Institucion.nombre" (click)="idSelect(Institucion.id)" >{{Institucion.nombre}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field> -->
       </div>
     </div>
 

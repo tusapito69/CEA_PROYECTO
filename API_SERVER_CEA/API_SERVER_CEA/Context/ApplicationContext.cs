@@ -18,6 +18,12 @@ namespace API_SERVER_CEA.Context
         public DbSet<ActivityModel> Activity { get; set; }
         public DbSet<ImagesModel> Images { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ImagesModel>().HasOne(h => h.Activity)
+                .WithMany(P => P.Imagenes)
+                .HasForeignKey(h => h.idActivity);
+        }
 
 
         //protected override void OnModelCreating(ModelBuilder builder)

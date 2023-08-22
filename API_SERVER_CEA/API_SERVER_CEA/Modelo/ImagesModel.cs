@@ -12,5 +12,8 @@ namespace API_SERVER_CEA.Modelo
 
         public string estado { get; set; }
 
+        public int? idActivity { get; set; }
+        public ActivityModel? Activity { get; set; }
+
     }
 }

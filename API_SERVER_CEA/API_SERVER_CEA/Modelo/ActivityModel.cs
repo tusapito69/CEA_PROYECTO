@@ -22,8 +22,7 @@ namespace API_SERVER_CEA.Modelo
         [Required(ErrorMessage = "Este campo no debe estar vacio")]
         public int estado { get; set; }
 
-        public int ImagenId { get; set; }
-        public ImagesModel? Images { get; set; }
+        public List<ImagesModel>? Imagenes { get; set; }
 
 
 

@@ -16,7 +16,7 @@ namespace API_SERVER_CEA.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ActivityController : Controller
     {
    
@@ -63,7 +63,7 @@ namespace API_SERVER_CEA.Controllers
         public async Task<ActionResult<List<ActivityModel>>> EditarActividades(int id, ActivityModel activity)
         {
             ActivityModel ins = await contexto.Activity.FirstOrDefaultAsync(x => x.Id == id);
-            ImagesModel existen = await contexto.Images.FirstOrDefaultAsync(x => x.Id == activity.ImagenId);
+            ImagesModel existen = await contexto.Images.FirstOrDefaultAsync(x => x.Id == activity.Id);
             if (ins == null)
             {
                 return BadRequest("No se encontro la actividad");
@@ -75,7 +75,7 @@ namespace API_SERVER_CEA.Controllers
                 ins.lugar = activity.lugar;
                 ins.fecha = activity.fecha;
                 ins.estado = activity.estado;
-                ins.ImagenId = activity.ImagenId;
+                ins.Imagenes = activity.Imagenes;
                 await contexto.SaveChangesAsync();
                 return Ok();
             }

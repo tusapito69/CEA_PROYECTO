@@ -25,6 +25,10 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatRadioModule} from '@angular/material/radio';
 import { ActividadComponent } from './actividad/actividad.component';
 import { AgregarEditarActividadComponent } from './agregar-editar-actividad/agregar-editar-actividad.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 
@@ -58,7 +62,11 @@ import { AgregarEditarActividadComponent } from './agregar-editar-actividad/agre
     MatDatepickerModule,
     MatNativeDateModule,
     MatAutocompleteModule,
-    MatRadioModule
+    MatRadioModule,
+    MatProgressBarModule,
+    MatButtonModule,
+    MatCardModule,
+    MatGridListModule
   ],
   exports:[
     InstitucionComponent,
